@@ -1,0 +1,112 @@
+{% extends "layout.html" %}
+{% set bodyAttributes = { id: "assess" } %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block main %}
+
+{% include "includes/assessment-status-neutral-2.html" %}
+
+  <div class="govuk-width-container {{ containerClasses }}">
+
+    {{ govukBackLink({
+      text: "Back",
+      href: "javascript:history.back()"
+    }) }}
+
+    <main class="govuk-main-wrapper {{ mainClasses }}" id="main-content" role="main"{% if mainLang %} lang="{{ mainLang }}"{% endif %}>
+        <div class="govuk-grid-row">
+
+            <div class="govuk-grid-column-two-thirds">
+
+              <h1 class="govuk-heading-l">Mobilising and using steps</h1>
+
+              <form action="../assessment-overview" method="post">
+
+              {{ govukTextarea({
+                name: "mobilisingNotes",
+                id: "mobilisingNotes",
+                rows: "8",
+                classes: "govuk-!-margin-bottom-9",
+                label: {
+                  text: "Notes on mobilising and using steps",
+                  classes: "govuk-label--s",
+                  isPageHeading: false
+                },
+                value: data['mobilisingNotes']
+              }) }}  
+
+                {{ govukRadios({
+                  idPrefix: "mobilisingSelect",
+                  name: "mobilisingSelect",
+              
+                  fieldset: {
+                    legend: {
+                      text: "Choose the descriptor that's most appropriate to the claimant",
+                      isPageHeading: false,
+                      classes: "govuk-fieldset__legend--s"
+                    }
+                  },
+                  items: [
+                    {
+                      value: "(a) Cannot mobilise more than 50 metres before they have to stop, or 50 metres repeatedly",
+                      text: "(a) Cannot mobilise more than 50 metres before they have to stop, or 50 metres repeatedly",
+                      checked: (data['mobilisingSelect'] == "(a) Cannot mobilise more than 50 metres before they have to stop, or 50 metres repeatedly")
+                    },
+                    {
+                      value: "(b) Cannot go up or down 2 steps, even if using a handrail",
+                      text: "(b) Cannot go up or down 2 steps, even if using a handrail",
+                      checked: (data['mobilisingSelect'] == "(b) Cannot go up or down 2 steps, even if using a handrail")
+                    },
+                    {
+                      value: "(c) Cannot mobilise more than 100 metres, or 100 metres repeatedly",
+                      text: "(c) Cannot mobilise more than 100 metres, or 100 metres repeatedly",
+                      checked: (data['mobilisingSelect'] == "(c) Cannot mobilise more than 100 metres, or 100 metres repeatedly")
+                    },
+                    {
+                      value: "(d) Cannot mobilise more than 200 metres, or 200 metres repeatedly",
+                      text: "(d) Cannot mobilise more than 200 metres, or 200 metres repeatedly",
+                      checked: (data['mobilisingSelect'] == "(d) Cannot mobilise more than 200 metres, or 200 metres repeatedly")
+                    },
+                    {
+                      value: "(e) None of the above",
+                      text: "(e) None of the above",
+                      checked: (data['mobilisingSelect'] == "(e) None of the above")
+                    }
+                  ]
+                }) }}
+                <!-- {{ govukButton({
+                  text: "Clear selection",
+                  classes: "govuk-button--secondary"
+                }) }}
+
+         <br>
+         <br> -->
+
+                    {{ govukTextarea({
+                        name: "mobilisingdetails",
+                        id: "mobilisingdetails",
+                        label: {
+                          text: "Give details",
+                          classes: "govuk-label--s",
+                          isPageHeading: true
+                        },
+                        value: data['mobilisingdetails']
+                      }) }}
+
+                    
+                      {{ govukButton({
+                        text: "Save and continue"
+                      }) }}
+
+            </form>
+
+
+            </div>
+        </div>
+
+    </main>
+  </div>
+{% endblock %}

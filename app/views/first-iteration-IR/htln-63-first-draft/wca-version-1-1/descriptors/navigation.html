@@ -1,0 +1,98 @@
+{% extends "layout.html" %}
+{% set bodyAttributes = { id: "assess" } %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block main %}
+
+{% include "includes/assessment-status-neutral-2.html" %}
+
+  <div class="govuk-width-container {{ containerClasses }}">
+
+    {{ govukBackLink({
+      text: "Back",
+      href: "javascript:history.back()"
+    }) }}
+
+    <main class="govuk-main-wrapper {{ mainClasses }}" id="main-content" role="main"{% if mainLang %} lang="{{ mainLang }}"{% endif %}>
+        <div class="govuk-grid-row">
+
+            <div class="govuk-grid-column-two-thirds">
+
+              <h1 class="govuk-heading-l">Navigation</h1>
+
+              <form action="../assessment-overview" method="post">
+
+                {{ govukTextarea({
+                  name: "navigationNotes",
+                  id: "navigationNotes",
+                  rows: "8",
+                  classes: "govuk-!-margin-bottom-9",
+                  label: {
+                    text: "Notes on navigation",
+                    classes: "govuk-label--s",
+                    isPageHeading: false
+                  },
+                  value: data['navigationNotes']
+                }) }}  
+
+                {{ govukRadios({
+                  idPrefix: "navigationSelect",
+                  name: "navigationSelect",
+                  fieldset: {
+                    legend: {
+                      text: "Which of these options describes how well the claimant can get around safely?",
+                      isPageHeading: false,
+                      classes: "govuk-fieldset__legend--s"
+                    }
+                  },
+                  items: [
+                    {
+                      value: "(a) Cannot find their way around places they know without the help of another person",
+                      text: "(a) Cannot find their way around places they know without the help of another person",
+                      checked: (data['navigationSelect'] == "(a) Cannot find their way around places they know without the help of another person")
+                    },
+                    {
+                      value: "(b) Cannot complete potentially hazardous tasks safely, such as crossing the road without the help of another person",
+                      text: "(b) Cannot complete potentially hazardous tasks safely, such as crossing the road without the help of another person",
+                      checked: (data['navigationSelect'] == "(b) Cannot complete potentially hazardous tasks safely, such as crossing the road without the help of another person")
+                    },
+                    {
+                      value: "(c) Cannot find their way around places they do not know without the help of another person",
+                      text: "(c) Cannot find their way around places they do not know without the help of another person",
+                      checked: (data['navigationSelect'] == "(c) Cannot find their way around places they do not know without the help of another person")
+                    },
+                    {
+                      value: "(d) None of the above",
+                      text: "(d) None of the above",
+                      checked: (data['navigationSelect'] == "(d) None of the above")
+                    }
+                  ]
+                }) }}
+
+                    {{ govukTextarea({
+                        name: "navigationdetails",
+                        id: "navigationdetails",
+                        label: {
+                          text: "Give details",
+                          classes: "govuk-label--s",
+                          isPageHeading: true
+                        },
+                        value: data['navigationdetails']
+                      }) }}
+
+                      {{ govukButton({
+                        text: "Save and continue"
+                      }) }}
+
+            </form>
+
+
+            </div>
+        </div>
+
+    </main>
+  </div>
+{% endblock %}

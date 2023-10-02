@@ -1,0 +1,98 @@
+{% extends "layout.html" %}
+{% set bodyAttributes = { id: "assess" } %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block main %}
+
+{% include "includes/assessment-status-neutral-2.html" %}
+
+  <div class="govuk-width-container {{ containerClasses }}">
+
+    {{ govukBackLink({
+      text: "Back",
+      href: "javascript:history.back()"
+    }) }}
+
+    <main class="govuk-main-wrapper {{ mainClasses }}" id="main-content" role="main"{% if mainLang %} lang="{{ mainLang }}"{% endif %}>
+        <div class="govuk-grid-row">
+
+            <div class="govuk-grid-column-two-thirds">
+
+              <h1 class="govuk-heading-l">Coping with social situations</h1>
+
+              <form action="../assessment-overview" method="post">
+
+                {{ govukTextarea({
+                  name: "socialsituNotes",
+                  id: "socialsituNotes",
+                  rows: "8",
+                  classes: "govuk-!-margin-bottom-9",
+                  label: {
+                    text: "Notes on coping with social situations",
+                    classes: "govuk-label--s",
+                    isPageHeading: false
+                  },
+                  value: data['socialsituNotes']
+                }) }}
+
+                {{ govukRadios({
+                  idPrefix: "socialsituSelect",
+                  name: "socialsituSelect",
+                  fieldset: {
+                    legend: {
+                      text: "How does the claimant cope with meeting and being with people?",
+                      isPageHeading: false,
+                      classes: "govuk-fieldset__legend--s"
+                    }
+                  },
+                  items: [
+                    {
+                      value: "(a) Can never meet and be with people without feeling significantly anxious or scared",
+                      text: "(a) Can never meet and be with people without feeling significantly anxious or scared",
+                      checked: (data['socialsituSelect'] == "(a) Can never meet and be with people without feeling significantly anxious or scared")
+                    },
+                    {
+                      value: "(b) Can never meet and be with unfamiliar people without feeling significantly anxious or scared",
+                      text: "(b) Can never meet and be with unfamiliar people without feeling significantly anxious or scared",
+                      checked: (data['socialsituSelect'] == "(b) Can never meet and be with unfamiliar people without feeling significantly anxious or scared")
+                    },
+                    {
+                      value: "(c) Most of the time the claimant cannot meet and be with unfamiliar people without feeling significantly anxious or scared",
+                      text: "(c) Most of the time the claimant cannot meet and be with unfamiliar people without feeling significantly anxious or scared",
+                      checked: (data['socialsituSelect'] == "(c) Most of the time the claimant cannot meet and be with unfamiliar people without feeling significantly anxious or scared")
+                    },
+                    {
+                      value: "(d) None of the above",
+                      text: "(d) None of the above",
+                      checked: (data['socialsituSelect'] == "(d) None of the above")
+                    }
+                  ]
+                }) }}
+
+                    {{ govukTextarea({
+                        name: "socialsitudetails",
+                        id: "socialsitudetails",
+                        label: {
+                          text: "Give details",
+                          classes: "govuk-label--s",
+                          isPageHeading: true
+                        },
+                        value: data['socialsitudetails']
+                      }) }}
+
+                      {{ govukButton({
+                        text: "Save and continue"
+                      }) }}
+
+            </form>
+
+
+            </div>
+        </div>
+
+    </main>
+  </div>
+{% endblock %}

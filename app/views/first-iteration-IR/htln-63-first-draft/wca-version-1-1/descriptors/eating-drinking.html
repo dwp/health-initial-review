@@ -1,0 +1,94 @@
+{% extends "layout.html" %}
+{% set bodyAttributes = { id: "assess" } %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block main %}
+
+{% include "includes/assessment-status-neutral-2.html" %}
+
+  <div class="govuk-width-container {{ containerClasses }}">
+
+    {{ govukBackLink({
+      text: "Back",
+      href: "javascript:history.back()"
+    }) }}
+
+    <main class="govuk-main-wrapper {{ mainClasses }}" id="main-content" role="main"{% if mainLang %} lang="{{ mainLang }}"{% endif %}>
+        <div class="govuk-grid-row">
+
+            <div class="govuk-grid-column-two-thirds">
+
+              <h1 class="govuk-heading-l">Eating and drinking</h1>
+
+              <form action="../assessment-overview" method="post">
+
+                {{ govukTextarea({
+                  name: "eatingNotes",
+                  id: "eatingNotes",
+                  rows: "8",
+                  classes: "govuk-!-margin-bottom-9",
+                  label: {
+                    text: "Notes on eating and drinking",
+                    classes: "govuk-label--s",
+                    isPageHeading: false
+                  },
+                  value: data['eatingNotes']
+                }) }}  
+
+                {{ govukRadios({
+                  idPrefix: "eatingSelect",
+                  name: "eatingSelect",
+                  fieldset: {
+                    legend: {
+                      text: "Choose the descriptor that’s most appropriate",
+                      isPageHeading: false,
+                      classes: "govuk-fieldset__legend--s"
+                    }
+                  },
+                  hint: { text: "The claimant might repeatedly stop, experience breathlessness or severe discomfort, or need help or prompting from another person. It could be due to their physical or mental health." },
+                  items: [
+                  {
+                    value: "Cannot convey to the mouth",
+                    text: "Cannot convey to the mouth",
+                    checked: (data['eatingSelect'] == "Cannot convey to the mouth")
+                  },
+                  {
+                    value: "Cannot chew or swallow",
+                    text: "Cannot chew or swallow",
+                    checked: (data['eatingSelect'] == "Cannot chew or swallow")
+                  },
+                    {
+                      value: "None of the above",
+                      text: "None of the above",
+                      checked: (data['eatingSelect'] == "None of the above")
+                    }
+                  ]
+                }) }}
+
+                    {{ govukTextarea({
+                        name: "eatingdetails",
+                        id: "eatingdetails",
+                        label: {
+                          text: "Give details",
+                          classes: "govuk-label--s",
+                          isPageHeading: true
+                        },
+                        value: data['eatingdetails']
+                      }) }}
+
+                      {{ govukButton({
+                        text: "Save and continue"
+                      }) }}
+
+            </form>
+
+
+            </div>
+        </div>
+
+    </main>
+  </div>
+{% endblock %}

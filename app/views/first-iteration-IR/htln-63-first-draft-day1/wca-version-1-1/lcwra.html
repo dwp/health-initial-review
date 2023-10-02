@@ -1,0 +1,81 @@
+{% extends "layout.html" %}
+{% set bodyAttributes = { id: "assess" } %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block main %}
+
+{% include "includes/assessment-status-neutral-2.html" %}
+
+  <div class="govuk-width-container {{ containerClasses }}">
+
+    {{ govukBackLink({
+      text: "Back",
+      href: "recommendation"
+    }) }}
+
+
+    <!-- {{ govukBackLink({
+      text: "Back",
+      href: "javascript:history.back()"
+    }) }} -->
+
+
+
+    <main class="govuk-main-wrapper {{ mainClasses }}" id="main-content" role="main"{% if mainLang %} lang="{{ mainLang }}"{% endif %}>
+        <div class="govuk-grid-row">
+
+            <div class="govuk-grid-column-two-thirds">
+
+              <h1 class="govuk-heading-l">Limited capability for work-related activity (LCWRA)</h1>
+
+  <form action="lcwra-why" method="post" id="question-form" novalidate>
+
+    {{ govukRadios({
+      idPrefix: "lcwra",
+      name: "lcwra",
+      fieldset: {
+        legend: {
+          text: "What is your recommendation?",
+          isPageHeading: true,
+          classes: "govuk-fieldset__legend--s"
+        }
+      },
+      items: [
+      {
+        value: "Functional LCWRA",
+        text: "Functional LCWRA",
+        checked: (data['lcwra'] == "Functional LCWRA")
+      },
+      {
+        value: "Treat as LCWRA",
+        text: "Treat as LCWRA",
+        checked: (data['lcwra'] == "Treat as LCWRA")
+      },
+      {
+        value: "Risk to mental or physical health",
+        text: "Risk to mental or physical health",
+        checked: (data['lcwra'] == "Risk to mental or physical health")
+      }
+      ]
+    }) }}
+
+
+
+</div>
+</div>
+
+<button class="govuk-button" data-module="govuk-button">
+  Save and continue
+</button>
+
+</main>
+</div>
+
+
+
+
+
+{% endblock %}

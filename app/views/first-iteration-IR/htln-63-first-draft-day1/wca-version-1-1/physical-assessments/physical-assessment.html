@@ -1,0 +1,433 @@
+{% extends "layout.html" %}
+{% set bodyAttributes = { id: "assess" } %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block main %}
+
+{% include "includes/assessment-status-neutral.html" %}
+
+  <div class="govuk-width-container {{ containerClasses }}">
+
+      {{ govukBackLink({
+        text: "Back to assessment overview",
+        href: "../assessment-overview"
+      }) }}
+
+    <main class="govuk-main-wrapper {{ mainClasses }}" id="main-content" role="main"{% if mainLang %} lang="{{ mainLang }}"{% endif %}>
+        <div class="govuk-grid-row">
+
+            <div class="govuk-grid-column-two-thirds">
+
+              <h1 class="govuk-heading-xl">Physical assessment</h1>
+              
+              <ul class="app-task-list">
+     
+                <h2 class="app-task-list__section">
+                  <span class="app-task-list__section-number">Consent</span>
+                </h2>
+                <ul class="app-task-list__items  govuk-!-padding-left-0">
+                  <li class="app-task-list__item">
+                    <span class="app-task-list__task-name">
+                      <a href="consent" aria-describedby="read-declaration-status">
+                        Consent
+                      </a>
+                    </span>
+                    <script type="text/javascript">
+                      var consent = {{data.consent|dump|safe}}
+                      console.log(consent)
+                      if (consent) {
+                        var progress = "1";
+                        document.write('<strong class="govuk-tag govuk-tag app-task-list__tag" id="eligibility-status">Completed</strong>');
+                        }
+                      else {
+                        document.write('<strong class="govuk-tag govuk-tag--grey app-task-list__tag" id="eligibility-status">Not started</strong>');
+                      }
+                    </script>
+                  </li>
+                </ul>
+
+
+                  <h2 class="app-task-list__section">
+                    <span class="app-task-list__section-number">General health</span>
+                  </h2>
+                  <ul class="app-task-list__items  govuk-!-padding-left-0">
+                    <li class="app-task-list__item">
+                      <span class="app-task-list__task-name">
+                        <a href="General-health/GeneralHealth" aria-describedby="read-declaration-status">
+                          General health
+                        </a>
+                      </span>
+                      <script type="text/javascript">
+                        var height = {{data.height|dump|safe}}
+                        console.log(height)
+                        if (height) {
+                          document.write('<strong class="govuk-tag govuk-tag app-task-list__tag" id="eligibility-status">Completed</strong>');
+                          }
+                        else {
+                          document.write('<strong class="govuk-tag govuk-tag--grey app-task-list__tag" id="eligibility-status">Not started</strong>');
+                        }
+                      </script>
+                    </li>
+                  </ul>
+                   
+          
+          
+                <h2 class="app-task-list__section">
+                  <span class="app-task-list__section-number">Lower back and legs
+                </h2>
+                <ul class="app-task-list__items govuk-!-padding-left-0">
+                  <li class="app-task-list__item">
+                    <span class="app-task-list__task-name">
+                      <a href="Lower-back-and-legs/lowerback" aria-describedby="read-declaration-status">
+                        Lower back
+                      </a>
+                    </span>
+                    <script type="text/javascript">
+                      var lowerback = {{data.lowerback|dump|safe}}
+                      console.log(lowerback)
+                      if (lowerback) {
+                        document.write('<strong class="govuk-tag govuk-tag app-task-list__tag" id="eligibility-status">Completed</strong>');
+                        }
+                      else {
+                        document.write('<strong class="govuk-tag govuk-tag--grey app-task-list__tag" id="eligibility-status">Not started</strong>');
+                      }
+                    </script>
+                  </li>
+                  <li class="app-task-list__item">
+                    <span class="app-task-list__task-name">
+                      <a href="Lower-back-and-legs/left-leg" aria-describedby="read-declaration-status">
+                        Left leg
+                      </a>
+                    </span>
+                    <script type="text/javascript">
+                      var leftleg = {{data.leftleg|dump|safe}}
+                      console.log(leftleg)
+                      if (leftleg) {
+                        document.write('<strong class="govuk-tag govuk-tag app-task-list__tag" id="eligibility-status">Completed</strong>');
+                        }
+                      else {
+                        document.write('<strong class="govuk-tag govuk-tag--grey app-task-list__tag" id="eligibility-status">Not started</strong>');
+                      }
+                    </script>
+                  </li>
+                  <li class="app-task-list__item">
+                    <span class="app-task-list__task-name">
+                      <a href="Lower-back-and-legs/right-leg" aria-describedby="read-declaration-status">
+                        Right leg
+                      </a>
+                    </span>
+                    <script type="text/javascript">
+                      var rightleg = {{data.rightleg|dump|safe}}
+                      console.log(rightleg)
+                      if (rightleg) {
+                        document.write('<strong class="govuk-tag govuk-tag app-task-list__tag" id="eligibility-status">Completed</strong>');
+                        }
+                      else {
+                        document.write('<strong class="govuk-tag govuk-tag--grey app-task-list__tag" id="eligibility-status">Not started</strong>');
+                      }
+                    </script>
+                  </li>
+                
+                </ul>
+            
+          
+          
+                <h2 class="app-task-list__section">
+                  <span class="app-task-list__section-number">Neck and arms
+                </h2>
+                <ul class="app-task-list__items govuk-!-padding-left-0">
+                  <li class="app-task-list__item">
+                    <span class="app-task-list__task-name">
+                      <a href="Neck-and-arms/neck" aria-describedby="read-declaration-status">
+                        Neck
+                      </a>
+                    </span>
+                    <script type="text/javascript">
+                      var neck = {{data.neck|dump|safe}}
+                      console.log(neck)
+                      if (neck) {
+                        document.write('<strong class="govuk-tag govuk-tag app-task-list__tag" id="eligibility-status">Completed</strong>');
+                        }
+                      else {
+                        document.write('<strong class="govuk-tag govuk-tag--grey app-task-list__tag" id="eligibility-status">Not started</strong>');
+                      }
+                    </script>
+                  </li>
+                  <li class="app-task-list__item">
+                    <span class="app-task-list__task-name">
+                      <a href="Neck-and-arms/left-upper-arm" aria-describedby="read-declaration-status">
+                        Left upper arm
+                      </a>
+                    </span>
+                    <script type="text/javascript">
+                      var leftupperarm = {{data.leftupperarm|dump|safe}}
+                      console.log(leftupperarm)
+                      if (leftupperarm) {
+                        document.write('<strong class="govuk-tag govuk-tag app-task-list__tag" id="eligibility-status">Completed</strong>');
+                        }
+                      else {
+                        document.write('<strong class="govuk-tag govuk-tag--grey app-task-list__tag" id="eligibility-status">Not started</strong>');
+                      }
+                    </script>
+                  </li>
+                  <li class="app-task-list__item">
+                    <span class="app-task-list__task-name">
+                      <a href="Neck-and-arms/right-upper-arm" aria-describedby="read-declaration-status">
+                        Right upper arm
+                      </a>
+                    </span>
+                    <script type="text/javascript">
+                      var rightupperarm = {{data.rightupperarm|dump|safe}}
+                      console.log(rightupperarm)
+                      if (rightupperarm) {
+                        document.write('<strong class="govuk-tag govuk-tag app-task-list__tag" id="eligibility-status">Completed</strong>');
+                        }
+                      else {
+                        document.write('<strong class="govuk-tag govuk-tag--grey app-task-list__tag" id="eligibility-status">Not started</strong>');
+                      }
+                    </script>
+                  </li>
+                  <li class="app-task-list__item">
+                    <span class="app-task-list__task-name">
+                      <a href="Neck-and-arms/left-forearm" aria-describedby="read-declaration-status">
+                        Left forearm
+                      </a>
+                    </span>
+                    <script type="text/javascript">
+                      var leftforearm = {{data.leftforearm|dump|safe}}
+                      console.log(leftforearm)
+                      if (leftforearm) {
+                        document.write('<strong class="govuk-tag govuk-tag app-task-list__tag" id="eligibility-status">Completed</strong>');
+                        }
+                      else {
+                        document.write('<strong class="govuk-tag govuk-tag--grey app-task-list__tag" id="eligibility-status">Not started</strong>');
+                      }
+                    </script>
+                  </li>
+                  <li class="app-task-list__item">
+                    <span class="app-task-list__task-name">
+                      <a href="Neck-and-arms/right-forearm" aria-describedby="read-declaration-status">
+                        Right forearm
+                      </a>
+                    </span>
+                    <script type="text/javascript">
+                      var rightforearm = {{data.rightforearm|dump|safe}}
+                      console.log(rightforearm)
+                      if (rightforearm) {
+                        document.write('<strong class="govuk-tag govuk-tag app-task-list__tag" id="eligibility-status">Completed</strong>');
+                        }
+                      else {
+                        document.write('<strong class="govuk-tag govuk-tag--grey app-task-list__tag" id="eligibility-status">Not started</strong>');
+                      }
+                    </script>
+                  </li>
+                
+                </ul>
+          
+          
+          
+                <h2 class="app-task-list__section">
+                  <span class="app-task-list__section-number">Cardiovascular and respiratory
+                </h2>
+                <ul class="app-task-list__items govuk-!-padding-left-0">
+                  <li class="app-task-list__item">
+                    <span class="app-task-list__task-name">
+                      <a href="Cardiovascular-and-respiratory/radial-pulse" aria-describedby="read-declaration-status">
+                        Radial pulse
+                      </a>
+                    </span>
+                    <script type="text/javascript">
+                      var radialpulse = {{data.radialpulse|dump|safe}}
+                      console.log(radialpulse)
+                      if (radialpulse) {
+                        document.write('<strong class="govuk-tag govuk-tag app-task-list__tag" id="eligibility-status">Completed</strong>');
+                        }
+                      else {
+                        document.write('<strong class="govuk-tag govuk-tag--grey app-task-list__tag" id="eligibility-status">Not started</strong>');
+                      }
+                    </script>
+                  </li>
+                  <li class="app-task-list__item">
+                    <span class="app-task-list__task-name">
+                      <a href="Cardiovascular-and-respiratory/LeftlegPerip" aria-describedby="read-declaration-status">
+                        Left leg peripheral circulation
+                      </a>
+                    </span>
+                    <script type="text/javascript">
+                      var leftlegperip = {{data.leftlegperip|dump|safe}}
+                      console.log(leftlegperip)
+                      if (leftlegperip) {
+                        document.write('<strong class="govuk-tag govuk-tag app-task-list__tag" id="eligibility-status">Completed</strong>');
+                        }
+                      else {
+                        document.write('<strong class="govuk-tag govuk-tag--grey app-task-list__tag" id="eligibility-status">Not started</strong>');
+                      }
+                    </script>
+                  </li>
+                  <li class="app-task-list__item">
+                    <span class="app-task-list__task-name">
+                      <a href="Cardiovascular-and-respiratory/RightlegPerip" aria-describedby="read-declaration-status">
+                        Right leg peripheral circulation
+                      </a>
+                    </span>
+                    <script type="text/javascript">
+                      var rightlegperip = {{data.rightlegperip|dump|safe}}
+                      console.log(rightlegperip)
+                      if (rightlegperip) {
+                        document.write('<strong class="govuk-tag govuk-tag app-task-list__tag" id="eligibility-status">Completed</strong>');
+                        }
+                      else {
+                        document.write('<strong class="govuk-tag govuk-tag--grey app-task-list__tag" id="eligibility-status">Not started</strong>');
+                      }
+                    </script>
+                  </li>
+                  <li class="app-task-list__item">
+                    <span class="app-task-list__task-name">
+                      <a href="Cardiovascular-and-respiratory/blood-pressue" aria-describedby="read-declaration-status">
+                        Blood pressure
+                      </a>
+                    </span>
+                    <script type="text/javascript">
+                      var bp = {{data.bp|dump|safe}}
+                      console.log(bp)
+                      if (bp) {
+                        document.write('<strong class="govuk-tag govuk-tag app-task-list__tag" id="eligibility-status">Completed</strong>');
+                        }
+                      else {
+                        document.write('<strong class="govuk-tag govuk-tag--grey app-task-list__tag" id="eligibility-status">Not started</strong>');
+                      }
+                    </script>
+                  </li>
+                  <li class="app-task-list__item">
+                    <span class="app-task-list__task-name">
+                      <a href="Cardiovascular-and-respiratory/cardiac" aria-describedby="read-declaration-status">
+                        Cardiac
+                      </a>
+                    </span>
+                    <script type="text/javascript">
+                      var cardiac = {{data.cardiac|dump|safe}}
+                      console.log(cardiac)
+                      if (cardiac) {
+                        document.write('<strong class="govuk-tag govuk-tag app-task-list__tag" id="eligibility-status">Completed</strong>');
+                        }
+                      else {
+                        document.write('<strong class="govuk-tag govuk-tag--grey app-task-list__tag" id="eligibility-status">Not started</strong>');
+                      }
+                    </script>
+                  </li>
+                  <li class="app-task-list__item">
+                    <span class="app-task-list__task-name">
+                      <a href="Cardiovascular-and-respiratory/peakexpiration" aria-describedby="read-declaration-status">
+                        Peak expiration flow rate
+                      </a>
+                    </span>
+                    <script type="text/javascript">
+                      var pefr = {{data.pefr|dump|safe}}
+                      console.log(pefr)
+                      if (pefr) {
+                        document.write('<strong class="govuk-tag govuk-tag app-task-list__tag" id="eligibility-status">Completed</strong>');
+                        }
+                      else {
+                        document.write('<strong class="govuk-tag govuk-tag--grey app-task-list__tag" id="eligibility-status">Not started</strong>');
+                      }
+                    </script>
+                  </li>
+                  <li class="app-task-list__item">
+                    <span class="app-task-list__task-name">
+                      <a href="Cardiovascular-and-respiratory/breathlessness" aria-describedby="read-declaration-status">
+                        Breathlessness
+                      </a>
+                    </span>
+                    <script type="text/javascript">
+                      var breathlessness = {{data.breathlessness|dump|safe}}
+                      console.log(breathlessness)
+                      if (breathlessness) {
+                        document.write('<strong class="govuk-tag govuk-tag app-task-list__tag" id="eligibility-status">Completed</strong>');
+                        }
+                      else {
+                        document.write('<strong class="govuk-tag govuk-tag--grey app-task-list__tag" id="eligibility-status">Not started</strong>');
+                      }
+                    </script>
+                  </li>
+                  <li class="app-task-list__item">
+                    <span class="app-task-list__task-name">
+                      <a href="Cardiovascular-and-respiratory/other-chest-sound-wheeze" aria-describedby="read-declaration-status">
+                        Other: chest sounds, wheeze
+          
+                      </a>
+                    </span>
+                    <script type="text/javascript">
+                      var ocsw = {{data.ocsw|dump|safe}}
+                      console.log(ocsw)
+                      if (ocsw) {
+                        document.write('<strong class="govuk-tag govuk-tag app-task-list__tag" id="eligibility-status">Completed</strong>');
+                        }
+                      else {
+                        document.write('<strong class="govuk-tag govuk-tag--grey app-task-list__tag" id="eligibility-status">Not started</strong>');
+                      }
+                    </script>
+                  </li>
+                </ul>
+          
+          
+                <h2 class="app-task-list__section">
+                  <span class="app-task-list__section-number">Vision, speech and hearing
+                </h2>
+                <ul class="app-task-list__items govuk-!-padding-left-0">
+                  <li class="app-task-list__item">
+                    <span class="app-task-list__task-name">
+                      <a href="vision-speech-hearing/vision-speech-hearing" aria-describedby="read-declaration-status">
+                        Vision, speech and hearing
+                      </a>
+                    </span>
+                    <script type="text/javascript">
+                      var vsh = {{data.vsh|dump|safe}}
+                      console.log(vsh)
+                      if (vsh) {
+                        document.write('<strong class="govuk-tag govuk-tag app-task-list__tag" id="eligibility-status">Completed</strong>');
+                        }
+                      else {
+                        document.write('<strong class="govuk-tag govuk-tag--grey app-task-list__tag" id="eligibility-status">Not started</strong>');
+                      }
+                    </script>
+                  </li>
+                </ul>
+          
+                <h2 class="app-task-list__section">
+                  <span class="app-task-list__section-number">Central nervous system
+                </h2>
+                <ul class="app-task-list__items govuk-!-padding-left-0">
+                  <li class="app-task-list__item">
+                    <span class="app-task-list__task-name">
+                      <a href="central-nervous-system/central-nervous-system" aria-describedby="read-declaration-status">
+                        Central nervous system
+                      </a>
+                    </span>
+                    <script type="text/javascript">
+                      var cns = {{data.cns|dump|safe}}
+                      console.log(cns)
+                      if (cns) {
+                        document.write('<strong class="govuk-tag govuk-tag app-task-list__tag" id="eligibility-status">Completed</strong>');
+                        }
+                      else {
+                        document.write('<strong class="govuk-tag govuk-tag--grey app-task-list__tag" id="eligibility-status">Not started</strong>');
+                      }
+                    </script>
+                  </li>
+                </ul>
+          
+              </ul>
+
+              <a class="govuk-button" href="../assessment-overview" data-module="govuk-button">
+                  Save and continue
+              </a>
+
+            </div>
+        </div>
+
+    </main>
+  </div>
+{% endblock %}

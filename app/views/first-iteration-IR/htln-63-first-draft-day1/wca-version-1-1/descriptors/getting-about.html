@@ -1,0 +1,98 @@
+{% extends "layout.html" %}
+{% set bodyAttributes = { id: "assess" } %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block main %}
+
+{% include "includes/assessment-status-neutral-2.html" %}
+
+  <div class="govuk-width-container {{ containerClasses }}">
+
+    {{ govukBackLink({
+      text: "Back",
+      href: "javascript:history.back()"
+    }) }}
+
+    <main class="govuk-main-wrapper {{ mainClasses }}" id="main-content" role="main"{% if mainLang %} lang="{{ mainLang }}"{% endif %}>
+        <div class="govuk-grid-row">
+
+            <div class="govuk-grid-column-two-thirds">
+
+              <h1 class="govuk-heading-l">Getting about</h1>
+
+              <form action="../assessment-overview" method="post">
+
+                {{ govukTextarea({
+                  name: "gettingaboutNotes",
+                  id: "gettingaboutNotes",
+                  rows: "8",
+                  classes: "govuk-!-margin-bottom-9",
+                  label: {
+                    text: "Notes on getting about",
+                    classes: "govuk-label--s",
+                    isPageHeading: false
+                  },
+                  value: data['gettingaboutNotes']
+                }) }}  
+
+                {{ govukRadios({
+                  idPrefix: "gettingaboutSelect",
+                  name: "gettingaboutSelect",
+                  fieldset: {
+                    legend: {
+                      text: "Choose the descriptor that's most appropriate to the claimant",
+                      isPageHeading: false,
+                      classes: "govuk-fieldset__legend--s"
+                    }
+                  },
+                  items: [
+                    {
+                      value: "(a) Cannot get to any place outside the claimant’s home with which the claimant is familiar.",
+                      text: "(a) Cannot get to any place outside the claimant’s home with which the claimant is familiar.",
+                      checked: (data['gettingaboutSelect'] == "(a) Cannot get to any place outside the claimant’s home with which the claimant is familiar.")
+                    },
+                    {
+                      value: "(b) Is unable to get to a specified place with which the claimant is familiar, without being accompanied by another person.",
+                      text: "(b) Is unable to get to a specified place with which the claimant is familiar, without being accompanied by another person.",
+                      checked: (data['gettingaboutSelect'] == "(b) Is unable to get to a specified place with which the claimant is familiar, without being accompanied by another person.")
+                    },
+                    {
+                      value: "(c) Is unable to get to a specified place with which the claimant is unfamiliar without being accompanied by another person.",
+                      text: "(c) Is unable to get to a specified place with which the claimant is unfamiliar without being accompanied by another person.",
+                      checked: (data['gettingaboutSelect'] == "(c) Is unable to get to a specified place with which the claimant is unfamiliar without being accompanied by another person.")
+                    },
+                    {
+                      value: "(d) None of the above",
+                      text: "(d) None of the above",
+                      checked: (data['gettingaboutSelect'] == "(d) None of the above")
+                    }
+                  ]
+                }) }}
+
+                    {{ govukTextarea({
+                        name: "gettingaboutdetails",
+                        id: "gettingaboutdetails",
+                        label: {
+                          text: "Give details",
+                          classes: "govuk-label--s",
+                          isPageHeading: true
+                        },
+                        value: data['gettingaboutdetails']
+                      }) }}
+
+                      {{ govukButton({
+                        text: "Save and continue"
+                      }) }}
+
+            </form>
+
+
+            </div>
+        </div>
+
+    </main>
+  </div>
+{% endblock %}

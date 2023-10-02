@@ -1,0 +1,147 @@
+{% extends "layouts/main.html" %}
+{% set bodyAttributes = { id: "assess" } %}
+
+{% block pageTitle %}
+  Error: HCP review
+{% endblock %}
+
+{% block main %}
+
+{% include "includes/assessment-status-neutral-pip.html" %}
+
+<div class="govuk-width-container {{ containerClasses }}">
+
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:history.back()"
+  }) }}
+
+  <main class="govuk-main-wrapper {{ mainClasses }}" id="main-content" role="main"{% if mainLang %} lang="{{ mainLang }}"{% endif %}>
+      <div class="govuk-grid-row">
+
+          <div class="govuk-grid-column-two-thirds">
+
+            {{ govukErrorSummary({
+              titleText: "There is a problem",
+              errorList: [
+                {
+                  text: "Clinical review and justification must be 7500 characters or less",
+                  href: "#"
+                },
+                {
+                  text: "Select an outcome",
+                  href: "#"
+                }
+              ]
+            }) }}
+
+            <h1 class="govuk-heading-l">HCP review</h1>
+
+            <form action="IR-landingPage-playback" method="post">
+
+          
+            
+
+              {{ govukTextarea({
+                  name: "hcpreviewpip" + storedEntryAmount,
+                  id: "hcpreviewpip" + storedEntryAmount,
+                  rows: "12",
+                  label: {
+                    text: "Enter clinical review and justification",
+                    classes: "govuk-label--s",
+                    isPageHeading: false
+                  },
+                  hint: {
+                    text: "Include whether evidence has been reviewed, the type of FME requested, and what to do if it's not returned."
+                  },
+                  errorMessage: {
+                    text: "Clinical review and justification must be 7500 characters or less"
+                  },
+
+                  value: data['hcpreviewpip' + storedEntryAmount]
+                 
+                }) }}
+
+                {{ govukCheckboxes({
+                  name: "hcpreviewflagspip" + storedEntryAmount,
+                  values: data['hcpreviewflagspip' + storedEntryAmount],
+                  fieldset: {
+                    legend: {
+                      text: "Is the case one of the following?",
+                      isPageHeading: false,
+                      classes: "govuk-fieldset__legend--s"
+                    }
+                  },
+                  hint: {
+                    text: "Select all that apply."
+                  },
+                  items: [
+                    {
+                      value: "Complex neurological (WCA only)",
+                      text: "Complex neurological (WCA only)"
+                    },
+                    {
+                      value: "TACT - Take additional care (PIP only)",
+                      text: "TACT - take additional care (PIP only)"
+                    }
+                  ]
+                }) }}
+
+                {{ govukRadios({
+                  name: "ir-outcomes" + storedEntryAmount,
+                  fieldset: {
+                    legend: {
+                      text: "What is the outcome of this review?",
+                      isPageHeading: false,
+                      classes: "govuk-fieldset__legend--s"
+                    }
+                  },
+                  items: [
+                    {
+                      value: "fme",
+                      text: "Request further medical evidence (FME)",
+                      checked: (data['ir-outcomes' + storedEntryAmount] == "fme")
+                    },
+                    {
+                      value: "pbr",
+                      text: "Paper based review (PBR)",
+                      checked: (data['ir-outcomes' + storedEntryAmount] == "pbr")
+                    },
+                    {
+                      value: "telephone",
+                      text: "Telephone assessment",
+                      checked: (data['ir-outcomes' + storedEntryAmount] == "telephone")
+                    },
+                    {
+                      value: "F2F",
+                      text: "Face to face assessment",
+                      checked: (data['ir-outcomes' + storedEntryAmount] == "F2F")
+                    },
+                    {
+                      value: "SREL",
+                      text: "Special Rules End of Life (SREL)",
+                      checked: (data['ir-outcomes' + storedEntryAmount] == "SREL")
+                    }
+                    ],
+                    errorMessage: {
+                      text: "Select an outcome"
+                    }
+                }) }}
+
+             
+                <br>
+
+                <div class="govuk-button-group">
+                
+                    {{ govukButton({
+                      text: "Save and continue"
+                    }) }}
+                 
+                </div>
+            </form>
+
+          </div>
+    </div>
+  </main>
+  </div>
+{% endblock %}

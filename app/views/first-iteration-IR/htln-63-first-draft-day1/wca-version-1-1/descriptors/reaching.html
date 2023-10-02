@@ -1,0 +1,98 @@
+{% extends "layout.html" %}
+{% set bodyAttributes = { id: "assess" } %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block main %}
+
+{% include "includes/assessment-status-neutral-2.html" %}
+
+  <div class="govuk-width-container {{ containerClasses }}">
+
+    {{ govukBackLink({
+      text: "Back",
+      href: "javascript:history.back()"
+    }) }}
+
+    <main class="govuk-main-wrapper {{ mainClasses }}" id="main-content" role="main"{% if mainLang %} lang="{{ mainLang }}"{% endif %}>
+        <div class="govuk-grid-row">
+
+            <div class="govuk-grid-column-two-thirds">
+
+              <h1 class="govuk-heading-l">Reaching</h1>
+
+              <form action="../assessment-overview" method="post">
+
+              {{ govukTextarea({
+                name: "reachingNotes",
+                id: "reachingNotes",
+                rows: "8",
+                classes: "govuk-!-margin-bottom-9",
+                label: {
+                  text: "Notes on reaching",
+                  classes: "govuk-label--s",
+                  isPageHeading: false
+                },
+                value: data['reachingNotes']
+              }) }}  
+
+                {{ govukRadios({
+                  idPrefix: "reachingSelect",
+                  name: "reachingSelect",
+                  fieldset: {
+                    legend: {
+                      text: "Which of these options describes how the claimant can reach for things?",
+                      isPageHeading: false,
+                      classes: "govuk-fieldset__legend--s"
+                    }
+                  },
+                  items: [
+                    {
+                      value: "(a) Cannot raise either arm as if to put something in their top pocket",
+                      text: "(a) Cannot raise either arm as if to put something in their top pocket",
+                      checked: (data['reachingSelect'] == "(a) Cannot raise either arm as if to put something in their top pocket")
+                    },
+                    {
+                      value: "(b) Cannot raise either arm to the top of their head to put a hat on",
+                      text: "(b) Cannot raise either arm to the top of their head to put a hat on",
+                      checked: (data['reachingSelect'] == "(b) Cannot raise either arm to the top of their head to put a hat on")
+                    },
+                    {
+                      value: "(c) Cannot raise either arm above their head to reach for something",
+                      text: "(c) Cannot raise either arm above their head to reach for something",
+                      checked: (data['reachingSelect'] == "(c) Cannot raise either arm above their head to reach for something")
+                    },
+                    {
+                      value: "(d) None of the above",
+                      text: "(d) None of the above",
+                      checked: (data['reachingSelect'] == "(d) None of the above")
+                    }
+                  ]
+                }) }}
+
+                    {{ govukTextarea({
+                        name: "reachingdetails",
+                        id: "reachingdetails",
+                        label: {
+                          text: "Give details",
+                          classes: "govuk-label--s",
+                          isPageHeading: true
+                        },
+                        value: data['reachingdetails']
+                      }) }}
+
+                      {{ govukButton({
+                        text: "Save and continue"
+                      }) }}
+
+            </form>
+
+
+            </div>
+        </div>
+
+    </main>
+  </div>
+{% endblock %}

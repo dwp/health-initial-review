@@ -1,0 +1,103 @@
+{% extends "layout.html" %}
+{% set bodyAttributes = { id: "assess" } %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block main %}
+
+{% include "includes/assessment-status-neutral-2.html" %}
+
+  <div class="govuk-width-container {{ containerClasses }}">
+
+    {{ govukBackLink({
+      text: "Back",
+      href: "javascript:history.back()"
+    }) }}
+
+    <main class="govuk-main-wrapper {{ mainClasses }}" id="main-content" role="main"{% if mainLang %} lang="{{ mainLang }}"{% endif %}>
+        <div class="govuk-grid-row">
+
+            <div class="govuk-grid-column-two-thirds">
+
+              <h1 class="govuk-heading-l">Manual dexterity</h1>
+
+              <form action="../assessment-overview" method="post">
+
+              {{ govukTextarea({
+                name: "dexterityNotes",
+                id: "dexterityNotes",
+                rows: "8",
+                classes: "govuk-!-margin-bottom-9",
+                label: {
+                  text: "Notes on manual dexterity",
+                  classes: "govuk-label--s",
+                  isPageHeading: false
+                },
+                value: data['dexterityNotes']
+              }) }}
+
+                {{ govukRadios({
+                  idPrefix: "dexteritySelect",
+                  name: "dexteritySelect",
+                  fieldset: {
+                    legend: {
+                      text: "Select the highest scoring task that the claimant cannot do with either hand",
+                      isPageHeading: false,
+                      classes: "govuk-fieldset__legend--s"
+                    }
+                  },
+                  items: [
+                    {
+                      value: "(a) Cannot press a button, such as a television remote control, or turn the pages of a book",
+                      text: "(a) Cannot press a button, such as a television remote control, or turn the pages of a book",
+                      checked: (data['pickingupSelect'] == "(a) Cannot press a button, such as a television remote control, or turn the pages of a book")
+                    },
+                    {
+                      value: "(b) Cannot pick up a £1 coin",
+                      text: "(b) Cannot pick up a £1 coin",
+                      checked: (data['dexteritySelect'] == "(b) Cannot pick up a £1 coin")
+                    },
+                    {
+                      value: "(c) Cannot use a pen or pencil to make a meaningful mark, like a cross or tick",
+                      text: "(c) Cannot use a pen or pencil to make a meaningful mark, like a cross or tick",
+                      checked: (data['dexteritySelect'] == "(c) Cannot use a pen or pencil to make a meaningful mark, like a cross or tick")
+                    },
+                    {
+                      value: "(d) Cannot use either a keyboard or mouse",
+                      text: "(d) Cannot use either a keyboard or mouse",
+                      checked: (data['dexteritySelect'] == "(d) Cannot use either a keyboard or mouse")
+                    },
+                    {
+                      value: "(e) None of the above",
+                      text: "(e) None of the above",
+                      checked: (data['dexteritySelect'] == "(e) None of the above")
+                    }
+                  ]
+                }) }}
+
+                    {{ govukTextarea({
+                        name: "dexteritydetails",
+                        id: "dexteritydetails",
+                        label: {
+                          text: "Give details",
+                          classes: "govuk-label--s",
+                          isPageHeading: true
+                        },
+                        value: data['dexteritydetails']
+                      }) }}
+
+                      {{ govukButton({
+                        text: "Save and continue"
+                      }) }}
+
+            </form>
+
+
+            </div>
+        </div>
+
+    </main>
+  </div>
+{% endblock %}

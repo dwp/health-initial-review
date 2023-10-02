@@ -1,0 +1,89 @@
+{% extends "layout.html" %}
+{% set bodyAttributes = { id: "assess" } %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block main %}
+
+{% include "includes/assessment-status-neutral-2.html" %}
+
+  <div class="govuk-width-container {{ containerClasses }}">
+
+    {{ govukBackLink({
+      text: "Back",
+      href: "javascript:history.back()"
+    }) }}
+
+    <main class="govuk-main-wrapper {{ mainClasses }}" id="main-content" role="main"{% if mainLang %} lang="{{ mainLang }}"{% endif %}>
+        <div class="govuk-grid-row">
+
+            <div class="govuk-grid-column-two-thirds">
+
+
+
+            <form action="assessment-overview" method="post">
+
+
+              <h1 class="govuk-heading-l">Additional attendees</h1>
+
+              <h2 class="govuk-heading-m">Attendee 1 <a href="#" class="govuk-link govuk-!-font-size-19 app-task-list__tag govuk-!-font-weight-regular" id="list-convictions-status">Remove</a></h2>
+
+              {{ govukInput({
+                label: {
+                  text: "Name"
+                },
+                id: "attendeename",
+                name: "attendeename",
+                value: data['attendeename']
+              }) }}
+
+              {{ govukInput({
+                label: {
+                  text: "Relationship to claimant"
+                },
+                id: "attendee-relationship",
+                name: "attendee-relationship",
+                value: data['attendeerelationship']
+              }) }}
+
+              <hr class="govuk-!-margin-bottom-5">
+
+              <h2 class="govuk-heading-m">Attendee 2 <a href="#" class="govuk-link govuk-!-font-size-19 app-task-list__tag govuk-!-font-weight-regular" id="list-convictions-status">Remove</a></h2>
+
+              {{ govukInput({
+                label: {
+                  text: "Name"
+                },
+                id: "attendeename2",
+                name: "attendeename2"
+              }) }}
+
+              {{ govukInput({
+                label: {
+                  text: "Relationship to claimant"
+                },
+                id: "attendeerelationship2",
+                name: "attendeerelationship2"
+              }) }}
+
+              <hr class="govuk-!-margin-bottom-5">
+
+              <p><a class="govuk-link" href="#">Add another attendee</a></p>
+
+
+              {{ govukButton({
+                text: "Save and continue"
+              }) }}
+
+
+            </form>
+
+
+            </div>
+        </div>
+
+    </main>
+  </div>
+{% endblock %}

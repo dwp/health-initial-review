@@ -1,0 +1,95 @@
+{% extends "layout.html" %}
+{% set bodyAttributes = { id: "assess" } %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block main %}
+
+{% include "includes/assessment-status-neutral-2.html" %}
+
+  <div class="govuk-width-container {{ containerClasses }}">
+
+    {{ govukBackLink({
+      text: "Back",
+      href: "javascript:history.back()"
+    }) }}
+
+
+
+    <main class="govuk-main-wrapper {{ mainClasses }}" id="main-content" role="main"{% if mainLang %} lang="{{ mainLang }}"{% endif %}>
+        <div class="govuk-grid-row">
+
+            <div class="govuk-grid-column-two-thirds">
+
+              <h1 class="govuk-heading-l">Staying conscious when awake</h1>
+
+              <form action="../assessment-overview" method="post">
+
+                {{ govukTextarea({
+                  name: "stayingconsciousNotes",
+                  id: "stayingconsciousNotes",
+                  rows: "8",
+                  classes: "govuk-!-margin-bottom-9",
+                  label: {
+                    text: "Notes on staying conscious when awake",
+                    classes: "govuk-label--s",
+                    isPageHeading: false
+                  },
+                  value: data['stayingconsciousNotes']
+                }) }}  
+
+                {{ govukRadios({
+                  idPrefix: "stayingconsciousSelect",
+                  name: "stayingconsciousSelect",
+                  fieldset: {
+                    legend: {
+                      text: "How often does the claimant lose consciousness because of fainting, seizures or blackouts?",
+                      isPageHeading: false,
+                      classes: "govuk-fieldset__legend--s"
+                    }
+                  },
+                  items: [
+                    {
+                      value: "(a) At least once a week",
+                      text: "(a) At least once a week",
+                      checked: (data['stayingconsciousSelect'] == "(a) At least once a week")
+                    },
+                    {
+                      value: "(b) At least once a month",
+                      text: "(b) At least once a month",
+                      checked: (data['stayingconsciousSelect'] == "(b) At least once a month")
+                    },
+                    {
+                      value: "(c) None of the above",
+                      text: "(c) None of the above",
+                      checked: (data['stayingconsciousSelect'] == "(c) None of the above")
+                    }
+                  ]
+                }) }}
+
+                    {{ govukTextarea({
+                        name: "stayingconsciousdetails",
+                        id: "stayingconsciousdetails",
+                        label: {
+                          text: "Give details",
+                          classes: "govuk-label--s",
+                          isPageHeading: true
+                        },
+                        value: data['stayingconsciousdetails']
+                      }) }}
+
+                      {{ govukButton({
+                        text: "Save and continue"
+                      }) }}
+
+            </form>
+
+
+            </div>
+        </div>
+
+    </main>
+  </div>
+{% endblock %}

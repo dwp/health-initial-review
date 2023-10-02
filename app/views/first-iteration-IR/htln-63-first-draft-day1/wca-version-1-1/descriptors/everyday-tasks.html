@@ -1,0 +1,98 @@
+{% extends "layout.html" %}
+{% set bodyAttributes = { id: "assess" } %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block main %}
+
+{% include "includes/assessment-status-neutral-2.html" %}
+
+  <div class="govuk-width-container {{ containerClasses }}">
+
+    {{ govukBackLink({
+      text: "Back",
+      href: "javascript:history.back()"
+    }) }}
+
+    <main class="govuk-main-wrapper {{ mainClasses }}" id="main-content" role="main"{% if mainLang %} lang="{{ mainLang }}"{% endif %}>
+        <div class="govuk-grid-row">
+
+            <div class="govuk-grid-column-two-thirds">
+
+              <h1 class="govuk-heading-l">Planning, starting and finishing everyday tasks</h1>
+
+              <form action="../assessment-overview" method="post">
+
+                {{ govukTextarea({
+                  name: "everydaytasksNotes",
+                  id: "everydaytasksNotes",
+                  rows: "8",
+                  classes: "govuk-!-margin-bottom-9",
+                  label: {
+                    text: "Notes on planning, starting and finishing everyday tasks",
+                    classes: "govuk-label--s",
+                    isPageHeading: false
+                  },
+                  value: data['everydaytasksNotes']
+                }) }}  
+
+                {{ govukRadios({
+                  idPrefix: "everydaytasksSelect",
+                  name: "everydaytasksSelect",
+                  fieldset: {
+                    legend: {
+                      text: "Can the claimant plan, start and finish everyday tasks without difficulty?",
+                      isPageHeading: false,
+                      classes: "govuk-fieldset__legend--s"
+                    }
+                  },
+                  items: [
+                    {
+                      value: "(a) Cannot plan, start and finish everyday tasks",
+                      text: "(a) Cannot plan, start and finish everyday tasks",
+                      checked: (data['everydaytasksSelect'] == "(a) Cannot plan, start and finish everyday tasks")
+                    },
+                    {
+                      value: "(b) Most of the time the claimant cannot plan, start and finish everyday tasks",
+                      text: "(b) Most of the time the claimant cannot plan, start and finish everyday tasks",
+                      checked: (data['everydaytasksSelect'] == "(b) Most of the time the claimant cannot plan, start and finish everyday tasks")
+                    },
+                    {
+                      value: "(c) Often cannot plan, start and finish everyday tasks",
+                      text: "(c) Often cannot plan, start and finish everyday tasks",
+                      checked: (data['everydaytasksSelect'] == "(c) Often cannot plan, start and finish everyday tasks")
+                    },
+                    {
+                      value: "(d) None of the above",
+                      text: "(d) None of the above",
+                      checked: (data['everydaytasksSelect'] == "(d) None of the above")
+                    }
+                  ]
+                }) }}
+
+                    {{ govukTextarea({
+                        name: "everydaytasksdetails",
+                        id: "everydaytasksdetails",
+                        label: {
+                          text: "Give details",
+                          classes: "govuk-label--s",
+                          isPageHeading: true
+                        },
+                        value: data['everydaytasksdetails']
+                      }) }}
+
+                      {{ govukButton({
+                        text: "Save and continue"
+                      }) }}
+
+            </form>
+
+
+            </div>
+        </div>
+
+    </main>
+  </div>
+{% endblock %}

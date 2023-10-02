@@ -1,0 +1,197 @@
+{% extends "layouts/main.html" %}
+{% set bodyAttributes = { id: "assess" } %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block main %}
+
+
+{% include "includes/assessment-status-neutral-pip.html" %}
+
+<div class="govuk-width-container {{ containerClasses }}">
+
+  <!-- {{ govukBackLink({
+    text: "Back",
+    href: "assessment-status"
+  }) }} -->
+
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:history.back()"
+  }) }}
+
+  <main class="govuk-main-wrapper {{ mainClasses }}" id="main-content" role="main"{% if mainLang %} lang="{{ mainLang }}"{% endif %}>
+      <div class="govuk-grid-row">
+
+          <div class="govuk-grid-column-two-thirds">
+
+            <h1 class="govuk-heading-l">HCP review</h1>
+
+            <form action="claimant-details" method="post">
+
+                    {{ govukTextarea({
+                        name: "hcpreviewpip",
+                        id: "hcpreviewpip",
+                        rows: "12
+                        ",
+                        label: {
+                          text: "Enter clinical review",
+                          classes: "govuk-label--s",
+                          isPageHeading: false
+                        },
+                        value: data['hcpreviewpip']
+                        
+                      }) }}
+
+                      {{ govukCheckboxes({
+                        name: "hcpreviewflagspip",
+                        values: data['hcpreviewflagspip'],
+                        fieldset: {
+                          legend: {
+                            text: "Is the case one of the following?",
+                            isPageHeading: false,
+                            classes: "govuk-fieldset__legend--s"
+                          }
+                        },
+                        hint: {
+                          text: "Select all that apply."
+                        },
+                        items: [
+                          {
+                            value: "complexneuropip",
+                            text: "Complex neurological"
+                          },
+                          {
+                            value: "mentalhealthpip",
+                            text: "Mental health"
+                          }
+                        ]
+                      }) }}
+
+
+                      {{ govukRadios({
+                        name: "ir-outcomes",
+                        fieldset: {
+                          legend: {
+                            text: "What is the outcome of this review?",
+                            isPageHeading: false,
+                            classes: "govuk-fieldset__legend--s"
+                          }
+                        },
+                        items: [
+                          {
+                            value: "fme",
+                            text: "Request further medical evidence (FME)",
+                            checked: (data['ir-outcomes'] == "fme")
+                          },
+                          {
+                            value: "pbr",
+                            text: "Paper based review (PBR)",
+                            checked: (data['ir-outcomes'] == "pbr"),
+                            checked: "checked"
+                          },
+                          {
+                            value: "telephone",
+                            text: "Telephone assessment",
+                            checked: (data['ir-outcomes'] == "telephone")
+                          },
+                          {
+                            value: "F2F",
+                            text: "Face to face assessment",
+                            checked: (data['ir-outcomes'] == "F2F")
+                          },
+                          {
+                            value: "SREL",
+                            text: "Special Rules End of Life (SREL)",
+                            checked: (data['ir-outcomes'] == "SREL")
+                          }
+                        ]
+                      }) }}
+                      <br>
+
+                      <!-- {% set updatedCount = 0 %}
+
+                      {% set names = [
+                          "Sandra Bullock",
+                          "Sandra Bullock",
+                          "Sandra Bullock",
+                          "Sandra Bullock"
+                        ] %}
+
+                      {% set dates = [
+                          "4 April 2023",
+                          "4 April 2023",
+                          "4 April 2023",
+                          "4 April 2023"
+                        ] %}
+
+                        {% if data.lastUpdatedBy0 %}
+                        <table class="govuk-table">
+                          <caption class="govuk-table__caption govuk-table__caption--s">Last updated:</caption>
+                          <thead class="govuk-table__head">
+                            <tr class="govuk-table__row">
+                              <th scope="col" class="govuk-table__header">Name</th>
+                              <th scope="col" class="govuk-table__header">Date</th>
+                            </tr>
+                          </thead>
+                          <tbody class="govuk-table__body">
+                            {% for name in names %}
+                                {% if data["lastUpdatedBy" + updatedCount] %}
+                                <tr class="govuk-table__row">
+                                  <td class="govuk-table__cell">{{ data["lastUpdatedBy" + updatedCount] }}</td>
+                                  <td class="govuk-table__cell">{{ data["lastUpdatedDate" + updatedCount] }}</td>
+                                </tr>
+                                {% set updatedCount = updatedCount + 1 %}
+                              {% endif %}
+                            {% endfor %}
+                          </tbody>
+                        </table>
+                        {% endif %}
+
+                      <input type="hidden" name="lastUpdatedBy{{ updatedCount }}" value="{{ names[updatedCount] }}">
+                      <input type="hidden" name="lastUpdatedDate{{ updatedCount }}" value="{{ dates[updatedCount] }}"> -->
+
+                      
+<!-- Day 2 testing - HCP assessment -->
+
+                      <table class="govuk-table">
+                        <caption class="govuk-table__caption govuk-table__caption--s">Last updated:</caption>
+                        <thead class="govuk-table__head">
+                          <tr class="govuk-table__row">
+                            <th scope="col" class="govuk-table__header">Name</th>
+                            <th scope="col" class="govuk-table__header">Date</th>
+                          </tr>
+                        </thead>
+                        <tbody class="govuk-table__body">
+                              <tr class="govuk-table__row">
+                                <td class="govuk-table__cell">Sandra Bullock</td>
+                                <td class="govuk-table__cell">11 April 2023</td>
+                              </tr>
+                             
+                        </tbody>
+                      </table>
+
+
+
+ {{ govukButton({
+                        text: "Save and continue"
+                      }) }}
+
+            </form>
+
+
+
+          </div>
+
+          
+          <!-- <div id="recoRightPane" class="govuk-grid-column-two-fifths">
+            <div id="recoBuilderFrame" class="reco-builder-frame  reco-scrollable-wrapper" data-url="claimant-documents-buttons">
+              &nbsp;
+            </div>
+           </div> -->
+    </div>
+  </main>
+  </div>
+{% endblock %}

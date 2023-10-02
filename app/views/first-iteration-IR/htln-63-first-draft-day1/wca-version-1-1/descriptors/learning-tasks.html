@@ -1,0 +1,97 @@
+{% extends "layout.html" %}
+{% set bodyAttributes = { id: "assess" } %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block main %}
+
+{% include "includes/assessment-status-neutral-2.html" %}
+
+  <div class="govuk-width-container {{ containerClasses }}">
+
+    {{ govukBackLink({
+      text: "Back",
+      href: "javascript:history.back()"
+    }) }}
+    <main class="govuk-main-wrapper {{ mainClasses }}" id="main-content" role="main"{% if mainLang %} lang="{{ mainLang }}"{% endif %}>
+        <div class="govuk-grid-row">
+
+            <div class="govuk-grid-column-two-thirds">
+
+              <h1 class="govuk-heading-l">Learning to do new tasks</h1>
+
+              <form action="../assessment-overview" method="post">
+
+                {{ govukTextarea({
+                  name: "learningtasksNotes",
+                  id: "learningtasksNotes",
+                  rows: "8",
+                  classes: "govuk-!-margin-bottom-9",
+                  label: {
+                    text: "Notes on learning to do new tasks",
+                    classes: "govuk-label--s",
+                    isPageHeading: false
+                  },
+                  value: data['learningtasksNotes']
+                }) }}  
+
+                {{ govukRadios({
+                  idPrefix: "learningtasksSelect",
+                  name: "learningtasksSelect",
+                  fieldset: {
+                    legend: {
+                      text: "Which of these options describes how well the claimant can learn how to do new tasks?",
+                      isPageHeading: false,
+                      classes: "govuk-fieldset__legend--s"
+                    }
+                  },
+                  items: [
+                    {
+                      value: "(a) Cannot learn how to do a basic task such as setting an alarm clock",
+                      text: "(a) Cannot learn how to do a basic task such as setting an alarm clock",
+                      checked: (data['learningtasksSelect'] == "(a) Cannot learn how to do a basic task such as setting an alarm clock")
+                    },
+                    {
+                      value: "(b) Can learn how to do a basic task, such as setting an alarm clock, but nothing more complicated than that",
+                      text: "(b) Can learn how to do a basic task, such as setting an alarm clock, but nothing more complicated than that",
+                      checked: (data['learningtasksSelect'] == "(b) Can learn how to do a basic task, such as setting an alarm clock, but nothing more complicated than that")
+                    },
+                    {
+                      value: "(c) Can learn how to do a moderately complicated task, such as using a washing machine, but nothing more complicated than that",
+                      text: "(c) Can learn how to do a moderately complicated task, such as using a washing machine, but nothing more complicated than that",
+                      checked: (data['learningtasksSelect'] == "(c) Can learn how to do a moderately complicated task, such as using a washing machine, but nothing more complicated than that")
+                    },
+                    {
+                      value: "(d) None of the above",
+                      text: "(d) None of the above",
+                      checked: (data['learningtasksSelect'] == "(d) None of the above")
+                    }
+                  ]
+                }) }}
+
+                    {{ govukTextarea({
+                        name: "learningtasksdetails",
+                        id: "learningtasksdetails",
+                        label: {
+                          text: "Give details",
+                          classes: "govuk-label--s",
+                          isPageHeading: true
+                        },
+                        value: data['learningtasksdetails']
+                      }) }}
+
+                      {{ govukButton({
+                        text: "Save and continue"
+                      }) }}
+
+            </form>
+
+
+            </div>
+        </div>
+
+    </main>
+  </div>
+{% endblock %}

@@ -1,0 +1,99 @@
+{% extends "layout.html" %}
+{% set bodyAttributes = { id: "assess" } %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block main %}
+
+{% include "includes/assessment-status-neutral-2.html" %}
+
+  <div class="govuk-width-container {{ containerClasses }}">
+
+    {{ govukBackLink({
+      text: "Back",
+      href: "javascript:history.back()"
+    }) }}
+
+    <main class="govuk-main-wrapper {{ mainClasses }}" id="main-content" role="main"{% if mainLang %} lang="{{ mainLang }}"{% endif %}>
+        <div class="govuk-grid-row">
+
+            <div class="govuk-grid-column-two-thirds">
+
+              <h1 class="govuk-heading-l">Picking up and moving things</h1>
+
+              <form action="../assessment-overview" method="post">
+
+              {{ govukTextarea({
+                name: "pickingupNotes",
+                id: "pickingupNotes",
+                rows: "8",
+                classes: "govuk-!-margin-bottom-9",
+                label: {
+                  text: "Notes on picking up and moving things",
+                  classes: "govuk-label--s",
+                  isPageHeading: false
+                },
+                value: data['pickingupNotes']
+              }) }}  
+
+
+                {{ govukRadios({
+                  idPrefix: "pickingupSelect",
+                  name: "pickingupSelect",
+                  fieldset: {
+                    legend: {
+                      text: "Which of these options describes how the claimant can pick things up and move them?",
+                      isPageHeading: false,
+                      classes: "govuk-fieldset__legend--s"
+                    }
+                  },
+                  items: [
+                    {
+                      value: "(a) Cannot pick up and move a 0.5L carton full of liquid",
+                      text: "(a) Cannot pick up and move a 0.5L carton full of liquid",
+                      checked: (data['pickingupSelect'] == "(a) Cannot pick up and move a 0.5L carton full of liquid")
+                    },
+                    {
+                      value: "(b) Cannot pick up and move a 1L carton full of liquid",
+                      text: "(b) Cannot pick up and move a 1L carton full of liquid",
+                      checked: (data['pickingupSelect'] == "(b) Cannot pick up and move a 1L carton full of liquid")
+                    },
+                    {
+                      value: "(c) Cannot pick up and move a large, light object like an empty cardboard box",
+                      text: "(c) Cannot pick up and move a large, light object like an empty cardboard box",
+                      checked: (data['pickingupSelect'] == "(c) Cannot pick up and move a large, light object like an empty cardboard box")
+                    },
+                    {
+                      value: "(d) None of the above",
+                      text: "(d) None of the above",
+                      checked: (data['pickingupSelect'] == "(d) None of the above")
+                    }
+                  ]
+                }) }}
+
+                    {{ govukTextarea({
+                        name: "pickingupdetails",
+                        id: "pickingupdetails",
+                        label: {
+                          text: "Give details",
+                          classes: "govuk-label--s",
+                          isPageHeading: true
+                        },
+                        value: data['pickingupdetails']
+                      }) }}
+
+                      {{ govukButton({
+                        text: "Save and continue"
+                      }) }}
+
+            </form>
+
+
+            </div>
+        </div>
+
+    </main>
+  </div>
+{% endblock %}

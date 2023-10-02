@@ -1,0 +1,99 @@
+{% extends "layout.html" %}
+{% set bodyAttributes = { id: "assess" } %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block main %}
+
+{% include "includes/assessment-status-neutral-2.html" %}
+
+  <div class="govuk-width-container {{ containerClasses }}">
+
+    {{ govukBackLink({
+      text: "Back",
+      href: "javascript:history.back()"
+    }) }}
+
+    <main class="govuk-main-wrapper {{ mainClasses }}" id="main-content" role="main"{% if mainLang %} lang="{{ mainLang }}"{% endif %}>
+        <div class="govuk-grid-row">
+
+            <div class="govuk-grid-column-two-thirds">
+
+              <h1 class="govuk-heading-l">Coping with changes</h1>
+
+              <form action="../assessment-overview" method="post">
+
+                {{ govukTextarea({
+                  name: "copingNotes",
+                  id: "copingNotes",
+                  rows: "8",
+                  classes: "govuk-!-margin-bottom-9",
+                  label: {
+                    text: "Notes on coping with changes",
+                    classes: "govuk-label--s",
+                    isPageHeading: false
+                  },
+                  value: data['copingNotes']
+                }) }}  
+
+
+                {{ govukRadios({
+                  idPrefix: "copingSelect",
+                  name: "copingSelect",
+                  fieldset: {
+                    legend: {
+                      text: "How well can the claimant cope with changes to their routine?",
+                      isPageHeading: false,
+                      classes: "govuk-fieldset__legend--s"
+                    }
+                  },
+                  items: [
+                    {
+                      value: "(a) Cannot cope with any change to their routine, to the extent that they can’t manage day to day",
+                      text: "(a) Cannot cope with any change to their routine, to the extent that they can’t manage day to day",
+                      checked: (data['copingSelect'] == "(a) Cannot cope with any change to their routine, to the extent that they can’t manage day to day")
+                    },
+                    {
+                      value: "(b) If there were a small planned change to the claimant’s routine, they would find it significantly more difficult to manage",
+                      text: "(b) If there were a small planned change to the claimant’s routine, they would find it significantly more difficult to manage",
+                      checked: (data['copingSelect'] == "(b) If there were a small planned change to the claimant’s routine, they would find it significantly more difficult to manage")
+                    },
+                    {
+                      value: "(c) If there were a small unplanned change to the claimant’s routine, they would find it significantly more difficult to manage",
+                      text: "(c) If there were a small unplanned change to the claimant’s routine, they would find it significantly more difficult to manage",
+                      checked: (data['copingSelect'] == "(c) If there were a small unplanned change to the claimant’s routine, they would find it significantly more difficult to manage")
+                    },
+                    {
+                      value: "(d) None of the above",
+                      text: "(d) None of the above",
+                      checked: (data['copingSelect'] == "(d) None of the above")
+                    }
+                  ]
+                }) }}
+
+                    {{ govukTextarea({
+                        name: "copingdetails",
+                        id: "copingdetails",
+                        label: {
+                          text: "Give details",
+                          classes: "govuk-label--s",
+                          isPageHeading: true
+                        },
+                        value: data['copingdetails']
+                      }) }}
+
+                      {{ govukButton({
+                        text: "Save and continue"
+                      }) }}
+
+            </form>
+
+
+            </div>
+        </div>
+
+    </main>
+  </div>
+{% endblock %}

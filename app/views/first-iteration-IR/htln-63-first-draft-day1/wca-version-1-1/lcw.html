@@ -1,0 +1,80 @@
+{% extends "layout.html" %}
+{% set bodyAttributes = { id: "assess" } %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block main %}
+
+{% include "includes/assessment-status-neutral-2.html" %}
+
+  <div class="govuk-width-container {{ containerClasses }}">
+
+
+    {{ govukBackLink({
+      text: "Back",
+      href: "recommendation"
+    }) }}
+
+    <!-- {{ govukBackLink({
+      text: "Back",
+      href: "javascript:history.back()"
+    }) }} -->
+
+    <main class="govuk-main-wrapper {{ mainClasses }}" id="main-content" role="main"{% if mainLang %} lang="{{ mainLang }}"{% endif %}>
+        <div class="govuk-grid-row">
+
+            <div class="govuk-grid-column-two-thirds">
+
+              <h1 class="govuk-heading-l">Limited capability for work (LCW)</h1>
+
+  <form action="lcw-why" method="post" id="question-form" novalidate>
+
+      {{ govukRadios({
+        idPrefix: "lcw",
+        name: "lcw",
+        fieldset: {
+          legend: {
+            text: "What is your recommendation?",
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--s"
+          }
+        },
+        items: [
+        {
+          value: "Functional LCW",
+          text: "Functional LCW",
+          checked: (data['lcw'] == "Functional LCW")
+        },
+        {
+          value: "Treat as LCW",
+          text: "Treat as LCW",
+          checked: (data['lcw'] == "Treat as LCW")
+        },
+        {
+          value: "Risk to mental or physical health (LCW)",
+          text: "Risk to mental or physical health (LCW)",
+          checked: (data['lcw'] == "Risk to mental or physical health (LCW)")
+        }
+        ]
+      }) }}
+
+      
+
+
+</div>
+</div>
+
+<button class="govuk-button" data-module="govuk-button">
+  Save and continue
+</button>
+
+</main>
+</div>
+
+
+
+
+
+{% endblock %}

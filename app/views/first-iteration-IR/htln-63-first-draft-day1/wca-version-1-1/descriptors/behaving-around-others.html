@@ -1,0 +1,98 @@
+{% extends "layout.html" %}
+{% set bodyAttributes = { id: "assess" } %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block main %}
+
+{% include "includes/assessment-status-neutral-2.html" %}
+
+  <div class="govuk-width-container {{ containerClasses }}">
+
+    {{ govukBackLink({
+      text: "Back",
+      href: "javascript:history.back()"
+    }) }}
+
+    <main class="govuk-main-wrapper {{ mainClasses }}" id="main-content" role="main"{% if mainLang %} lang="{{ mainLang }}"{% endif %}>
+        <div class="govuk-grid-row">
+
+            <div class="govuk-grid-column-two-thirds">
+
+              <h1 class="govuk-heading-l">Behaving appropriately around other people</h1>
+
+              <form action="../assessment-overview" method="post">
+
+                {{ govukTextarea({
+                  name: "behaviourNotes",
+                  id: "behaviourNotes",
+                  rows: "8",
+                  classes: "govuk-!-margin-bottom-9",
+                  label: {
+                    text: "Notes on behaving appropriately around other people",
+                    classes: "govuk-label--s",
+                    isPageHeading: false
+                  },
+                  value: data['behaviourNotes']
+                }) }}  
+
+                {{ govukRadios({
+                  idPrefix: "behaviourSelect",
+                  name: "behaviourSelect",
+                  fieldset: {
+                    legend: {
+                      text: "How often does the claimant behave in a way which upsets other people?",
+                      isPageHeading: false,
+                      classes: "govuk-fieldset__legend--s"
+                    }
+                  },
+                  items: [
+                    {
+                      value: "(a) Every day",
+                      text: "(a) Every day",
+                      checked: (data['behaviourSelect'] == "(a) Every day")
+                    },
+                    {
+                      value: "(b) Oftenn",
+                      text: "(b) Often",
+                      checked: (data['behaviourSelect'] == "(b) Often")
+                    },
+                    {
+                      value: "(c) Occasionally",
+                      text: "(c) Occasionally",
+                      checked: (data['behaviourSelect'] == "(c) Occasionally")
+                    },
+                    {
+                      value: "(d) None of the above",
+                      text: "(d) None of the above",
+                      checked: (data['behaviourSelect'] == "(d) None of the above")
+                    }
+                  ]
+                }) }}
+
+                    {{ govukTextarea({
+                        name: "behaviourdetails",
+                        id: "behaviourdetails",
+                        label: {
+                          text: "Give details",
+                          classes: "govuk-label--s",
+                          isPageHeading: true
+                        },
+                        value: data['behaviourdetails']
+                      }) }}
+
+                      {{ govukButton({
+                        text: "Save and continue"
+                      }) }}
+
+            </form>
+
+
+            </div>
+        </div>
+
+    </main>
+  </div>
+{% endblock %}

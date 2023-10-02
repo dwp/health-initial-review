@@ -1,0 +1,208 @@
+//
+// For guidance on how to add CSS and SCSS see:
+// https://prototype-kit.service.gov.uk/docs/adding-css-javascript-and-images
+// 
+
+// Add extra styles here
+
+
+.govuk-width-container {
+    min-width: 1100px;
+    }
+
+
+// DWP header
+
+.dwp-header {
+    background-color: #0b0c0c;
+    border-bottom: 0;
+    width: 100%;
+    }
+    
+    .dwp-header__container {
+    border-bottom: 0;
+    padding: 10px 30px 0;
+    display: flex;
+    }
+    
+    @media (max-width: 40.0525em) {
+    .dwp-header__container {
+    padding: 10px 15px 0;
+    }
+    }
+    
+    .dwp-header__container--service-name {
+    width: 66.66%;
+    }
+    
+    .dwp-header__container--action {
+    width: 33.33%;
+    }
+    
+    .dwp-header__container--action .action {
+    float: right;
+    font-weight: 700;
+    margin-top: 2px;
+    }
+    
+    @media (min-width: 40.0625em) {
+    .dwp-header__container--action .action {
+    margin-top: 5px;
+    }
+    } 
+
+
+
+    // key details bar
+
+    .dwp-key-details-bar {
+        background-color: #1d70b8;
+        color: #fff;
+        font-family: Arial, sans-serif;
+        }
+        
+        .dwp-key-details-bar dt,
+        .dwp-key-details-bar dd {
+        border: none;
+        margin: 0;
+        padding: 0;
+        }
+        
+        .dwp-key-details-bar .dwp-key-details-bar__key-details {
+        margin: 0 auto;
+        max-width: 1100px;
+        padding: 20px 30px;
+        position: relative;
+        }
+        
+        .dwp-key-details-bar .dwp-key-details-bar__key-details .dwp-key-details-bar__top-block::after,
+        .dwp-key-details-bar .dwp-key-details-bar__key-details .dwp-key-details-bar__bottom-block::after {
+        clear: both;
+        content: ' ';
+        display: block;
+        }
+        
+        .dwp-key-details-bar .dwp-key-details-bar__key-details .dwp-key-details-bar__bottom-block {
+        border-top: 1px solid rgba(255, 255, 255, .3);
+        content: ' ';
+        padding-top: 10px;
+        margin-top: 6px;
+        }
+        
+        .dwp-key-details-bar .dwp-key-details-bar__key-details dd,
+        .dwp-key-details-bar .dwp-key-details-bar__key-details dt {
+        float: left;
+        font-size: 19px;
+        margin-right: 5px;
+        }
+        
+        .dwp-key-details-bar .dwp-key-details-bar__key-details dd {
+        margin-right: 20px;
+        }
+        
+        .dwp-key-details-bar .dwp-key-details-bar__key-details .dwp-key-details-bar__name {
+        font-size: 36px;
+        font-weight: 700;
+        line-height: 1.11111;
+        margin-right: 10px;
+        }
+        
+        .dwp-key-details-bar .dwp-key-details-bar__key-details .dwp-key-details-bar__nino {
+        font-size: 24px;
+        line-height: 1;
+        margin-top: 12px;
+        }
+        
+        .dwp-key-details-bar .dwp-key-details-bar__key-details .dwp-key-details-bar__status {
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 1.25;
+        padding: 5px 8px 0;
+        color: #005ea5;
+        background-color: #fff;
+        letter-spacing: 1px;
+        text-decoration: none;
+        text-transform: uppercase;
+        float: right;
+        margin: 5px 0 0;
+        }
+        
+        @media (max-width: 40.0525em) {
+        .dwp-key-details-bar .dwp-key-details-bar__key-details {
+        padding: 20px 15px;
+        }
+        
+        .dwp-key-details-bar .dwp-key-details-bar__key-details .dwp-key-details-bar__bottom-block {
+        border: 0;
+        }
+        
+        .dwp-key-details-bar .dwp-key-details-bar__key-details dd,
+        .dwp-key-details-bar .dwp-key-details-bar__key-details dt {
+        float: none;
+        font-size: 16px;
+        margin: 0;
+        }
+        
+        .dwp-key-details-bar .dwp-key-details-bar__key-details dd {
+        margin-bottom: 20px;
+        }
+        
+        .dwp-key-details-bar .dwp-key-details-bar__key-details dd:last-of-type {
+        margin-bottom: 20px;
+        }
+        
+        .dwp-key-details-bar .dwp-key-details-bar__key-details .dwp-key-details-bar__name {
+        font-size: 24px;
+        line-height: 1.04167;
+        float: left;
+        margin: 0 5px 0 0;
+        }
+        
+        .dwp-key-details-bar .dwp-key-details-bar__key-details .dwp-key-details-bar__nino {
+        font-size: 18px;
+        float: left;
+        margin: 5px 0 0 0;
+        }
+        
+        .dwp-key-details-bar .dwp-key-details-bar__key-details .dwp-key-details-bar__status {
+        font-size: 14px;
+        float: left;
+        clear: both;
+        margin-top: 5px;
+        }
+        } 
+
+
+        // Timeline
+        .dwp-timeline {
+            font-family: Arial, sans-serif;
+            border-left: 3px solid #1d70b8;
+            list-style-type: none;
+            padding: 0;
+            }
+            
+            .dwp-timeline__entry {
+            margin: 2em 0;
+            padding-left: 1.125em;
+            position: relative;
+            top: -.6em;
+            }
+            
+            .dwp-timeline__entry::before {
+            background-color: #1d70b8;
+            content: '';
+            height: 3px;
+            left: 0;
+            position: absolute;
+            top: .6em;
+            width: 10px;
+            } 
+
+
+            iframe.document {
+                width: 100%;
+                height: 800px;
+                max-width: 80vw;
+                resize: both;
+                overflow: auto;
+              }         

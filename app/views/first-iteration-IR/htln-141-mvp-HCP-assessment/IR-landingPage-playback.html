@@ -1,0 +1,209 @@
+{% extends "layouts/main.html" %}
+{% set bodyAttributes = { id: "assess" } %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block main %}
+
+{% include "includes/assessment-status-neutral-pip.html" %}
+
+<div class="govuk-width-container {{ containerClasses }}">
+
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:history.back()"
+  }) }}
+
+  <main class="govuk-main-wrapper {{ mainClasses }}" id="main-content" role="main"{% if mainLang %} lang="{{ mainLang }}"{% endif %}>
+      <div class="govuk-grid-row">
+
+          <div class="govuk-grid-column-two-thirds">
+
+            <h1 class="govuk-heading-l">HCP review</h1>
+
+            <form action="IR-landingPage-playback-table" method="post">
+
+
+
+
+
+              {% set storedEntryAmount = 0 %}
+
+              <!-- Info captured by previous HCP review -->
+              {% if data["hcpreviewpip" + storedEntryAmount] %}
+              {% for i in range(0, 10) | reverse %}
+                  {% if data["hcpreviewpip" + i] %}
+                  <!-- Heading for each review -->
+                  <!-- <h2 class="govuk-heading-m">HCP review {{ i + 1 }}</h2> -->
+
+                    <dl class="govuk-summary-list  govuk-!-margin-bottom-9">
+                      <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Clinical review and justification</dt>
+                        <dd class="govuk-summary-list__value">{{ data["hcpreviewpip" + i] }}</dd>
+                      </div>
+                      <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Outcome</dt>
+                        <dd class="govuk-summary-list__value">{{ data["ir-outcomes" + i] }}</dd>
+                      </div>
+                      <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Case type</dt>
+                        <dd class="govuk-summary-list__value">
+                          {% for item in data["hcpreviewflagspip" + i] %}
+                          <p class="govuk-body">{{ item }}</p>
+                          {% endfor %}
+                        </dd>
+                      </div>
+                      <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Name</dt>
+                        <dd class="govuk-summary-list__value">Jayne Smith</dd>
+                      </div>
+                      <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Date of review</dt>
+                        <dd class="govuk-summary-list__value">4 April 2023</dd>
+                      </div>
+                    </dl>
+                    {% set storedEntryAmount = storedEntryAmount + 1 %}
+                  {% endif %}
+                {% endfor %}
+              {% endif %}
+
+
+
+              {{ govukSummaryList({
+                rows: [
+                  {
+                    key: {
+                      text: "Clinical review and justification"
+                    },
+                    value: {
+                      text: "Evidence reviewed. UC50 reports a recent stroke, under GP care and reports severe disability in mobilising and communications. FME is needed to support the clients’ reported restrictions. Consent is noted.. If FME not returned for further FME HCP review. Not for Assessment'"
+                    }
+                  },
+                  {
+                    key: {
+                      text: "Case type"
+                    },
+                    value: {
+                      text: "Complex neurological"
+                    }
+                  },
+                  {
+                    key: {
+                      text: "Outcome"
+                    },
+                    value: {
+                      text: "Request further medical evidence (FME)"
+                    }
+                  },
+                  {
+                    key: {
+                      text: "Name"
+                    },
+                    value: {
+                      text: "Sandra Bullock"
+                    }
+                  },
+                  {
+                    key: {
+                      text: "Date of review"
+                    },
+                    value: {
+                      text: "20 February 2023"
+                    }
+                  }  
+                ]
+              }) }}
+<br>
+              {{ govukTextarea({
+                  name: "hcpreviewpip" + storedEntryAmount,
+                  id: "hcpreviewpip" + storedEntryAmount,
+                  rows: "12",
+                  label: {
+                    text: "Enter clinical review and justification",
+                    classes: "govuk-label--s",
+                    isPageHeading: false
+                  },
+                  hint: {
+                    text: "Include whether evidence has been reviewed, the type of FME requested, and what to do if it's not returned"
+                  },
+                  value: data['hcpreviewpip' + storedEntryAmount]
+                }) }}
+
+                {{ govukCheckboxes({
+                  name: "hcpreviewflagspip" + storedEntryAmount,
+                  values: data['hcpreviewflagspip' + storedEntryAmount],
+                  fieldset: {
+                    legend: {
+                      text: "Is the case one of the following?",
+                      isPageHeading: false,
+                      classes: "govuk-fieldset__legend--s"
+                    }
+                  },
+                  hint: {
+                    text: "Select all that apply."
+                  },
+                  items: [
+                    {
+                      value: "Complex neurological",
+                      text: "Complex neurological (WCA only)"
+                    },
+                    {
+                      value: "Mental health",
+                      text: "Mental health (WCA only)"
+                    }
+                  ]
+                }) }}
+
+                {{ govukRadios({
+                  name: "ir-outcomes" + storedEntryAmount,
+                  fieldset: {
+                    legend: {
+                      text: "What is the outcome of this review?",
+                      isPageHeading: false,
+                      classes: "govuk-fieldset__legend--s"
+                    }
+                  },
+                  items: [
+                    {
+                      value: "Request further medical evidence (FME)",
+                      text: "Request further medical evidence (FME)",
+                      checked: (data['ir-outcomes' + storedEntryAmount] == "fme")
+                    },
+                    {
+                      value: "Paper based review (PBR)",
+                      text: "Paper based review (PBR)",
+                      checked: (data['ir-outcomes' + storedEntryAmount] == "pbr")
+                    },
+                    {
+                      value: "Telephone assessment",
+                      text: "Telephone assessment",
+                      checked: (data['ir-outcomes' + storedEntryAmount] == "telephone")
+                    },
+                    {
+                      value: "Face to face assessment",
+                      text: "Face to face assessment",
+                      checked: (data['ir-outcomes' + storedEntryAmount] == "F2F")
+                    },
+                    {
+                      value: "Special Rules End of Life (SREL)",
+                      text: "Special Rules End of Life (SREL)",
+                      checked: (data['ir-outcomes' + storedEntryAmount] == "SREL")
+                    }
+                  ]
+                }) }}
+                <br>
+
+                <div class="govuk-button-group">
+                  {{ govukButton({
+                    text: "Save and continue"
+                  }) }}
+                </div>
+            </form>
+
+          </div>
+    </div>
+  </main>
+  </div>
+{% endblock %}

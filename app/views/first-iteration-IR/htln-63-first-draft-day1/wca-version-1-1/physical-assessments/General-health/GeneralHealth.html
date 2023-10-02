@@ -1,0 +1,80 @@
+{% extends "layout.html" %}
+{% set bodyAttributes = { id: "assess" } %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block main %}
+
+{% include "includes/assessment-status-neutral.html" %}
+
+  <div class="govuk-width-container {{ containerClasses }}">
+      {{ govukBackLink({
+        text: "Back to physical assessment",
+        href: "../physical-assessment"
+      }) }}
+
+    <main class="govuk-main-wrapper {{ mainClasses }}" id="main-content" role="main"{% if mainLang %} lang="{{ mainLang }}"{% endif %}>
+
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+
+        <form action="../physical-assessment" method="post" novalidate>
+
+          <span class="govuk-caption-l">General health</span>
+<h1 class="govuk-heading-xl">General health</h1>
+
+
+
+
+  <div class="govuk-form-group">
+  <label class="govuk-label" for="width-20">
+    
+  </label>
+  <label class="govuk-label" for="width-10">
+   Height (cm)
+  </label>
+  <input class="govuk-input govuk-input--width-10" id="width-20" name="height" type="text" value="{{ data['general-health'] }}">
+</div>
+
+<div class="govuk-form-group">
+  <label class="govuk-label" for="width-10">
+    Weight (kg)
+  </label>
+  <input class="govuk-input govuk-input--width-10" id="width-10" name="weight" type="text" value="{{ data['weight'] }}">
+</div>
+
+<div class="govuk-form-group">
+  <label class="govuk-label" for="width-10">
+    BMI
+  </label>
+  <input class="govuk-input govuk-input--width-10" id="width-10" name="bmi" type="text" value="{{ data['bmi'] }}">
+</div>
+
+<div class="govuk-form-group">
+  <label class="govuk-label" for="more-detail">
+      Other findings
+    </label>
+
+  <textarea class="govuk-textarea" 
+  id="general-more-detail" 
+  name="general-more-detail" 
+  rows="5
+" aria-describedby="more-detail-hint">{{ session['general-more-detail'] }}</textarea>
+</div>
+
+</div>
+
+</div>
+
+<button class="govuk-button" data-module="govuk-button">
+  Save and continue
+</button>
+
+
+</div>
+
+</main>
+</div>
+{% endblock %}

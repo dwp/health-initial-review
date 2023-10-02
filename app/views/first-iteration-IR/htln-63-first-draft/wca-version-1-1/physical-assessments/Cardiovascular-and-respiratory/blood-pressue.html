@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+{% set bodyAttributes = { id: "assess" } %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block main %}
+
+{% include "includes/assessment-status-neutral.html" %}
+
+  <div class="govuk-width-container {{ containerClasses }}">
+
+      {{ govukBackLink({
+        text: "Back to physical assessment",
+        href: "../physical-assessment"
+      }) }}
+
+    <main class="govuk-main-wrapper {{ mainClasses }}" id="main-content" role="main"{% if mainLang %} lang="{{ mainLang }}"{% endif %}>
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+
+      <form action="../physical-assessment" method="post" novalidate>
+
+
+        <span class="govuk-caption-l">Cardiovascular and respiratory</span>
+<h1 class="govuk-heading-xl">Blood pressure</h1>
+
+
+        <div class="govuk-form-group">
+          <label class="govuk-label" for="more-detail">
+              State your findings
+            </label>
+
+          <textarea class="govuk-textarea" id="more-detail" name="bp" rows="5" aria-describedby="more-detail-hint"></textarea>
+        </div>
+
+
+<button class="govuk-button" data-module="govuk-button">
+  Save and continue
+</button>
+
+</div>
+</div>
+
+</main>
+</div>
+{% endblock %}

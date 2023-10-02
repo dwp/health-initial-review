@@ -1,0 +1,103 @@
+{% extends "layouts/main.html" %}
+{% set bodyAttributes = { id: "assess" } %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block main %}
+
+
+{% include "includes/assessment-status-neutral.html" %}
+
+<div class="govuk-width-container {{ containerClasses }}">
+
+  {{ govukBackLink({
+    text: "Back",
+    href: "/first-iteration-IR/htln-63-first-draft-day1/claimant-details"
+  }) }}
+
+  <!-- {{ govukBackLink({
+    text: "Back",
+    href: "javascript:history.back()"
+  }) }} -->
+
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+
+      <h1 class="govuk-heading-l">Claimant documents</h2>
+
+      <p class="govuk-body-s" id="last-updated">Last updated from DRS at 02:08 on 16 Sep 2021</p>
+
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+      <h2 class="govuk-heading-s govuk-!-margin-bottom-3">
+        Show only these documents
+      </h2>
+
+      <div class="govuk-button-group">
+
+        <form action="claimant-documents-buttons2" method="post" novalidate>
+        <button class="govuk-button govuk-button--secondary" data-module="govuk-button">
+          New documents
+        </button>
+        
+      
+       
+
+        <button class="govuk-button govuk-button--secondary" data-module="govuk-button">
+          UC claim 15 January 2023
+        </button>
+      </form>
+      </div>
+      
+      <table class="govuk-table" data-module="moj-sortable-table" aria-describedby="last-updated">
+
+        <thead class="govuk-table__head">
+          <tr class="govuk-table__row">
+      
+            <th scope="col" class="govuk-table__header column-width-20" aria-sort="none">Document type</th>
+
+            <th scope="col" class="govuk-table__header column-width-20" aria-sort="none">Document label</th>
+      
+            <th scope="col" class="govuk-table__header column-width-10" aria-sort="none">Benefit type</th>
+
+            <th scope="col" class="govuk-table__header column-width-15" aria-sort="none">Date of document</th>
+
+            <th scope="col" class="govuk-table__header column-width-15" aria-sort="descending">Date DWP received</th>            
+
+            <th scope="col" class="govuk-table__header column-width-20" aria-sort="none">Latest document activity</th>
+      
+          </tr>
+        </thead>
+      
+        <tbody class="govuk-table__body">
+      
+          <tr class="govuk-table__row">
+      
+            <td class="govuk-table__cell"><a href="further-evidence-one-button.html">UC50 questionnaire</a></td>
+
+            <td class="govuk-table__cell"></td>
+    
+            <td class="govuk-table__cell">UC</td>
+  
+            <td class="govuk-table__cell" data-sort-value="12/05/21"></td>
+
+            <td class="govuk-table__cell" data-sort-value="12/05/21">10 March 2023</td>
+
+            <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--yellow">New document</strong></td>
+
+          </tr>
+    
+          
+      
+        </tbody>
+      </table>
+<br>
+    </div>
+  </div>  
+  </div>
+
+
+{% endblock %}

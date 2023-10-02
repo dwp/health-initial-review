@@ -1,0 +1,64 @@
+{% extends "layout.html" %}
+{% set bodyAttributes = { id: "assess" } %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block main %}
+
+{% include "includes/assessment-status-neutral-2.html" %}
+
+  <div class="govuk-width-container {{ containerClasses }}">
+
+    {{ govukBackLink({
+      text: "Back",
+      href: "lcwra"
+    }) }}
+
+    <!-- {{ govukBackLink({
+      text: "Back",
+      href: "javascript:history.back()"
+    }) }} -->
+
+
+
+    <main class="govuk-main-wrapper {{ mainClasses }}" id="main-content" role="main"{% if mainLang %} lang="{{ mainLang }}"{% endif %}>
+        <div class="govuk-grid-row">
+
+            <div class="govuk-grid-column-two-thirds">
+
+       
+
+  <form action="time-review-lcwra" method="post" id="question-form" novalidate>
+
+    {{ govukTextarea({
+      name: "lcwrareasons",
+      id: "lcwrareasons",
+      rows: "12",
+      label: {
+        text: "Why are you recommending LCWRA?",
+        classes: "govuk-label--l",
+        isPageHeading: true
+      },
+      value: data['lcwrareasons']
+    }) }}  
+
+
+
+
+</div>
+</div>
+
+<button class="govuk-button" data-module="govuk-button">
+  Save and continue
+</button>
+
+</main>
+</div>
+
+
+
+
+
+{% endblock %}

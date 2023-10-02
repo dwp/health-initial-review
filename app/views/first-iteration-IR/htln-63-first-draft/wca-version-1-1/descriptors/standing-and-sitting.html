@@ -1,0 +1,98 @@
+{% extends "layout.html" %}
+{% set bodyAttributes = { id: "assess" } %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block main %}
+
+{% include "includes/assessment-status-neutral-2.html" %}
+
+  <div class="govuk-width-container {{ containerClasses }}">
+    {{ govukBackLink({
+      text: "Back",
+      href: "javascript:history.back()"
+    }) }}
+
+    <main class="govuk-main-wrapper {{ mainClasses }}" id="main-content" role="main"{% if mainLang %} lang="{{ mainLang }}"{% endif %}>
+        <div class="govuk-grid-row">
+
+            <div class="govuk-grid-column-two-thirds">
+
+              <h1 class="govuk-heading-l">Standing and sitting</h1>
+
+              <form action="../assessment-overview" method="post">
+
+              {{ govukTextarea({
+                name: "standingsittingNotes",
+                id: "standingsittingNotes",
+                rows: "8",
+                classes: "govuk-!-margin-bottom-9",
+                label: {
+                  text: "Notes on standing and sitting",
+                  classes: "govuk-label--s",
+                  isPageHeading: false
+                },
+                value: data['standingsittingNotes']
+              }) }}  
+
+                {{ govukRadios({
+                  idPrefix: "standingsittingSelect",
+                  name: "standingsittingSelect",
+                  fieldset: {
+                    legend: {
+                      text: "Choose the descriptor that's most appropriate to the claimant",
+                      isPageHeading: false,
+                      classes: "govuk-fieldset__legend--s"
+                    }
+                  },
+                  items: [
+                    {
+                      value: "(a) Cannot transfer from one seat to another right next to it without someone’s help",
+                      text: "(a) Cannot transfer from one seat to another right next to it without someone’s help",
+                      checked: (data['standingsittingSelect'] == "(a) Cannot transfer from one seat to another right next to it without someone’s help")
+                    },
+                    {
+                      value: "(b) Cannot stand, sit or alternate between the two for more than 30 minutes",
+                      text: "(b) Cannot stand, sit or alternate between the two for more than 30 minutes",
+                      checked: (data['standingsittingSelect'] == "(b) Cannot stand, sit or alternate between the two for more than 30 minutes")
+                    },
+                    {
+                      value: "(c) Cannot stand, sit or alternate between the two for more than an hour",
+                      text: "(c) Cannot stand, sit or alternate between the two for more than an hour",
+                      checked: (data['standingsittingSelect'] == "(c) Cannot stand, sit or alternate between the two for more than an hour")
+                    },
+                    {
+                      value: "(d) None of the above",
+                      text: "(d) None of the above",
+                      checked: (data['standingsittingSelect'] == "(d) None of the above")
+                    }
+                  ]
+                }) }}
+
+
+                    {{ govukTextarea({
+                        name: "standingsittingdetails",
+                        id: "standingsittingdetails",
+                        label: {
+                          text: "Give details",
+                          classes: "govuk-label--s",
+                          isPageHeading: true
+                        },
+                        value: data['standingsittingdetails']
+                      }) }}
+
+                      {{ govukButton({
+                        text: "Save and continue"
+                      }) }}
+
+            </form>
+
+
+            </div>
+        </div>
+
+    </main>
+  </div>
+{% endblock %}

@@ -1,0 +1,133 @@
+{% extends "layouts/main.html" %}
+{% set bodyAttributes = { id: "assess" } %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block main %}
+
+
+{% include "includes/assessment-status-neutral.html" %}
+
+<div class="govuk-width-container {{ containerClasses }}">
+
+  <!-- {{ govukBackLink({
+    text: "Back",
+    href: "assessment-status"
+  }) }} -->
+
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:history.back()"
+  }) }}
+
+  <main class="govuk-main-wrapper {{ mainClasses }}" id="main-content" role="main"{% if mainLang %} lang="{{ mainLang }}"{% endif %}>
+      <div class="govuk-grid-row">
+
+          <div class="govuk-grid-column-two-thirds">
+
+            <h1 class="govuk-heading-l">HCP review</h1>
+
+            <form action="claimant-details" method="post">
+
+                    {{ govukTextarea({
+                        name: "historyofcondition",
+                        id: "historyofcondition",
+                        rows: "12
+                        ",
+                        label: {
+                          text: "Enter clinical review",
+                          classes: "govuk-label--s",
+                          isPageHeading: false
+                        },
+                        value: data['historyofcondition']
+                        
+                      }) }}
+
+                      {{ govukCheckboxes({
+                        name: "hcp-review-flags",
+                        fieldset: {
+                          legend: {
+                            text: "Is the case one of the following?",
+                            isPageHeading: false,
+                            classes: "govuk-fieldset__legend--s"
+                          }
+                        },
+                        hint: {
+                          text: "Select all that apply."
+                        },
+                        items: [
+                          {
+                            value: "complex-neuro",
+                            text: "Complex neurological",
+                            checked: (data['hcp-review-flags'] == "complex-neuro")
+                          },
+                          {
+                            value: "mental-health",
+                            text: "Mental health",
+                            checked: (data['hcp-review-flags'] == "mental-health")
+                          }
+                        ]
+                      }) }}
+
+
+                      {{ govukRadios({
+                        name: "ir-outcomes",
+                        fieldset: {
+                          legend: {
+                            text: "What is the outcome of this review?",
+                            isPageHeading: false,
+                            classes: "govuk-fieldset__legend--s"
+                          }
+                        },
+                        items: [
+                          {
+                            value: "fme",
+                            text: "Request further medical evidence (FME)",
+                            checked: (data['ir-outcomes'] == "fme")
+                          },
+                          {
+                            value: "pbr",
+                            text: "Paper based review (PBR)",
+                            checked: (data['ir-outcomes'] == "pbr")
+                          },
+                          {
+                            value: "telephone",
+                            text: "Telephone assessment",
+                            checked: (data['ir-outcomes'] == "telephone")
+                          },
+                          {
+                            value: "F2F",
+                            text: "Face to face assessment",
+                            checked: (data['ir-outcomes'] == "F2F")
+                          },
+                          {
+                            value: "SREL",
+                            text: "Special Rules End of Life (SREL)",
+                            checked: (data['ir-outcomes'] == "SREL")
+                          }
+                        ]
+                      }) }}
+
+
+ {{ govukButton({
+                        text: "Save and continue"
+                      }) }}
+
+            </form>
+
+
+
+          </div>
+
+          
+          <!-- <div id="recoRightPane" class="govuk-grid-column-two-fifths">
+            <div id="recoBuilderFrame" class="reco-builder-frame  reco-scrollable-wrapper" data-url="claimant-documents-buttons">
+              &nbsp;
+            </div>
+           </div> -->
+    </div>
+  </main>
+  </div>
+{% endblock %}
