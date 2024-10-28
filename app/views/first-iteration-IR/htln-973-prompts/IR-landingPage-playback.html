@@ -1,0 +1,379 @@
+{% extends "layouts/main.html" %} 
+{% set bodyAttributes = { id: "assess" } %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block main %}
+
+{% include "includes/assessment-status-neutral-pip.html" %}
+
+<div class="govuk-width-container {{ containerClasses }}">
+
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:history.back()"
+  }) }}
+
+  <main class="govuk-main-wrapper {{ mainClasses }}" id="main-content" role="main"{% if mainLang %} lang="{{ mainLang }}"{% endif %}>
+      <div class="govuk-grid-row">
+
+          <div class="govuk-grid-column-two-thirds">
+
+            {% if errors %} 
+              {{ govukErrorSummary({
+                titleText: "There is a problem",
+                errorList: errors.errorList
+              }) }}
+            {% endif %}
+
+            <h1 class="govuk-heading-l">HCP review</h1>
+
+         
+
+
+
+
+
+  <!------------CANNED PHRASES LEGEND------------>
+  {% set legendCannedDetails %}
+        
+        
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-quarter">
+      <p class="govuk-body govuk-!-margin-bottom-2">Out of scope</p>
+
+
+    </div>
+    <div class="govuk-grid-column-three-quarters">
+
+      <p class="govuk-list_prase"><span id="prase1">I cannot consider awarding you PIP for any help you need for anything not covered by the daily living or mobility activities, including</span></p>
+
+
+      <div class="app-example__code">
+          <button class="app-example__copy-code-button" data-copy-text="I cannot consider awarding you PIP for any help you need for anything not covered by the daily living or mobility activities, including" aria-live="assertive" data-module="html">Copy paragraph</button>
+        </div>
+
+    </div>
+  </div>
+
+  <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-quarter">
+      <p class="govuk-body govuk-!-margin-bottom-2">Assistance and supervision ruled out</p>
+
+
+    </div>
+    <div class="govuk-grid-column-three-quarters">
+
+      <p class="govuk-list_prase"><span id="prase2">A restriction for the use of aids is consistent with your reported difficulties caused by pain. A more significant restriction such as assistance or supervision has been considered, however, there is no evidence of significant accidents that would indicate a safety concern. You have no cognitive, learning, or sensory impairment</span></p>
+
+
+      <div class="app-example__code">
+          <button class="app-example__copy-code-button" data-copy-text="A restriction for the use of aids is consistent with your reported difficulties caused by pain. A more significant restriction such as assistance or supervision has been considered, however, there is no evidence of significant accidents that would indicate a safety concern. You have no cognitive, learning, or sensory impairment" aria-live="assertive" data-module="html">Copy paragraph</button>
+        </div>
+
+    </div>
+  </div>
+
+
+
+  <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-quarter">
+      <p class="govuk-body govuk-!-margin-bottom-2">No musculoskeletal condition </p>
+
+
+    </div>
+    <div class="govuk-grid-column-three-quarters">
+
+      <p class="govuk-list_prase"><span id="prase2">You have no musculoskeletal condition to suggest significant restrictions in this activity.</span></p>
+
+
+      <div class="app-example__code">
+          <button class="app-example__copy-code-button" data-copy-text="You have no musculoskeletal condition to suggest significant restrictions in this activity." aria-live="assertive" data-module="html">Copy paragraph</button>
+        </div>
+
+    </div>
+  </div>
+
+  <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-quarter">
+      <p class="govuk-body govuk-!-margin-bottom-2">Bending down to use oven (out of scope)</p>
+
+
+    </div>
+    <div class="govuk-grid-column-three-quarters">
+
+      <p class="govuk-list_prase"><span id="prase2">bending down to use an oven at below waist height</span></p>
+
+
+      <div class="app-example__code">
+          <button class="app-example__copy-code-button" data-copy-text="bending down to use an oven at below waist height" aria-live="assertive" data-module="html">Copy paragraph</button>
+        </div>
+
+    </div>
+  </div>
+
+  <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-quarter">
+      <p class="govuk-body govuk-!-margin-bottom-2">Agree they can manage</p>
+
+    </div>
+
+
+    <div class="govuk-grid-column-three-quarters">
+
+      <p class="govuk-list_prase"><span id="prase3">You said you can manage preparing food. I agree you can manage.</span></p>
+
+
+      <div class="app-example__code">
+          <button class="app-example__copy-code-button" data-copy-text="You said you can manage preparing food. I agree you can manage." aria-live="assertive" data-module="html">Copy paragraph</button>
+        </div>
+
+    </div>
+  </div>
+
+  <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-quarter">
+      <p class="govuk-body govuk-!-margin-bottom-2">Agree they have difficulties</p>
+
+    </div>
+
+
+    <div class="govuk-grid-column-three-quarters">
+
+      <p class="govuk-list_prase"><span id="prase4">You said you have difficulties preparing food. I agree you have difficulties.</span></p>
+
+
+      <div class="app-example__code">
+          <button class="app-example__copy-code-button" data-copy-text="You said you have difficulties preparing food. I agree you have difficulties." aria-live="assertive" data-module="html">Copy paragraph</button>
+        </div>
+
+    </div>
+  </div>
+
+  <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-quarter">
+      <p class="govuk-body govuk-!-margin-bottom-2">Disagree</p>
+
+    </div>
+
+
+    <div class="govuk-grid-column-three-quarters">
+
+      <p class="govuk-list_prase"><span id="prase5">You said you have difficulties preparing food. There is no evidence to suggest this.</span></p>
+
+
+      <div class="app-example__code">
+          <button class="app-example__copy-code-button" data-copy-text="You said you have difficulties preparing food. There is no evidence to suggest this." aria-live="assertive" data-module="html">Copy paragraph</button>
+        </div>
+
+    </div>
+  </div>
+
+  {% endset %}
+
+  <!-- {% set legendCanned %}
+
+  {{ govukDetails({
+    summaryText: "Standard wording examples",
+    classes: "govuk-!-margin-bottom-0",
+    html: legendCannedDetails
+  }) }}
+
+  {% endset %} -->
+
+
+
+  {{ govukDetails({
+    summaryText: "Standard wording examples",
+    classes: "govuk-!-margin-bottom-0",
+    html: legendCannedDetails
+  }) }}
+<br>
+
+
+
+
+
+
+
+
+
+
+
+            <form action="/first-iteration-IR/htln-179-mvp-third-release/IR-landingPage-playback" method="post">
+
+              {% set storedEntryAmount = 0 %}
+
+              <!-- Info captured by previous HCP review -->
+              {% if data["hcpreviewpip" + storedEntryAmount] %}
+                {% for i in range(0, 10) | reverse %}
+                  {% if data["hcpreviewpip" + i] and not errors["hcpreviewpip" + i] and not errors["ir-outcomes" + i] %}
+                  <!-- Heading for each review -->
+                  <!-- <h2 class="govuk-heading-m">HCP review {{ i + 1 }}</h2> -->
+
+                    <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+                      <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Clinical review and justification</dt>
+                        <dd class="govuk-summary-list__value">{{ data["hcpreviewpip" + i] }}</dd>
+                      </div>
+                      <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Case type</dt>
+                        <dd class="govuk-summary-list__value">
+                          {% for item in data["hcpreviewflagspip" + i] %}
+                          <p class="govuk-body">{{ item }}</p>
+                          {% endfor %}
+                        </dd>
+                      </div>
+                      <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Outcome</dt>
+                        <dd class="govuk-summary-list__value">{{ data["ir-outcomes" + i] }}</dd>
+                      </div>
+                      <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">HCP name</dt>
+                        <dd class="govuk-summary-list__value">Sandra Bullock</dd>
+                      </div>
+                      <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Date of review</dt>
+                        <dd class="govuk-summary-list__value">4 April 2023</dd>
+                      </div>
+                    </dl>
+                    {% set storedEntryAmount = storedEntryAmount + 1 %}
+                  {% endif %}
+                {% endfor %}
+              {% endif %}
+
+              {% if (errors or query.viewmode === 'add' or not data["hcpreviewpip0"]) %}
+
+              {{ govukTextarea({
+                  name: "hcpreviewpip" + storedEntryAmount,
+                  id: "hcpreviewpip" + storedEntryAmount,
+                  rows: "12",
+                  label: {
+                    text: "Enter clinical review and justification",
+                    classes: "govuk-label--s",
+                    isPageHeading: false
+                  },
+                  hint: {
+                    text: "Include whether evidence has been reviewed, the type of FME requested, and what to do if it's not returned."
+                  }
+                }) }}
+
+              
+
+                {{ govukCheckboxes({
+                  name: "hcpreviewflagspip" + storedEntryAmount,
+                  values: data['hcpreviewflagspip' + storedEntryAmount],
+                  fieldset: {
+                    legend: {
+                      text: "Is the case one of the following?",
+                      isPageHeading: false,
+                      classes: "govuk-fieldset__legend--s"
+                    }
+                  },
+                  hint: {
+                    text: "Select all that apply."
+                  },
+                  items: [
+                    {
+                      value: "Complex neurological (WCA only)",
+                      text: "Complex neurological (WCA only)"
+                    },
+                    {
+                      value: "TACT - take additional care (PIP only)",
+                      text: "TACT - take additional care  (PIP only)"
+                    }
+                  ]
+                }) }}
+
+                {% if errors["ir-outcomes" + storedEntryAmount] %}
+                  {% set errorMessage = { text: errors["ir-outcomes" + storedEntryAmount].text } %}
+                {% else %}
+                  {% set errorMessage = null %} 
+                {% endif %}
+
+                {{ govukRadios({
+                  name: "ir-outcomes" + storedEntryAmount,
+                  fieldset: {
+                    legend: {
+                      text: "What is the outcome of this review?",
+                      isPageHeading: false,
+                      classes: "govuk-fieldset__legend--s"
+                    }
+                  },
+                  errorMessage: errorMessage,
+                  items: [
+                    {
+                      value: "Request further medical evidence (FME)",
+                      text: "Request further medical evidence (FME)",
+                      checked: (data['ir-outcomes' + storedEntryAmount] == "fme")
+                    },
+                    {
+                      value: "Paper based review (PBR)",
+                      text: "Paper based review (PBR)",
+                      checked: (data['ir-outcomes' + storedEntryAmount] == "pbr")
+                    },
+                    {
+                      value: "Telephone assessment",
+                      text: "Telephone assessment",
+                      checked: (data['ir-outcomes' + storedEntryAmount] == "telephone")
+                    },
+                    {
+                      value: "Face to face assessment",
+                      text: "Face to face assessment",
+                      checked: (data['ir-outcomes' + storedEntryAmount] == "F2F")
+                    },
+                    {
+                      value: "Special rules for end of life (SREL)",
+                      text: "Special rules for end of life (SREL)",
+                      checked: (data['ir-outcomes' + storedEntryAmount] == "SREL")
+                    }
+                  ]
+                }) }}
+
+                {% set errorMessage = null %}
+
+                {% endif %}
+                <br>
+
+                <div class="govuk-button-group">
+                  {% if data["hcpreviewpip0"] and query.viewmode !== 'add' and not errors %}
+                    {{ govukButton({
+                      name: "submit",
+                      value: "Continue",
+                      text: "Continue"
+                    }) }}
+                    {{ govukButton({
+                      name: "submit",
+                      value: "Add another entry",
+                      text: "Add another entry",
+                      classes: "govuk-button--secondary"
+                    }) }}
+                  {% else %}
+                    {{ govukButton({
+                      name: "submit",
+                      value: "Save and continue2",
+                      text: "Save and continue"
+                    }) }}
+                  {% endif %}
+                </div>
+            </form>
+
+          </div>
+    </div>
+  </main>
+  </div>
+{% endblock %}
