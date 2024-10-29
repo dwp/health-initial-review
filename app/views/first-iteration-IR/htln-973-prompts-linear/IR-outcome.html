@@ -1,0 +1,146 @@
+{% extends "layouts/main.html" %} 
+{% set bodyAttributes = { id: "assess" } %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block main %}
+
+{% include "includes/assessment-status-neutral-pip.html" %}
+
+<div class="govuk-width-container {{ containerClasses }}">
+
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:history.back()"
+  }) }}
+
+  <main class="govuk-main-wrapper {{ mainClasses }}" id="main-content" role="main"{% if mainLang %} lang="{{ mainLang }}"{% endif %}>
+      <div class="govuk-grid-row">
+
+          <div class="govuk-grid-column-two-thirds">
+
+            {% if errors %} 
+              {{ govukErrorSummary({
+                titleText: "There is a problem",
+                errorList: errors.errorList
+              }) }}
+            {% endif %}
+
+            <h1 class="govuk-heading-l">HCP review</h1>
+
+         
+            <form action="/first-iteration-IR/htln-973-prompts-linear/IR-reason" method="post">
+          
+            
+          
+
+          {{ govukRadios({
+            name: "ir-outcomes" + storedEntryAmount,
+            fieldset: {
+              legend: {
+                text: "What is the outcome of this review?",
+                isPageHeading: false,
+                classes: "govuk-fieldset__legend--s"
+              }
+            },
+            errorMessage: errorMessage,
+            items: [
+              {
+                value: "Request further medical evidence (FME)",
+                text: "Request further medical evidence (FME)",
+                checked: (data['ir-outcomes' + storedEntryAmount] == "fme")
+              },
+              {
+                value: "Paper based review (PBR)",
+                text: "Paper based review (PBR)",
+                checked: (data['ir-outcomes' + storedEntryAmount] == "pbr")
+              },
+              {
+                value: "Telephone assessment",
+                text: "Telephone assessment",
+                checked: (data['ir-outcomes' + storedEntryAmount] == "telephone")
+              },
+              {
+                value: "Face to face assessment",
+                text: "Face to face assessment",
+                checked: (data['ir-outcomes' + storedEntryAmount] == "F2F")
+              },
+              {
+                value: "Special rules for end of life (SREL)",
+                text: "Special rules for end of life (SREL)",
+                checked: (data['ir-outcomes' + storedEntryAmount] == "SREL")
+              }
+            ]
+          }) }}
+
+    
+
+
+
+
+
+
+
+          
+
+              
+                <br>
+                <br>
+
+                {{ govukCheckboxes({
+                  name: "hcpreviewflagspip" + storedEntryAmount,
+                  values: data['hcpreviewflagspip' + storedEntryAmount],
+                  fieldset: {
+                    legend: {
+                      text: "Is the case one of the following?",
+                      isPageHeading: false,
+                      classes: "govuk-fieldset__legend--s"
+                    }
+                  },
+                  hint: {
+                    text: "Select all that apply."
+                  },
+                  items: [
+                    {
+                      value: "Complex neurological (WCA only)",
+                      text: "Complex neurological (WCA only)"
+                    },
+                    {
+                      value: "TACT - take additional care (PIP only)",
+                      text: "TACT - take additional care  (PIP only)"
+                    }
+                  ]
+                }) }}
+
+                <br>
+
+                <div class="govuk-button-group">
+                  {% if data["hcpreviewpip0"] and query.viewmode !== 'add' and not errors %}
+                    {{ govukButton({
+                      name: "submit",
+                      value: "Continue",
+                      text: "Continue"
+                    }) }}
+                    {{ govukButton({
+                      name: "submit",
+                      value: "Add another entry",
+                      text: "Add another entry",
+                      classes: "govuk-button--secondary"
+                    }) }}
+                  {% else %}
+                    {{ govukButton({
+                      name: "submit",
+                      value: "Save and continue2",
+                      text: "Save and continue"
+                    }) }}
+                  {% endif %}
+                </div>
+            </form>
+
+          </div>
+    </div>
+  </main>
+  </div>
+{% endblock %}
