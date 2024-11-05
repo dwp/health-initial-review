@@ -21,7 +21,7 @@ router.post('/first-iteration-IR/htln-179-mvp-second-release/IR-landingPage-play
 
         if(req.body["hcpreviewpip" + i] === undefined && req.body["ir-outcomes" + i] === undefined) {
             continue;
-        }
+        } 
 
         // if (!req.body["hcpreviewpip" + i]) {
         //     errors.errorList.push({
