@@ -110,42 +110,52 @@
     text: "Select all that apply to add to the HCP review."
   },
   items: [
-    {
-      value: "All evidence reviewed and considered",
-      text: "All evidence reviewed and considered"
-    },
-    {
-      value: "ASN noted on HAS",
-      text: "ASN noted on HAS"
-    },
-    {
-      value: "Conditions stated are (including but not limited to):",
-      text: "Conditions stated are (including but not limited to):"
-    },
-    {
-      value: "Evidence available is insufficient to be able to provide robust advice to the DWP therefore PIP PBR can not be completed at this time",
-      text: "Evidence available is insufficient to be able to provide robust advice to the DWP therefore PIP PBR can not be completed at this time"
-    },
-    {
-      value: "FME request considered however no valid consent",
-      text: "FME request considered however no valid consent"
-    },
-    {
-      value: "No further evidence requested as this is unlikely to advise on information required",
-      text: "No further evidence requested as this is unlikely to advise on information required"
-    },
-    {
-      value: "A full telephone assessment is required to determine input updates, clarify inconsistencies, establish current HOC, SOH variability, functionality and level of support required, to enable robust advice on the level of restriction and the extent of variability",
-      text: "A full telephone assessment is required to determine input updates, clarify inconsistencies, establish current HOC, SOH variability, functionality and level of support required, to enable robust advice on the level of restriction and the extent of variability"
-    },
-    {
-      value: "There is no evidence to suggest this would be unsuitable for the claimant or evidence of significant cognitive or sensory restriction",
-      text: "There is no evidence to suggest this would be unsuitable for the claimant or evidence of significant cognitive or sensory restriction"
-    },
-    {
-      value: "No TA availability restrictions reported",
-      text: "No TA availability restrictions reported"
-    }
+    
+{
+    value: "All evidence reviewed and considered",
+    text: "All evidence reviewed and considered"
+  },
+  {
+    value: "ASN noted on HAS",
+    text: "ASN noted on HAS"
+  },
+  {
+    value: "Conditions stated are (including but not limited to):",
+    text: "Conditions stated are (including but not limited to):"
+  },
+  {
+    value: "Evidence available is insufficient to be able to provide robust advice to the DWP therefore PIP PBR cannot be completed at this time",
+    text: "Evidence available is insufficient to be able to provide robust advice to the DWP therefore PIP PBR cannot be completed at this time"
+  },
+  {
+    value: "FME request considered however no valid consent",
+    text: "FME request considered however no valid consent"
+  },
+  {
+    value: "No further evidence requested as this is unlikely to advise on information required",
+    text: "No further evidence requested as this is unlikely to advise on information required"
+  },
+  {
+    value: "A full telephone assessment is required to determine input updates, clarify inconsistencies, establish current HOC, SOH variability, functionality and level of support required, to enable robust advice on the level of restriction and the extent of variability",
+    text: "A full telephone assessment is required to determine input updates, clarify inconsistencies, establish current HOC, SOH variability, functionality and level of support required, to enable robust advice on the level of restriction and the extent of variability"
+  },
+  {
+    value: "A F2F is required to determine input updates, clarify inconsistencies, establish current HOC, SOH variability, functionality and level of support required, to enable robust advice on the level of restriction and the extent of variability",
+    text: "A F2F is required to determine input updates, clarify inconsistencies, establish current HOC, SOH variability, functionality and level of support required, to enable robust advice on the level of restriction and the extent of variability"
+  },
+  {
+    value: "There is no evidence to suggest this would be unsuitable for the claimant or evidence of significant cognitive, sensory, or intellectual and mental health restrictions",
+    text: "There is no evidence to suggest this would be unsuitable for the claimant or evidence of significant cognitive, sensory, or intellectual and mental health restrictions"
+  },
+  {
+    value: "No TA availability restrictions reported",
+    text: "No TA availability restrictions reported"
+  },
+  {
+    value: "No F2F availability restrictions reported",
+    text: "No F2F availability restrictions reported"
+  }
+
   ]
 }) }}
 
@@ -170,25 +180,22 @@
                   values: data['hcpreviewflagspip' + storedEntryAmount],
                   fieldset: {
                     legend: {
-                      text: "Is the case one of the following?",
+                      text: "Select if applicable",
                       isPageHeading: false,
                       classes: "govuk-fieldset__legend--s"
                     }
                   },
-                  hint: {
-                    text: "Select all that apply."
-                  },
+                  
                   items: [
-                    {
-                      value: "Complex neurological (WCA only)",
-                      text: "Complex neurological (WCA only)"
-                    },
                     {
                       value: "TACT - take additional care (PIP only)",
                       text: "TACT - take additional care  (PIP only)"
                     }
                   ]
-                }) }}
+                }) }} 
+
+
+                 
 
                 {% if errors["ir-outcomes" + storedEntryAmount] %}
                   {% set errorMessage = { text: errors["ir-outcomes" + storedEntryAmount].text } %}
