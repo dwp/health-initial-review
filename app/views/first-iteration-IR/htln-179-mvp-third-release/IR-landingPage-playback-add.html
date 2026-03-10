@@ -19,6 +19,8 @@
   <main class="govuk-main-wrapper {{ mainClasses }}" id="main-content" role="main"{% if mainLang %} lang="{{ mainLang }}"{% endif %}>
       <div class="govuk-grid-row">
 
+      
+
           <div class="govuk-grid-column-two-thirds">
 
             {% if errors %} 
@@ -27,6 +29,10 @@
                 errorList: errors.errorList
               }) }}
             {% endif %}
+
+
+            {% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
+            
 
             <h1 class="govuk-heading-l">HCP review</h1>
 
@@ -187,7 +193,17 @@
                 </div>
             </form>
 
+             
+            
+
           </div>
+
+
+
+         
+
+    </div>
+
     </div>
   </main>
   </div>

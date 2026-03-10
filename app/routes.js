@@ -111,17 +111,43 @@ router.post('/first-iteration-IR/htln-179-mvp-third-release/IR-landingPage-playb
     if(req.body.submit === 'Continue1') {
         return res.redirect('/first-iteration-IR/htln-179-mvp-third-release/event.html');
     }
+
+    if(req.body.submit === 'referral') {
+        return res.redirect('/first-iteration-IR/htln-179-mvp-draft-feb-26/referral-details.html');
+    }
+
+    if(req.body.submit === 'checkanswers') {
+        return res.redirect('/first-iteration-IR/htln-179-mvp-draft-feb-26/check-answers.html');
+        
+    }
+
+    if(req.body.submit === 'add hcp review') {
+        return res.redirect('/first-iteration-IR/htln-179-mvp-draft-feb-26/IR-landingPage-playback-add.html');
+        
+    }
+
+    if(req.body.submit === 'add another entry2') {
+        return res.redirect('/first-iteration-IR/htln-179-mvp-draft-feb-26/IR-landingPage-playback?viewmode=add');
+        
+    }
+
+           
     if(req.body.submit === 'Save and continue1') {
         return res.redirect('/first-iteration-IR/htln-179-mvp-third-release/event.html');
     }
         if(req.body.submit === 'Save and continue2') {
             return res.redirect('IR-landingPage-playback-add.html');
 
+   
+
     } else if (req.body.submit === 'Add another entry') {
         return res.redirect('/first-iteration-IR/htln-179-mvp-third-release/IR-landingPage-playback?viewmode=add')
     } else {
         return next();
     }
+
+   
+    
 });
 
 
