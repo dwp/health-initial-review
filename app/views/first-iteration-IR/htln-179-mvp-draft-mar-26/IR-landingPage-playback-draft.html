@@ -19,8 +19,6 @@
   <main class="govuk-main-wrapper {{ mainClasses }}" id="main-content" role="main"{% if mainLang %} lang="{{ mainLang }}"{% endif %}>
       <div class="govuk-grid-row">
 
-       
-
           <div class="govuk-grid-column-two-thirds">
 
             {% if errors %} 
@@ -30,64 +28,57 @@
               }) }}
             {% endif %}
 
+            <h1 class="govuk-heading-l">HCP review</h1>
 
-            {% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
-
-
-            
-
-            <h1 class="govuk-heading-l">HCP review summary</h1>
-
-            <form action="/first-iteration-IR/htln-179-mvp-third-release/IR-landingPage-playback" method="post">
+            <form action="/first-iteration-IR/htln-179-mvp-second-release/IR-landingPage-playback" method="post">
 
               {% set storedEntryAmount = 0 %}
 
               <!-- Info captured by previous HCP review -->
               {% if data["hcpreviewpip" + storedEntryAmount] %}
-                {# Find the most recent HCP review index #}
-{% set latestEntryIndex = -1 %}
-{% for j in range(0, 10) %}
-  {% if data["hcpreviewpip" + j] %}
-    {% set latestEntryIndex = j %}
-  {% endif %}
-{% endfor %}
+                {% for i in range(0, 10) | reverse %}
+                  {% if data["hcpreviewpip" + i] and not errors["hcpreviewpip" + i] and not errors["ir-outcomes" + i] %}
+                  <!-- Heading for each review -->
+                  <!-- <h2 class="govuk-heading-m">HCP review {{ i + 1 }}</h2> -->
 
-{# Render only the latest entry #}
-{% set i = latestEntryIndex %}
-
-{% if i > -1 and data["hcpreviewpip" + i] and not errors["hcpreviewpip" + i] and not errors["ir-outcomes" + i] %}
-  <dl class="govuk-summary-list govuk-!-margin-bottom-9">
-
-    <div class="govuk-summary-list__row">
-      <dt class="govuk-summary-list__key">Clinical review and justification</dt>
-      <dd class="govuk-summary-list__value">{{ data["hcpreviewpip" + i] }}</dd>
-      <dd class="govuk-summary-list__actions"><a href="">Change</a></dd>
-    </div>
-
-    <div class="govuk-summary-list__row">
-      <dt class="govuk-summary-list__key">Case type</dt>
-      <dd class="govuk-summary-list__value">
-        {% for item in data["hcpreviewflagspip" + i] %}
-          <p class="govuk-body">{{ item }}</p>
-        {% endfor %}
-      </dd>
-      <dd class="govuk-summary-list__actions"><a href="">Change</a></dd>
-    </div>
-
-    <div class="govuk-summary-list__row">
-      <dt class="govuk-summary-list__key">Outcome</dt>
-      <dd class="govuk-summary-list__value">{{ data["ir-outcomes" + i] }}</dd>
-      <dd class="govuk-summary-list__actions"><a href="">Change</a></dd>
-    </div>
-
-    
-
-  </dl>
-{% endif %}
+                    <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+                      <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Clinical review and justification</dt>
+                        <dd class="govuk-summary-list__value">{{ data["hcpreviewpip" + i] }}</dd>
+                      </div>
+                      <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Case type</dt>
+                        <dd class="govuk-summary-list__value">
+                          {% for item in data["hcpreviewflagspip" + i] %}
+                          <p class="govuk-body">{{ item }}</p>
+                          {% endfor %}
+                        </dd>
+                      </div>
+                      <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Outcome</dt>
+                        <dd class="govuk-summary-list__value">{{ data["ir-outcomes" + i] }}</dd>
+                      </div>
+                      <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">HCP name</dt>
+                        <dd class="govuk-summary-list__value">Sandra Bullock</dd>
+                      </div>
+                      <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Date of review</dt>
+                        <dd class="govuk-summary-list__value">4 April 2023</dd>
+                      </div>
+                    </dl>
+                    {% set storedEntryAmount = storedEntryAmount + 1 %}
+                  {% endif %}
+                {% endfor %}
               {% endif %}
 
               {% if (errors or query.viewmode === 'add' or not data["hcpreviewpip0"]) %}
 
+              {% if errors["hcpreviewpip" + storedEntryAmount] %}
+                {% set errorMessage = { text: errors["hcpreviewpip" + storedEntryAmount].text } %}
+              {% else %}
+                {% set errorMessage = null %} 
+              {% endif %}
               {{ govukTextarea({
                   name: "hcpreviewpip" + storedEntryAmount,
                   id: "hcpreviewpip" + storedEntryAmount,
@@ -99,9 +90,12 @@
                   },
                   hint: {
                     text: "Include whether evidence has been reviewed, the type of FME requested, and what to do if it's not returned."
-                  }
+                  },
+                  value: data['hcpreviewpip' + storedEntryAmount],
+                  errorMessage: errorMessage
                 }) }}
 
+                {% set errorMessage = null %}
 
                 {{ govukCheckboxes({
                   name: "hcpreviewflagspip" + storedEntryAmount,
@@ -182,21 +176,26 @@
                   {% if data["hcpreviewpip0"] and query.viewmode !== 'add' and not errors %}
                     {{ govukButton({
                       name: "submit",
-                      value: "add hcp review",
-                      text: "Add HCP review"
+                      value: "Continue",
+                      text: "Continue"
                     }) }}
-                  
+                    {{ govukButton({
+                      name: "submit",
+                      value: "Add another entry",
+                      text: "Add another entry",
+                      classes: "govuk-button--secondary"
+                    }) }}
+                  {% else %}
+                    {{ govukButton({
+                      name: "submit",
+                      value: "Save and continue",
+                      text: "Save and continue"
+                    }) }}
                   {% endif %}
                 </div>
             </form>
-            
 
           </div>
-
-
-
-          
-
     </div>
   </main>
   </div>

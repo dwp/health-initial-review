@@ -121,8 +121,20 @@ router.post('/first-iteration-IR/htln-179-mvp-third-release/IR-landingPage-playb
         
     }
 
+
+    if(req.body.submit === 'checkanswers2') {
+        return res.redirect('/first-iteration-IR/htln-179-mvp-draft-mar-26/check-answers.html');
+        
+    }
+
     if(req.body.submit === 'add hcp review') {
         return res.redirect('/first-iteration-IR/htln-179-mvp-draft-feb-26/IR-landingPage-playback-add.html');
+        
+    }
+
+
+     if(req.body.submit === 'hcpconfirm') {
+        return res.redirect('/first-iteration-IR/htln-179-mvp-draft-mar-26/confirmation.html');
         
     }
 

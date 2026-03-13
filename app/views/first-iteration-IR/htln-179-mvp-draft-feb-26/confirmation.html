@@ -1,0 +1,51 @@
+{% extends "layouts/main.html" %} 
+{% set bodyAttributes = { id: "assess" } %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block main %}
+
+{% include "includes/assessment-status-neutral-pip.html" %}
+
+<div class="govuk-width-container {{ containerClasses }}">
+
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:history.back()"
+  }) }}
+
+  <main class="govuk-main-wrapper {{ mainClasses }}" id="main-content" role="main"{% if mainLang %} lang="{{ mainLang }}"{% endif %}>
+      <div class="govuk-grid-row">
+
+       
+
+          <div class="govuk-grid-column-two-thirds">
+
+            <div class="govuk-panel govuk-panel--confirmation">
+          <h1 class="govuk-panel__title">
+            A new HCP review has been added
+          </h1>
+          <div class="govuk-panel__body">
+            The status has been updated to ‘xxxx’ and a timeline entry has been added. You must still update the caseload.
+          </div>
+        </div>
+        <p class="govuk-body">            The status has been updated to ‘xxxx’ and a timeline entry has been added. You must still update the caseload.
+</p>
+        <h2 class="govuk-heading-m">What you can do next</h2>
+        
+        <p class="govuk-body">
+          <a href="#" class="govuk-link">Go to your tasks</a>
+        </p>
+        <p class="govuk-body">
+          <a href="#" class="govuk-link">Go back to referal details</a>
+        </p>
+         <p class="govuk-body">
+          <a href="#" class="govuk-link">Add another HCP review</a>
+        </p>
+      </div>
+    </div>
+  </main>
+</div>
+{% endblock %}

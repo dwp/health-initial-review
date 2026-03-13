@@ -1,0 +1,206 @@
+{% extends "layouts/main.html" %}
+{% set bodyAttributes = { id: "assess" } %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block main %}
+
+
+{% include "includes/assessment-status-neutral-pip.html" %}
+
+<div class="govuk-width-container {{ containerClasses }}">
+ 
+  <a href="index" class="govuk-back-link">Back</a>
+
+  <main class="govuk-main-wrapper {{ mainClasses }}" id="main-content" role="main"{% if mainLang %} lang="{{ mainLang }}"{% endif %}>
+   
+
+        
+        <div class="govuk-grid-row">
+
+
+            <div class="govuk-grid-column-one-quarter">
+            <nav class="dwp-side-navigation" aria-label="Side" role="navigation">
+                <ul class="dwp-side-navigation__list">
+                    <li class="dwp-side-navigation__item">
+                        <a id="referral-overview" href="claimant-details" class="dwp-side-navigation__link">
+                          Claimant details
+                        </a>
+                    </li>
+
+                    <li class="dwp-side-navigation__item dwp-side-navigation__item--selected">
+                        <a id="claimant-details" href="referral-details" class="dwp-side-navigation__link dwp-side-navigation__link--selected" aria-current="true">
+                            Referral details
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        
+    <div class="govuk-grid-column-one-half">
+      
+      
+
+      <h2 class="govuk-heading-m">Referral details</h2>
+
+      <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Special rules end of life
+          </dt>
+          <dd class="govuk-summary-list__value">
+            No
+          </dd>
+          <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="">
+              Change
+          </a>
+      </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Consent for medical evidence
+          </dt>
+          <dd class="govuk-summary-list__value">
+            No
+          </dd>
+          <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="">
+              Change
+          </a>
+      </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Safety measures
+          </dt>
+          <dd class="govuk-summary-list__value">
+            No
+          </dd>
+          <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="">
+              Change
+          </a>
+      </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Additional support needs
+          </dt>
+          <dd class="govuk-summary-list__value">
+            Not known
+          </dd>
+          <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="">
+              Change
+          </a>
+      </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Referral date
+          </dt>
+          <dd class="govuk-summary-list__value">
+            25 August 2025
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Benefit type
+          </dt>
+          <dd class="govuk-summary-list__value">
+            PIP
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Assessment centre
+          </dt>
+          <dd class="govuk-summary-list__value">
+            Tresco House
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Caseload
+          </dt>
+          <dd class="govuk-summary-list__value">
+            PS
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Next action due
+          </dt>
+          <dd class="govuk-summary-list__value">
+            128 DAYS OVERDUE
+          </dd>
+        </div>
+      </dl>
+
+    </div>
+
+    <div class="govuk-grid-column-one-quarter">
+
+      <aside class="app-related-items" role="complementary">
+        <h2 class="govuk-heading-m" id="subsection-title">
+          What you can do next
+        </h2>
+        <nav role="navigation" aria-labelledby="subsection-title">
+          <ul class="govuk-list">
+            <li>
+              <a href="event.html" class="govuk-link">Update status</a>
+            </li>
+             <!-- <li>
+              <a href="#" class="govuk-link">Book, view assessment</a>
+            </li> -->
+            <li>
+              <a href="IR-landingPage-playback-BG-draft.html" class="govuk-link">
+                {% if data['hcp-review'] or data['hcp-review-flags'] or data['ir-outcomes'] %}
+                HCP review</a>
+                {% else %}
+                   HCP review
+                {% endif %}
+          </li>
+            <li>
+              <a href="/first-iteration-IR/htln-141-second-draft-pip/pip-assessments-spec/assessment-type.html" class="govuk-link">Start assessment</a>
+            </li>
+             <!-- <li>
+              <a href="#" class="govuk-link">Book, view assessment</a>
+            </li> -->
+      
+            <li>
+              <a href="/first-iteration-IR/htln-63-first-draft-pip/supporting-documents/claimant-documents-buttons" class="govuk-link">View claimant documents</a>
+            </li>
+            <!-- <li>
+              <a href="assessment-type.html" class="govuk-link">Start assessment</a>
+            </li> -->
+            <li>
+              <a href="timeline-0-3-5/" class="govuk-link">View timeline</a>
+            </li>
+            <li>
+              <a href="timeline-0-3-5/referral.html" class="govuk-link">Add entry to timeline</a>
+            </li>
+           
+           
+           
+            <li>
+              <a href="#" class="govuk-link">Move to another caseload</a>
+            </li>
+
+         
+            
+          </ul>
+        </nav>
+      </aside>
+
+    </div>
+
+  </div>
+  </main>
+</div>
+
+
+{% endblock %}
