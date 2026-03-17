@@ -134,12 +134,18 @@ router.post('/first-iteration-IR/htln-179-mvp-third-release/IR-landingPage-playb
 
 
      if(req.body.submit === 'hcpconfirm') {
-        return res.redirect('/first-iteration-IR/htln-179-mvp-draft-mar-26/confirmation.html');
+        return res.redirect('/first-iteration-IR/htln-179-mvp-draft-mar-26/tasks.html');
         
     }
 
     if(req.body.submit === 'add another entry2') {
         return res.redirect('/first-iteration-IR/htln-179-mvp-draft-feb-26/IR-landingPage-playback?viewmode=add');
+        
+    }
+
+
+    if(req.body.submit === 'add another entry3') {
+        return res.redirect('/first-iteration-IR/htln-179-mvp-draft-mar-26/IR-landingPage-playback?viewmode=add');
         
     }
 

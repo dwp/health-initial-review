@@ -28,7 +28,7 @@
               }) }}
             {% endif %}
 
-            <h1 class="govuk-heading-l">HCP review</h1>
+            <h1 class="govuk-heading-l">HCP reviews</h1>
 
             
 
@@ -373,10 +373,13 @@
                   {% else %}
                     {{ govukButton({
                       name: "submit",
-                      value: "checkanswers",
+                      value: "checkanswers2",
                       text: "Continue"
                     }) }}
                   {% endif %}
+
+                                      <a class="govuk-link" href="referral-details.html">Return to referral details</a>
+
                 </div>
             </form>
 

@@ -28,7 +28,11 @@
               }) }}
             {% endif %}
 
-            <h1 class="govuk-heading-l">HCP review</h1>
+            <h1 class="govuk-heading-l">HCP reviews</h1>
+                        <!--  <p class="govuk-body-l">No HCP reviews have been added.</p>-->
+
+
+
 
             
 
@@ -357,16 +361,12 @@
 
                 <div class="govuk-button-group">
                   {% if data["hcpreviewpip0"] and query.viewmode !== 'add' and not errors %}
+                    
                     {{ govukButton({
                       name: "submit",
-                      value: "referral",
-                      text: "Return to referral details"
-                    }) }}
-                    {{ govukButton({
-                      name: "submit",
-                      value: "add another entry2",
-                      text: "Add another entry",
-                      classes: "govuk-button--secondary"
+                      value: "add another entry3",
+                      text: "Add HCP review",
+                      classes: "govuk-button--primary"
                     }) }}
                   {% else %}
                     {{ govukButton({
@@ -375,6 +375,11 @@
                       text: "Continue"
                     }) }}
                   {% endif %}
+
+                    <a class="govuk-link" href="referral-details.html">Return to referral details</a>
+
+
+
                 </div>
             </form>
 

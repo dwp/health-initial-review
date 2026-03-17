@@ -79,10 +79,15 @@
       <dd class="govuk-summary-list__value">{{ data["ir-outcomes" + i] }}</dd>
       <dd class="govuk-summary-list__actions"><a href="">Change</a></dd>
     </div>
+</dl>
 
-    
 
-  </dl>
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+
+{{ govukInsetText({
+  text: "By completing the HCP review, you will also close the initial HCP review task. Once the task is closed, it cannot be reopened. Closing the task will not close the case."
+}) }}
+
 {% endif %}
               {% endif %}
 
@@ -178,12 +183,14 @@
                 {% endif %}
                 <br>
 
+                
+
                 <div class="govuk-button-group">
                   {% if data["hcpreviewpip0"] and query.viewmode !== 'add' and not errors %}
                     {{ govukButton({
                       name: "submit",
                       value: "hcpconfirm",
-                      text: "Add HCP review"
+                      text: "Complete HCP review"
                     }) }}
                   
                   {% endif %}
