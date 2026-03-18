@@ -7,29 +7,6 @@
 
 {% block main %}
 
-{% if query.first == "1" and not data["hcpreviewpip0"] %}
-
- <div class="govuk-width-container {{ containerClasses }}">
- <main class="govuk-main-wrapper {{ mainClasses }}" id="main-content" role="main"{% if mainLang %} lang="{{ mainLang }}"{% endif %}>
-<div class="govuk-grid-row">
-
-          <div class="govuk-grid-column-two-thirds">
-
-              <h1 class="govuk-heading-l">HCP reviews</h1>
-<p class="govuk-body-l">No HCP reviews have been added.</p>
-
-  <a class="govuk-button"
-     href="IR-landingPage-playback-BG-draft">Add HCP review</a>
-
-     <p><a href="referral-details.html">Return to referral details</a></p>
-
-     </div>
-     </div>
-     </main>
-     </div>
-
-{% else %}
-
 {% include "includes/assessment-status-neutral-pip.html" %}
 
 <div class="govuk-width-container {{ containerClasses }}">
@@ -57,19 +34,14 @@
 
 
 
-
-
-
             
 
             <form action="/first-iteration-IR/htln-179-mvp-third-release/IR-landingPage-playback" method="post">
 
               {% set storedEntryAmount = 0 %}
 
-              
-
               <!-- Info captured by previous HCP review -->
-              {% if data["hcpreviewpip0"] %}
+              {% if data["hcpreviewpip" + storedEntryAmount] %}
                 {% for i in range(0, 10) | reverse %}
                   {% if data["hcpreviewpip" + i] and not errors["hcpreviewpip" + i] and not errors["ir-outcomes" + i] %}
                   <!-- Heading for each review -->
@@ -430,5 +402,4 @@
     </div>
   </main>
   </div>
-{% endif %}
 {% endblock %}
