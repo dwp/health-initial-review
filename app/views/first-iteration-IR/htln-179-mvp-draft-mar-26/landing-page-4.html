@@ -1,0 +1,37 @@
+{% extends "layouts/main.html" %}
+{% set bodyAttributes = { id: "assess" } %}
+
+{% block pageTitle %}
+GOV.UK Prototype Kit
+{% endblock %}
+
+{% block main %}
+
+{% include "includes/assessment-status-neutral-pip.html" %}
+
+<div class="govuk-width-container {{ containerClasses }}">
+  
+  {{ govukBackLink({
+  text: "Back",
+  href: "javascript:history.back()"
+  }) }}
+
+  <main class="govuk-main-wrapper {{ mainClasses }}" id="main-content" role="main" {% if mainLang %}
+    lang="{{ mainLang }}" {% endif %}>
+    <div class="govuk-grid-row">
+
+      <div class="govuk-grid-column-two-thirds">
+
+        <h1 class="govuk-heading-l">HCP reviews</h1>
+        <p class="govuk-body-l">No HCP reviews have been added.</p>
+
+        <div class="govuk-button-group">
+
+          <a class="govuk-link" href="claimant-details.html">Return to claimant details</a>
+        </div>
+
+      </div>
+    </div>
+  </main>
+</div>
+{% endblock %}
