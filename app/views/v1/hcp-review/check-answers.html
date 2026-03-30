@@ -1,0 +1,213 @@
+{% extends "layouts/main.html" %} 
+{% set bodyAttributes = { id: "assess" } %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block main %}
+
+{% include "includes/assessment-status-neutral-pip.html" %}
+
+<div class="govuk-width-container {{ containerClasses }}">
+
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:history.back()"
+  }) }}
+
+  <main class="govuk-main-wrapper {{ mainClasses }}" id="main-content" role="main"{% if mainLang %} lang="{{ mainLang }}"{% endif %}>
+      <div class="govuk-grid-row">
+
+       
+
+          <div class="govuk-grid-column-two-thirds">
+
+            {% if errors %} 
+              {{ govukErrorSummary({
+                titleText: "There is a problem",
+                errorList: errors.errorList
+              }) }}
+            {% endif %}
+
+
+            {% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
+
+
+            
+
+            <h1 class="govuk-heading-l">HCP review summary</h1>
+
+            <form action="/first-iteration-IR/htln-179-mvp-third-release/IR-landingPage-playback" method="post">
+
+              {% set storedEntryAmount = 0 %}
+
+              <!-- Info captured by previous HCP review -->
+              {% if data["hcpreviewpip" + storedEntryAmount] %}
+                {# Find the most recent HCP review index #}
+{% set latestEntryIndex = -1 %}
+{% for j in range(0, 10) %}
+  {% if data["hcpreviewpip" + j] %}
+    {% set latestEntryIndex = j %}
+  {% endif %}
+{% endfor %}
+
+{# Render only the latest entry #}
+{% set i = latestEntryIndex %}
+
+{% if i > -1 and data["hcpreviewpip" + i] and not errors["hcpreviewpip" + i] and not errors["ir-outcomes" + i] %}
+  <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key">Clinical review and justification</dt>
+      <dd class="govuk-summary-list__value">{{ data["hcpreviewpip" + i] }}</dd>
+      <dd class="govuk-summary-list__actions"><a href="">Change</a></dd>
+    </div>
+
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key">Case type</dt>
+      <dd class="govuk-summary-list__value">
+        {% for item in data["hcpreviewflagspip" + i] %}
+          <p class="govuk-body">{{ item }}</p>
+        {% endfor %}
+      </dd>
+      <dd class="govuk-summary-list__actions"><a href="">Change</a></dd>
+    </div>
+
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key">Outcome</dt>
+      <dd class="govuk-summary-list__value">{{ data["ir-outcomes" + i] }}</dd>
+      <dd class="govuk-summary-list__actions"><a href="">Change</a></dd>
+    </div>
+</dl>
+
+
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+
+{{ govukInsetText({
+  text: "By completing the HCP review, you will also close the initial HCP review task. Once the task is closed, it cannot be reopened. Closing the task will not close the case."
+}) }}
+
+{% endif %}
+              {% endif %}
+
+              {% if (errors or query.viewmode === 'add' or not data["hcpreviewpip0"]) %}
+
+              {{ govukTextarea({
+                  name: "hcpreviewpip" + storedEntryAmount,
+                  id: "hcpreviewpip" + storedEntryAmount,
+                  rows: "12",
+                  label: {
+                    text: "Enter clinical review and justification",
+                    classes: "govuk-label--s",
+                    isPageHeading: false
+                  },
+                  hint: {
+                    text: "Include whether evidence has been reviewed, the type of FME requested, and what to do if it's not returned."
+                  }
+                }) }}
+
+
+                {{ govukCheckboxes({
+                  name: "hcpreviewflagspip" + storedEntryAmount,
+                  values: data['hcpreviewflagspip' + storedEntryAmount],
+                  fieldset: {
+                    legend: {
+                      text: "Is the case one of the following?",
+                      isPageHeading: false,
+                      classes: "govuk-fieldset__legend--s"
+                    }
+                  },
+                  hint: {
+                    text: "Select all that apply."
+                  },
+                  items: [
+                    {
+                      value: "Complex neurological (WCA only)",
+                      text: "Complex neurological (WCA only)"
+                    },
+                    {
+                      value: "TACT - take additional care (PIP only)",
+                      text: "TACT - take additional care  (PIP only)"
+                    }
+                  ]
+                }) }}
+
+                {% if errors["ir-outcomes" + storedEntryAmount] %}
+                  {% set errorMessage = { text: errors["ir-outcomes" + storedEntryAmount].text } %}
+                {% else %}
+                  {% set errorMessage = null %} 
+                {% endif %}
+
+                {{ govukRadios({
+                  name: "ir-outcomes" + storedEntryAmount,
+                  fieldset: {
+                    legend: {
+                      text: "What is the outcome of this review?",
+                      isPageHeading: false,
+                      classes: "govuk-fieldset__legend--s"
+                    }
+                  },
+                  errorMessage: errorMessage,
+                  items: [
+                    {
+                      value: "Request further medical evidence (FME)",
+                      text: "Request further medical evidence (FME)",
+                      checked: (data['ir-outcomes' + storedEntryAmount] == "fme")
+                    },
+                    {
+                      value: "Paper based review (PBR)",
+                      text: "Paper based review (PBR)",
+                      checked: (data['ir-outcomes' + storedEntryAmount] == "pbr")
+                    },
+                    {
+                      value: "Telephone assessment",
+                      text: "Telephone assessment",
+                      checked: (data['ir-outcomes' + storedEntryAmount] == "telephone")
+                    },
+                    {
+                      value: "Face to face assessment",
+                      text: "Face to face assessment",
+                      checked: (data['ir-outcomes' + storedEntryAmount] == "F2F")
+                    },
+                    {
+                      value: "Special rules for end of life (SREL)",
+                      text: "Special rules for end of life (SREL)",
+                      checked: (data['ir-outcomes' + storedEntryAmount] == "SREL")
+                    }
+                  ]
+                }) }}
+
+                {% set errorMessage = null %}
+
+                {% endif %}
+                <br>
+
+                
+
+                <div class="govuk-button-group">
+                  {% if data["hcpreviewpip0"] and query.viewmode !== 'add' and not errors %}
+                    {{ govukButton({
+                      name: "submit",
+                      value: "hcpconfirm2",
+                      text: "Complete HCP review"
+                    }) }}
+                  
+                  {% endif %}
+                    
+                  <a class="govuk-link" href="referral-details.html">Return to referral details</a>
+
+                </div>
+            </form>
+            
+
+          </div>
+
+
+
+          
+
+    </div>
+  </main>
+  </div>
+{% endblock %}

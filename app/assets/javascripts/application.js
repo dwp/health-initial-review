@@ -3,6 +3,17 @@
 // https://prototype-kit.service.gov.uk/docs/adding-css-javascript-and-images
 //
 
+
+// ---------------------------
+// ✅ GOV.UK AND MOJ IMPORTS  
+// ---------------------------
+import { initAll } from 'govuk-frontend'
+initAll()
+
+import moj from '@ministryofjustice/frontend/moj/all.js'
+moj.initAll()
+
+
 window.GOVUKPrototypeKit.documentReady(() => {
 
   // ---------------------------------------------

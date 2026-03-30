@@ -3,7 +3,6 @@
     "node": "20.x",
     "npm": "10.x"
   },
-
   "scripts": {
     "dev": "govuk-prototype-kit dev",
     "serve": "govuk-prototype-kit serve",
@@ -12,7 +11,9 @@
   "dependencies": {
     "@dwp/dwp-frontend": "^3.4.0",
     "@govuk-prototype-kit/common-templates": "^1.0.0",
+    "@ministryofjustice/frontend": "^1.8.1",
     "govuk-frontend": "^4.5.0",
-    "govuk-prototype-kit": "^13.16.2"
+    "govuk-prototype-kit": "^13.16.2",
+    "nunjucks-formatters": "^0.2.0"
   }
 }
