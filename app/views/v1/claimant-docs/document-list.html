@@ -15,6 +15,32 @@
   text: "Back",
   href: "javascript:history.back()"
   }) }}
+
+  {% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
+
+{% if query.msg == "pinned" %}
+    {{ govukNotificationBanner({
+        type: "success",
+        html: '<h3 class="govuk-notification-banner__heading">'
+              ~ query.name ~ ' has been pinned successfully</h3>'
+    }) }}
+{% endif %}
+
+{% if query.msg == "unpinned" %}
+    {{ govukNotificationBanner({
+        type: "success",
+        html: '<h3 class="govuk-notification-banner__heading">'
+              ~ query.name ~ ' has been unpinned successfully</h3>'
+    }) }}
+{% endif %}
+
+{% if query.msg == "unpinall" %}
+    {{ govukNotificationBanner({
+        type: "success",
+        html: '<h3 class="govuk-notification-banner__heading">'
+              ~ 'All documents have been unpinned successfully</h3>'
+    }) }}
+{% endif %}
   
   <!--{% if not query.ncat and not query.irrelevant %}
   {{ govukBackLink({ text: "Back", href: "claimant-details.html" }) }}
@@ -64,7 +90,6 @@
         <thead class="govuk-table__head">
           <tr class="govuk-table__row">
             <th scope="col" class="govuk-table__header column-width-20">
-              
               Name
             </th>
             {% if not query.ncat %}
@@ -78,6 +103,13 @@
             <th scope="col" class="govuk-table__header column-width-15" aria-sort="descending">         
               <button type="button" data-index="3">Date DWP received</button>
             </th>
+            {% if not query.ncat and not query.irrelevant %}
+    <th scope="col" class="govuk-table__header column-width-10">
+        {% if documents | selectattr("pinned") | list | length > 0 %}
+            <a class="govuk-link" href="/v1/claimant-docs/unpin-all">Unpin all documents</a>
+        {% endif %}
+    </th>
+{% endif %}
             {% if query.irrelevant %}
             <th scope="col" class="govuk-table__header column-width-20" aria-sort="none">
               <button type="button" data-index="3">Reason</button>
@@ -92,10 +124,28 @@
         </thead>
         <tbody class="govuk-table__body">
           {% if query.irrelevant %}
-          {% set docsForList = irrelevantDocuments %}
-          {% else %}
-          {% set docsForList = documents %}
-          {% endif %}
+
+    {% set docsForList = irrelevantDocuments %}
+
+{% else %}
+
+    {# Create arrays safely #}
+    {% set pinnedDocs = [] %}
+    {% set unpinnedDocs = [] %}
+
+    {# Loop and build new arrays using “push” #}
+    {% for d in documents %}
+        {% if d.pinned %}
+            {% set _ = pinnedDocs.push(d) %}
+        {% else %}
+            {% set _ = unpinnedDocs.push(d) %}
+        {% endif %}
+    {% endfor %}
+
+    {# Combine them safely #}
+    {% set docsForList = pinnedDocs.concat(unpinnedDocs) %}
+
+{% endif %}
           {% for doc in docsForList %}
               {% if doc.isActive %}
                   <tr class="govuk-table__row filter-table-row">     
@@ -119,8 +169,20 @@
                         {% else %}
                         <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--blue">Not started</strong></td>
                         {% endif %}
-                        {% endif %}  
-                  </tr>
+                        {% endif %}
+                        {% if not query.ncat and not query.irrelevant %}
+<td class="govuk-table__cell">
+    {% if doc.pinned %}
+        <a class="govuk-link" href="/v1/claimant-docs/unpin/{{ doc.id }}">
+            <span style="white-space: nowrap;">Unpin document</span>
+        </a>
+    {% else %}
+        <a class="govuk-link" href="/v1/claimant-docs/pin/{{ doc.id }}">
+            <span style="white-space: nowrap;">Pin document</span>
+        </a>
+    {% endif %}
+</td>
+{% endif %}
               {% endif %}
           {% endfor %}
       </tbody>

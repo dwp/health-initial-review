@@ -17,6 +17,25 @@
     {% endif %}
 
 
+    {% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
+
+{% if query.msg == "pinned" %}
+  {{ govukNotificationBanner({
+    type: "success",
+    html: '<h3 class="govuk-notification-banner__heading">'
+          ~ query.name ~ ' has been pinned successfully</h3>'
+  }) }}
+{% endif %}
+
+{% if query.msg == "unpinned" %}
+  {{ govukNotificationBanner({
+    type: "success",
+    html: '<h3 class="govuk-notification-banner__heading">'
+          ~ query.name ~ ' has been unpinned successfully</h3>'
+  }) }}
+{% endif %}
+
+
         <main class="govuk-main-wrapper {{ mainClasses }}" id="main-content" role="main"{% if mainLang %} lang="{{ mainLang }}"{% endif %}>
  
             <div class="govuk-grid-row">
@@ -36,12 +55,17 @@
                             <dd class="govuk-summary-list__actions"></dd>
                         </div>
                         {% endif %}
-                       
+
                         <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">DRS document name</dt>
+                            <dd class="govuk-summary-list__value">{{ document.name }}</dd>
+                            <dd class="govuk-summary-list__actions"></dd>
+                        </div> 
+                        <!--<div class="govuk-summary-list__row">
                             <dt class="govuk-summary-list__key">Date of document</dt>
                             <dd class="govuk-summary-list__value">{{ document.dateOfDocument }}</dd>
                             <dd class="govuk-summary-list__actions"></dd>
-                        </div>
+                        </div>-->
                         <div class="govuk-summary-list__row">
                             <dt class="govuk-summary-list__key">Date DWP received</dt>
                             <dd class="govuk-summary-list__value">{{ document.dateDwpReceived}}</dd>
@@ -79,6 +103,24 @@
                         <p class="govuk-body">
                         <a href="{{ document.pathToDocument }}" class="govuk-link" rel="noreferrer noopener" target="_blank">Open PDF document in a new tab</a>
                         </p> 
+                        <p class="govuk-body">
+                        <a href="/v1/claimant-docs/remove-document/{{ document.id }}" class="govuk-link" rel="noreferrer noopener">Remove document</a>
+                        </p> 
+
+{% if document.pinned %}
+<p class="govuk-body">
+  <a href="/v1/claimant-docs/unpin/{{ document.id }}?return=view" class="govuk-link">
+    Unpin document
+  </a>
+</p>
+{% else %}
+<p class="govuk-body">
+  <a href="/v1/claimant-docs/pin/{{ document.id }}?return=view" class="govuk-link">
+    Pin document
+  </a>
+</p>
+{% endif %}
+
                     </aside>
                 </div>
             </div>

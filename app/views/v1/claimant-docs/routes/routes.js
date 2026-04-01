@@ -62,6 +62,20 @@ router.get(`${versionPath}/view-document/:id`, (req, res) => {
     return res.render(`v1/claimant-docs/view-document`);
 });
 
+// ✅ REMOVE DOCUMENT (GET)
+router.get(`${versionPath}/remove-document/:id`, (req, res) => {
+
+    const doc = documents.find(d => d.id === req.params.id);
+
+    res.locals.document = doc;
+    res.locals.documents = documents;
+
+    return res.render(`v1/claimant-docs/remove-document`);
+});
+
+
+
+
 // ✅ UPDATE DOCUMENT (GET)
 router.get(`${versionPath}/update-document/:id`, (req, res) => {
 
@@ -111,6 +125,7 @@ router.post(`${versionPath}/update-document/:id`, (req, res) => {
 
     res.locals.previousDocumentId = activeDocs[index - 1]?.id;
     res.locals.nextDocumentId = activeDocs[index + 1]?.id;
+    
 
     // ✅ Handle redirect logic
     if (req.query.irrelevant) {
@@ -186,3 +201,38 @@ router.post(`${versionPath}/autosave`, (req, res) => {
 });
 
 module.exports = router;
+
+
+
+// ✅ PIN A DOCUMENT
+router.get(`${versionPath}/pin/:id`, (req, res) => {
+    const doc = documents.find(d => d.id === req.params.id);
+    if (doc) doc.pinned = true;
+
+    const returnTo = req.query.return === "view"
+        ? `${versionPath}/view-document/${doc.id}?msg=pinned&name=${encodeURIComponent(doc.name)}`
+        : `${versionPath}/document-list?msg=pinned&name=${encodeURIComponent(doc.name)}`;
+
+    return res.redirect(returnTo);
+});
+
+// ✅ UNPIN A DOCUMENT
+router.get(`${versionPath}/unpin/:id`, (req, res) => {
+    const doc = documents.find(d => d.id === req.params.id);
+    if (doc) doc.pinned = false;
+
+    const returnTo = req.query.return === "view"
+        ? `${versionPath}/view-document/${doc.id}?msg=unpinned&name=${encodeURIComponent(doc.name)}`
+        : `${versionPath}/document-list?msg=unpinned&name=${encodeURIComponent(doc.name)}`;
+
+    return res.redirect(returnTo);
+});
+
+
+// ✅ UNPIN ALL DOCUMENTS
+router.get(`${versionPath}/unpin-all`, (req, res) => {
+    documents.forEach(d => d.pinned = false);
+    return res.redirect(`${versionPath}/document-list?msg=unpinall`);
+});
+
+

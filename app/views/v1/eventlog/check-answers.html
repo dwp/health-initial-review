@@ -1,0 +1,385 @@
+{% extends "layouts/main.html" %}
+{% set bodyAttributes = { id: "assess" } %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% set whenDidThisHappenDate = (data['whatAreYouAddingDate-year'] +  "-" + data['whatAreYouAddingDate-month'] + "-" + data['whatAreYouAddingDate-day']) %}
+
+{% set howContactedData = [] %}
+{% for d in data.howContacted %}
+{% set howContactedData = (howContactedData.push(" " +  en.howContacted[d]), howContactedData) %}
+{% endfor %}
+
+
+{% block main %}
+
+
+{% include "includes/assessment-status-neutral-pip.html" %}
+<div class="govuk-width-container {{ containerClasses }}">
+ 
+  {{ govukBackLink({
+  text: "Back",
+  href: "javascript:history.back()"
+  }) }}
+
+  <main class="govuk-main-wrapper {{ mainClasses }}" id="main-content" role="main"{% if mainLang %} lang="{{ mainLang }}"{% endif %}>
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+
+      <h1 class="govuk-heading-l">Check ESA timeline entry</h1>
+
+      {{ govukSummaryList({
+        classes: "govuk-!-margin-bottom-9",
+        rows: [
+          {
+            key: {
+              text: "What are you adding to the timeline?"
+            },
+            value: {
+              text: en.whatAreYouAdding[data.whatAreYouAdding] if data.whatAreYouAdding
+            },
+            actions: {
+              items: [
+                {
+                  href: "/v1/eventlog/reason#"+ en["whatAreYouAdding-selected-id"][data.whatAreYouAdding],
+                  text: "Change" if data.whatAreYouAdding  else "Add"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "When did this happen?"
+            },
+            value: {
+              text: whenDidThisHappenDate | formatDate
+            },
+            actions: {
+              items: [
+                {
+                  href: "/v1/eventlog/reason#whatAreYouAddingDate-day",
+                  text: "Change" if data['whatAreYouAddingDate-year'] else "Add"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "Time of contact"
+            },
+            value: {
+              text: data.whatAreYouAddingTime
+            },
+            actions: {
+              items: [
+                {
+                  href: "/v1/eventlog/reason#whatAreYouAddingTime",
+                  text: "Change" if data.whatAreYouAddingTime else "Add"
+                }
+              ]
+            }
+          }
+        ]
+      }) }}
+
+      <h2 class="govuk-heading-m">{{en.whatAreYouAdding[data.whatAreYouAdding]}}</h2>
+
+      {{ govukSummaryList({
+        classes: "govuk-!-margin-bottom-9",
+        rows: [
+          {
+            key: {
+              text: "Who contacted us about the claim?"
+            },
+            value: {
+              text: en.whoContacted[data.whoContacted]
+            },
+            actions: {
+              items: [
+                {
+                  href: "/v1/eventlog/inbound#" + en["whoContacted-selected-id"][data.whoContacted],
+                  text: "Change" if data.whoContacted else "Add"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "Details of the person or organisation who contacted us"
+            },
+            value: {
+              text: data.whoContactedOther
+            },
+            actions: {
+              items: [
+                {
+                  href: "/v1/eventlog/inbound#whoContactedOther",
+                  text: "Change"
+                }
+              ]
+            }
+          } if data.whoContactedOther and data.whoContacted === "OTHER",
+          {
+            key: {
+              text: "Why did they contact us?"
+            },
+            value: {
+              html: en.whyContacted[data.whyContacted] if data.whyContacted
+            },
+            actions: {
+              items: [
+                {
+                  href: "/v1/eventlog/inbound#" + en["whyContacted-selected-id"][data.whyContacted],
+                  text: "Change" if data.whyContacted else "Add",
+                  visuallyHiddenText: "home address"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "Brief description"
+            },
+            value: {
+              text: data.whyContactedOther
+            },
+            actions: {
+              items: [
+                {
+                  href: "/v1/eventlog/inbound#whyContactedOther",
+                  text: "Change"
+                }
+              ]
+            }
+          } if data.whyContacted == "OTHER",
+          {
+            key: {
+              text: "Further information"
+            },
+            value: {
+              text: data.furtherInfo
+            },
+            actions: {
+              items: [
+                {
+                  href: "/v1/eventlog/inbound#furtherInfo",
+                  text: "Change" if data.furtherInfo else "Add"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "How did they contact us?"
+            },
+            value: {
+              text: howContactedData if data.howContacted
+            },
+            actions: {
+              items: [
+                {
+                  href: "/v1/eventlog/inbound#" + en["howContacted-selected-id"][data.howContacted],
+                  text: "Change" if data.howContacted else "Add"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "Was the claimant’s identity verified?"
+            },
+            value: {
+              text: en.wasIdentityVerified[data.wasIdentityVerified]
+            },
+            actions: {
+              items: [
+                {
+                  href: "/v1/eventlog/inbound#" + en["wasIdentityVerified-selected-id"][data.wasIdentityVerified],
+                  text: "Change" if data.howContacted else "Add"
+                }
+              ]
+            }
+          } if data.howContacted == "PHONE"
+        ]
+      }) if data.whatAreYouAdding === "INBOUND" }}
+
+      {{ govukSummaryList({
+        classes: "govuk-!-margin-bottom-9",
+        rows: [
+          {
+            key: {
+              text: "Who did we contact?"
+            },
+            value: {
+              text: en.whoContacted[data.whoContacted]
+            },
+            actions: {
+              items: [
+                {
+                  href: "/v1/eventlog/outbound#" + en["whoContacted-selected-id"][data.whoContacted],
+                  text: "Change" if data.whoContacted else "Add"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "Details of the person or organisation who contacted us"
+            },
+            value: {
+              text: data.whoContactedOther
+            },
+            actions: {
+              items: [
+                {
+                  href: "/v1/eventlog/outbound#whoContactedOther",
+                  text: "Change"
+                }
+              ]
+            }
+          } if data.whoContactedOther and data.whoContacted === "OTHER",
+          {
+            key: {
+              text: "Why did we contact them?"
+            },
+            value: {
+              text: en.whyContacted[data.whyContacted]
+            },
+            actions: {
+              items: [
+                {
+                  href: "/v1/eventlog/outbound#" + en["outbound-whyContacted-selected-id"][data.whyContacted],
+                  text: "Change" if data.whyContacted else "Add"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "Further information"
+            },
+            value: {
+              text: data.furtherInfo
+            },
+            actions: {
+              items: [
+                {
+                  href: "/v1/eventlog/outbound#furtherInfo",
+                  text: "Change" if data.furtherInfo else "Add"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "How did we contact them?"
+            },
+            value: {
+              text:  howContactedData | join(", ")
+            },
+            actions: {
+              items: [
+                {
+                  href: "/v1/eventlog/outbound#" + en["howContacted-selected-id"][data.howContacted[0]],
+                  text: "Change" if data.howContacted else "Add"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "Was the claimant’s identity verified?"
+            },
+            value: {
+              text:  en.wasIdentityVerified[data.wasIdentityVerified]
+            },
+            actions: {
+              items: [
+                {
+                  href: "/v1/eventlog/outbound#" + en["wasIdentityVerified-selected-id"][data.wasIdentityVerified],
+                  text: "Change"
+                }
+              ]
+            }
+          } if data.howContacted and "PHONE" in data.howContacted
+        ]
+      }) if data.whatAreYouAdding === "OUTBOUND" }}
+
+      {{ govukSummaryList({
+        classes: "govuk-!-margin-bottom-9",
+        rows: [
+          {
+            key: {
+              text: "What has been updated?"
+            },
+            value: {
+              text: en.whatHasBeenUpdated[data.whatHasBeenUpdated]
+            },
+            actions: {
+              items: [
+                {
+                  href: "/v1/eventlog/what-updated#" + en["whatHasBeenUpdated-selected-id"][data.whatHasBeenUpdated],
+                  text: "Change" if data.whatHasBeenUpdated else "Add"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "Brief description"
+            },
+            value: {
+              text: data.whatHasBeenUpdatedOther
+            },
+            actions: {
+              items: [
+                {
+                  href: "/v1/eventlog/what-updated#whatHasBeenUpdatedOther",
+                  text: "Change"
+                }
+              ]
+            }
+          } if data.whatHasBeenUpdated === "OTHER",
+          {
+            key: {
+              text: "Further information"
+            },
+            value: {
+              text: data.furtherInfo
+            },
+            actions: {
+              items: [
+                {
+                  href: "/v1/eventlog/what-updated#furtherInfo",
+                  text: "Change" if data.furtherInfo else "Add"
+                }
+              ]
+            }
+          }
+
+
+        ]
+      }) if data.whatAreYouAdding === "UPDATE" }}
+
+
+      <form action="/v1/eventlog/check-answers" method="post" novalidate>
+        <div class="govuk-button-group">
+        <input type="hidden" name="answers-checked" value="true">
+
+        {{ govukButton({
+          text: "Add timeline entry"
+        }) }}
+
+        <a href="/v1/eventlog/timeline" class="govuk-link">Cancel</a>
+
+</div>
+
+      </form>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

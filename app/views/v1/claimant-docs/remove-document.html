@@ -1,0 +1,76 @@
+{% extends "layouts/main.html" %}
+{% set bodyAttributes = { id: "assess" } %}
+
+{% block pageTitle %}GOV.UK Prototype Kit{% endblock %}
+
+{% block main %}
+
+{% include "v1/claimant-docs/partials/key-details-wide.njk" %}
+<div class="govuk-width-container full-width-container1280">
+
+    <form action="claimant-documents-buttons" method="post" novalidate>
+
+           {{ govukBackLink({
+    text: "Back",
+    href: "javascript:history.back()"
+  }) }}
+
+
+       
+       
+
+        <main class="govuk-main-wrapper {{ mainClasses }}" id="main-content" role="main"{% if mainLang %} lang="{{ mainLang }}"{% endif %}>
+ 
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-two-thirds">
+                    {% if not query.irrelevant %}
+                <!--<span id="docAmountSpan" class="govuk-caption-l">{{ selectedDocument }} of {{ totalDocuments }} documents</span>-->
+                {% endif %}
+                <h1 class="govuk-caption-l">{{ document.name }}</h1>
+
+                {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+
+{{ govukCheckboxes({
+  name: "remove-document",
+  fieldset: {
+    legend: {
+      text: "Are you sure you want to remove this document?",
+      isPageHeading: true,
+      classes: "govuk-fieldset__legend--xl"
+    }
+  },
+ 
+  items: [
+    {
+      value: "other",
+      text: "Yes, I want to remove this document from the document list"
+    }
+  ]
+}) }}
+
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+<div class="govuk-button-group">
+  {{ govukButton({
+    text: "Remove document"
+  }) }}
+
+  <a class="govuk-link" href="">Cancel and return to document</a>
+</div>
+
+
+             
+
+                  
+                    
+            </div>  
+            </div>
+
+        </main>
+    </form>
+</div>
+
+
+
+{% endblock %}

@@ -19,19 +19,18 @@
   <main class="govuk-main-wrapper {{ mainClasses }}" id="main-content" role="main"{% if mainLang %} lang="{{ mainLang }}"{% endif %}>
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-        <form action="/v1/eventlog/v1/outbound" method="post" autocomplete="off" novalidate="">
-
-            <h1 class="govuk-heading-l">Outbound contact</h1>
+<form action="/v1/eventlog/inbound" method="post">
+            <h1 class="govuk-heading-l">Inbound contact</h1>
 
             <div class="govuk-form-group">
                 <fieldset class="govuk-fieldset">
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
-                        Who did we contact?
+                        Who contacted us about the claim?
                     </legend>
 
                     <div class="govuk-radios" data-module="govuk-radios">
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="whoContacted" name="whoContacted" type="radio" value="CLAIMANT" {%  if data.whoContacted == 'CLAIMANT' %}checked{% endif %} />
+                            <input class="govuk-radios__input" id="whoContacted" name="whoContacted" type="radio" value="CLAIMANT" {% if data.whoContacted == 'CLAIMANT' %}checked{% endif %} />
                             <label class="govuk-label govuk-radios__label" for="whoContacted">
                                 The claimant
                             </label>
@@ -61,10 +60,18 @@
                         <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-whoContacted-2">
                             <div class="govuk-form-group">
                                 <label class="govuk-label" for="whoContactedOther">
-                                    Add details of the person or organisation who we contacted
+                                    Add details of the person or organisation who contacted us
                                 </label>
 
-                                <input class="govuk-input govuk-!-width-full-width" id="whoContactedOther" name="whoContactedOther" type="text" spellcheck="false" autocomplete="off" value="{{data.whoContactedOther}}" />
+                                <input
+                                  class="govuk-input govuk-!-width-full-width"
+                                  id="whoContactedOther"
+                                  name="whoContactedOther"
+                                  type="text"
+                                  spellcheck="false"
+                                  autocomplete="off"
+                                  value="{{data.whoContactedOther}}"
+                                   />
                             </div>
                         </div>
                     </div>
@@ -74,73 +81,52 @@
             <div class="govuk-form-group">
                 <fieldset class="govuk-fieldset">
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
-                        Why did we contact them?
+                        Why did they contact us?
                     </legend>
 
                     <div class="govuk-radios" data-module="govuk-radios">
-                        <!--<div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="whyContacted" name="whyContacted" type="radio" value="SENT_QUESTIONNAIRE" {% if data.whyContacted == 'SENT_QUESTIONNAIRE' %}checked{% endif %} />
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="whyContacted" name="whyContacted" type="radio" value="RETURNED_QUESTIONNAIRE" {%  if data.whyContacted == 'RETURNED_QUESTIONNAIRE' %}checked{% endif %} />
                             <label class="govuk-label govuk-radios__label" for="whyContacted">
-                                Sent questionnaire
+                                Returned questionnaire
                             </label>
                         </div>
 
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="whyContacted-2" name="whyContacted" type="radio" value="REMINDED_THEM_TO_RETURN_QUESTIONNAIRE" {% if data.whyContacted == 'REMINDED_THEM_TO_RETURN_QUESTIONNAIRE' %}checked{% endif %} />
+                            <input class="govuk-radios__input" id="whyContacted-2" name="whyContacted" type="radio" value="RESCHEDULED_AN_ASSESSMENT" {%  if data.whyContacted == 'RESCHEDULED_AN_ASSESSMENT' %}checked{% endif %}  />
                             <label class="govuk-label govuk-radios__label" for="whyContacted-2">
-                                Reminded them to return questionnaire
-                            </label>
-                        </div>-->
-
-                        <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="whyContacted-3" name="whyContacted" type="radio" value="REQUESTED_FURTHER_EVIDENCE" {% if data.whyContacted == 'REQUESTED_FURTHER_EVIDENCE' %}checked{% endif %} />
-                            <label class="govuk-label govuk-radios__label" for="whyContacted-3">
-                                Requested further evidence
-                            </label>
-                        </div>
-
-                        <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="whyContacted-4" name="whyContacted" type="radio" value="REMINDED_THEM_TO_SEND_EVIDENCE" {% if data.whyContacted == 'REMINDED_THEM_TO_SEND_EVIDENCE' %}checked{% endif %} />
-                            <label class="govuk-label govuk-radios__label" for="whyContacted-4">
-                                Reminded them to send evidence
-                            </label>
-                        </div>
-
-                        <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="whyContacted-5" name="whyContacted" type="radio" value="BOOKED_AN_ASSESSMENT" {% if data.whyContacted == 'BOOKED_AN_ASSESSMENT' %}checked{% endif %} />
-                            <label class="govuk-label govuk-radios__label" for="whyContacted-5">
-                                Booked an assessment
-                            </label>
-                        </div>
-
-                        <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="whyContacted-6" name="whyContacted" type="radio" value="RESCHEDULED_AN_ASSESSMENT" {% if data.whyContacted == 'RESCHEDULED_AN_ASSESSMENT' %}checked{% endif %} />
-                            <label class="govuk-label govuk-radios__label" for="whyContacted-6">
                                 Rescheduled an assessment
                             </label>
                         </div>
 
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="whyContacted-7" name="whyContacted" type="radio" value="PROGRESS_CHASING" {% if data.whyContacted == 'PROGRESS_CHASING' %}checked{% endif %} />
-                            <label class="govuk-label govuk-radios__label" for="whyContacted-7">
+                            <input class="govuk-radios__input" id="whyContacted-3" name="whyContacted" type="radio" value="PROGRESS_CHASING"  {%  if data.whyContacted == 'PROGRESS_CHASING' %}checked{% endif %} />
+                            <label class="govuk-label govuk-radios__label" for="whyContacted-3">
                                 Progress chasing
                             </label>
                         </div>
 
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="whyContacted-8" name="whyContacted" type="radio" value="OTHER" aria-controls="conditional-whyContacted-8" aria-expanded="false" {% if data.whyContacted == 'OTHER' %}checked{% endif %} />
-                            <label class="govuk-label govuk-radios__label" for="whyContacted-8">
+                            <input class="govuk-radios__input" id="whyContacted-4" name="whyContacted" type="radio" value="WITHDREW_THEIR_CLAIM" {%  if data.whyContacted == 'WITHDREW_THEIR_CLAIM' %}checked{% endif %} />
+                            <label class="govuk-label govuk-radios__label" for="whyContacted-4">
+                                Withdrew their claim
+                            </label>
+                        </div>
+
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="whyContacted-5" name="whyContacted" type="radio" value="OTHER" aria-controls="conditional-whyContacted-5" aria-expanded="false" {%  if data.whyContacted == 'OTHER' %}checked{% endif %} />
+                            <label class="govuk-label govuk-radios__label" for="whyContacted-5">
                                 Something else
                             </label>
                         </div>
 
-                        <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-whyContacted-8">
+                        <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-whyContacted-5">
                             <div class="govuk-form-group">
                                 <label class="govuk-label" for="whyContactedOther">
                                     Give a brief description
                                 </label>
 
-                                <input class="govuk-input govuk-!-width-one-half" id="whyContactedOther" name="whyContactedOther" type="text" spellcheck="false" autocomplete="off" value="{{data.whyContactedOther}}" />
+                                <input class="govuk-input govuk-!-width-one-half" id="whyContactedOther" name="whyContactedOther" type="text" spellcheck="false" autocomplete="off" />
                             </div>
                         </div>
                     </div>
@@ -166,40 +152,36 @@
 
 
             <div class="govuk-form-group">
-                <fieldset class="govuk-fieldset" aria-describedby="howContacted-hint">
+                <fieldset class="govuk-fieldset">
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
-                        How did we contact them?
+                        How did they contact us?
                     </legend>
 
-                    <div id="howContacted-hint" class="govuk-hint">
-                        Select all that apply.
-                    </div>
-
-                    <div class="govuk-checkboxes" data-module="govuk-checkboxes">
-                        <div class="govuk-checkboxes__item">
-                            <input class="govuk-checkboxes__input" id="howContacted" name="howContacted" type="checkbox" value="PHONE" {% if data.howContacted and 'PHONE' in data.howContacted  %}checked{% endif %} />
-                            <label class="govuk-label govuk-checkboxes__label" for="howContacted">
+                    <div class="govuk-radios" data-module="govuk-radios" >
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="howContacted" name="howContacted" type="radio" value="PHONE" {%  if data.howContacted == 'PHONE' %}checked{% endif %} />
+                            <label class="govuk-label govuk-radios__label" for="howContacted">
                                 Telephone call
                             </label>
                         </div>
 
-                        <div class="govuk-checkboxes__item">
-                            <input class="govuk-checkboxes__input" id="howContacted-2" name="howContacted" type="checkbox" value="EMAIL" {% if data.howContacted and 'EMAIL' in data.howContacted  %}checked{% endif %} />
-                            <label class="govuk-label govuk-checkboxes__label" for="howContacted-2">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="howContacted-2" name="howContacted" type="radio" value="EMAIL"  {%  if data.howContacted == 'EMAIL' %}checked{% endif %} />
+                            <label class="govuk-label govuk-radios__label" for="howContacted-2">
                                 Email
                             </label>
                         </div>
 
-                        <div class="govuk-checkboxes__item">
-                            <input class="govuk-checkboxes__input" id="howContacted-3" name="howContacted" type="checkbox" value="SMS" {% if data.howContacted and 'SMS' in data.howContacted  %}checked{% endif %} />
-                            <label class="govuk-label govuk-checkboxes__label" for="howContacted-3">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="howContacted-3" name="howContacted" type="radio" value="SMS"  {%  if data.howContacted == 'SMS' %}checked{% endif %}  />
+                            <label class="govuk-label govuk-radios__label" for="howContacted-3">
                                 Text message
                             </label>
                         </div>
 
-                        <div class="govuk-checkboxes__item">
-                            <input class="govuk-checkboxes__input" id="howContacted-4" name="howContacted" type="checkbox" value="POST" {% if data.howContacted and 'POST' in data.howContacted  %}checked{% endif %} />
-                            <label class="govuk-label govuk-checkboxes__label" for="howContacted-4">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="howContacted-4" name="howContacted" type="radio" value="POST"  {%  if data.howContacted == 'POST' %}checked{% endif %}  />
+                            <label class="govuk-label govuk-radios__label" for="howContacted-4">
                                 Post
                             </label>
                         </div>
@@ -215,14 +197,14 @@
 
                     <div class="govuk-radios" data-module="govuk-radios">
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="wasIdentityVerified" name="wasIdentityVerified" type="radio" value="YES" {% if data.wasIdentityVerified == 'YES' %}checked{% endif %} />
+                            <input class="govuk-radios__input" id="wasIdentityVerified" name="wasIdentityVerified" type="radio" value="YES" {%  if data.wasIdentityVerified == 'YES' %}checked{% endif %}  />
                             <label class="govuk-label govuk-radios__label" for="wasIdentityVerified">
                                 Yes, their identity was verified
                             </label>
                         </div>
 
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="wasIdentityVerified-2" name="wasIdentityVerified" type="radio" value="NO" {% if data.wasIdentityVerified == 'NO' %}checked{% endif %} />
+                            <input class="govuk-radios__input" id="wasIdentityVerified-2" name="wasIdentityVerified" type="radio" value="NO" {%  if data.wasIdentityVerified == 'NO' %}checked{% endif %}  />
                             <label class="govuk-label govuk-radios__label" for="wasIdentityVerified-2">
                                 No, their identity was not verified
                             </label>

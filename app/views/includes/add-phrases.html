@@ -1,0 +1,29 @@
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  const button = document.getElementById("add-phrases-button");
+  if (!button) return;
+
+  button.addEventListener("click", function () {
+
+    const textarea = document.querySelector('textarea[id^="hcpreviewpip"]');
+    if (!textarea) return;
+
+    const selected = Array.from(
+      document.querySelectorAll('input[name="Common-statements"]:checked')
+    ).map(cb => cb.value);
+
+    if (selected.length === 0) return;
+
+    const existing = textarea.value.trim();
+
+    textarea.value =
+      existing
+        ? existing + "\n\n" + selected.join("\n")
+        : selected.join("\n");
+
+    textarea.focus();
+  });
+
+});
+</script>

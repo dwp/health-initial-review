@@ -13,6 +13,9 @@ router.all('*', (req, res, next) => {
 });
 
 
+
+
+
 router.post('/first-iteration-IR/htln-179-mvp-second-release/IR-landingPage-playback*', (req, res, next) => {    
     let errors = {
         errorList: []
@@ -63,7 +66,39 @@ router.post('/first-iteration-IR/htln-179-mvp-second-release/IR-landingPage-play
 });
 // Add your routes here
 
-router.use("/v1/eventlog/v1/", (req, res, next) => {
+
+// === REFERRAL v1 ROUTES (Copied from original) ===
+
+router.post("/v1/referral/create/claimant-details", function (req, res) {
+  res.redirect("/v1/referral/create/referral-details");
+});
+
+router.post("/v1/referral/create/contact-details", function (req, res) {
+  res.redirect("/v1/referral/create/benefit-type");
+});
+
+router.post("/v1/referral/create/benefit-type", function (req, res) {
+  res.redirect("/v1/referral/create/referral-type");
+});
+
+router.post("/v1/referral/create/referral-type", function (req, res) {
+  res.redirect("/v1/referral/create/additional-details");
+});
+
+router.post("/v1/referral/create/additional-details", function (req, res) {
+  res.redirect("/v1/referral/create/check-answers");
+});
+
+router.post("/v1/referral/create/referral-details", function (req, res) {
+  res.redirect("/v1/referral/create/check-answers");
+});
+
+router.post("/v1/referral/create/confirmation", function (req, res) {
+  req.session.data = {};
+  res.redirect("/v1/referral/create/confirmation");
+});
+
+router.use("/v1/eventlog/", (req, res, next) => {
   res.locals.formData = req.session.data || {};
   res.locals.data = req.session.data || {};
   const today = new Date();
@@ -78,12 +113,12 @@ router.use("/v1/eventlog/v1/", (req, res, next) => {
 
 // ==== EVENTLOG / TIMELINE ROUTES (Corrected for Proto‑A) ====
 
-// Adjusted require paths to match your “views/v1/eventlog/v1” structure
-const { timelineData } = require("./views/v1/eventlog/v1/data");
-const { en } = require("./views/v1/eventlog/v1/lang");
+// Adjusted require paths to match your “views/v1/eventlog/” structure
+const { timelineData } = require("./views/v1/eventlog/data");
+const { en } = require("./views/v1/eventlog/lang");
 
-// Correct route prefix: /v1/eventlog/v1/timeline
-router.use("/v1/eventlog/v1/timeline", (req, res, next) => {
+// Correct route prefix: /v1/eventlog/timeline
+router.use("/v1/eventlog/timeline", (req, res, next) => {
   const pinned = req.query.pin;
   const unpinned = req.query.unpin;
 
@@ -107,22 +142,22 @@ router.use("/v1/eventlog/v1/timeline", (req, res, next) => {
 });
 
 // Reason → branching to inbound/outbound
-router.post("/v1/eventlog/v1/reason", function (req, res) {
+router.post("/v1/eventlog/reason", function (req, res) {
   const w = req.session.data["whatAreYouAdding"];
 
-  if (w === "INBOUND")  return res.redirect("/v1/eventlog/v1/inbound");
-  if (w === "OUTBOUND") return res.redirect("/v1/eventlog/v1/outbound");
+  if (w === "INBOUND")  return res.redirect("/v1/eventlog/inbound");
+  if (w === "OUTBOUND") return res.redirect("/v1/eventlog/outbound");
 
   return res.redirect("/v1/eventlog/v1/what-updated");
 });
 
 // Posting for inbound/outbound/what-updated
-router.post("/v1/eventlog/v1/inbound",  (req, res) => res.redirect("/v1/eventlog/v1/check-answers"));
-router.post("/v1/eventlog/v1/outbound", (req, res) => res.redirect("/v1/eventlog/v1/check-answers"));
-router.post("/v1/eventlog/v1/what-updated", (req, res) => res.redirect("/v1/eventlog/v1/check-answers"));
+router.post("/v1/eventlog/inbound",  (req, res) => res.redirect("/v1/eventlog/check-answers"));
+router.post("/v1/eventlog/outbound", (req, res) => res.redirect("/v1/eventlog/check-answers"));
+router.post("/v1/eventlog/what-updated", (req, res) => res.redirect("/v1/eventlog/check-answers"));
 
 // Add new timeline entry
-router.post("/v1/eventlog/v1/check-answers", function (req, res) {
+router.post("/v1/eventlog/check-answers", function (req, res) {
   const date = `${req.session.data["whatAreYouAddingDate-year"]}-${req.session.data["whatAreYouAddingDate-month"]}-${req.session.data["whatAreYouAddingDate-day"]}`;
 
   timelineData.unshift({
@@ -168,7 +203,7 @@ router.post("/v1/eventlog/v1/check-answers", function (req, res) {
   res.locals.timeline = timelineData;
 
   // Redirect back to timeline successfully
-  res.redirect("/v1/eventlog/v1/timeline?entry=true");
+  res.redirect("/v1/eventlog/timeline?entry=true");
 });
 
 // ==== END EVENTLOG / TIMELINE ROUTES ====
@@ -211,6 +246,21 @@ router.post('/first-iteration-IR/htln-179-mvp-third-release/IR-landingPage-playb
             break;
         }
     }
+
+     if(req.body.submit === 'checkanswers3') {
+        return res.redirect('/v1/hcp-review/check-answers.html');
+        
+    }
+
+    if(req.body.submit === 'hcpconfirm2') {
+        return res.redirect('/v1/hcp-review/tasks.html');
+        
+    }
+
+      if(req.body.submit === 'add another entry4') {
+        return res.redirect('/v1/hcp-review/IR-landingPage-playback?viewmode=add');
+        
+    }
     if (errors.errorList.length > 0) {
         res.locals.errors = errors;
         return res.render('first-iteration-IR/htln-179-mvp-third-release/IR-landingPage-playback');
@@ -237,18 +287,6 @@ router.post('/first-iteration-IR/htln-179-mvp-third-release/IR-landingPage-playb
         
     }
 
-
-    if(req.body.submit === 'checkanswers3') {
-        return res.redirect('/v1/hcp-review/check-answers.html');
-        
-    }
-
-    if(req.body.submit === 'hcpconfirm2') {
-        return res.redirect('/v1/hcp-review/tasks.html');
-        
-    }
-
-
     if(req.body.submit === 'add hcp review') {
         return res.redirect('/first-iteration-IR/htln-179-mvp-draft-feb-26/IR-landingPage-playback-add.html');
         
@@ -268,11 +306,6 @@ router.post('/first-iteration-IR/htln-179-mvp-third-release/IR-landingPage-playb
 
     if(req.body.submit === 'add another entry3') {
         return res.redirect('/first-iteration-IR/htln-179-mvp-draft-mar-26/IR-landingPage-playback?viewmode=add');
-        
-    }
-
-    if(req.body.submit === 'add another entry4') {
-        return res.redirect('/v1/hcp-review/IR-landingPage-playback?viewmode=add');
         
     }
 

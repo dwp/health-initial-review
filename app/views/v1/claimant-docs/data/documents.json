@@ -7,7 +7,7 @@
         "dateDay": "27",
         "dateMonth": "07",
         "dateYear": "2021",
-        "dateDwpReceived": "10-09-2023",
+        "dateDwpReceived": "10 Sept 2023",
         "pathToDocument": "/public/pdfs/UR-file1/Award-Review-AR1_2021-09-10_98C_Redacted.pdf",
         "important": false,
         "read": false,
@@ -24,7 +24,7 @@
         "dateDay": "27",
         "dateMonth": "07",
         "dateYear": "2021",
-        "dateDwpReceived": "10-09-2021",
+        "dateDwpReceived": "10 Sept 2021",
         "pathToDocument": "/public/pdfs/UR-file1/Award-Review-AR1-Covering-Letter_2021-09-10_98C_Redacted.pdf",
         "important": false,
         "read": false,
@@ -201,5 +201,11 @@
         "archived": false,
         "read": false,
         "isActive": true
-    }
+    },
+
+    {
+        "id": "123",
+         "name": "Example document",
+        "pinned": false
+    }   
 ]
