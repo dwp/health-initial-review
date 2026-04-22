@@ -1,0 +1,187 @@
+{% extends "layouts/main.html" %}
+
+
+{% block content %}
+ 
+{{ govukBackLink({
+    text: "Back",
+    href: "javascript:history.back()"
+  }) }}
+
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-three-quarters">
+
+
+         <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+  <div class="govuk-notification-banner__header">
+    <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+      Success
+    </h2>
+  </div>
+  <div class="govuk-notification-banner__content">
+    <h3 class="govuk-notification-banner__heading">
+        All alerts removed for RN654321X
+    </h3>
+   <!-- <p class="govuk-body">Contact <a class="govuk-notification-banner__link" href="#">example@department.gov.uk</a> if you think there’s a problem.</p> -->
+  </div>
+</div>
+            <h1 class="govuk-heading-xl">Changes to PIP referral alerts</h1>
+
+
+        <table class="govuk-table">
+            <caption class="govuk-table__caption govuk-visually-hidden">
+                Unactioned PIP alerts
+            </caption>
+            <thead class="govuk-table__head">
+                <tr class="govuk-table__row">
+                    <th scope="col" class="govuk-table__header">Date created</th>
+                    <th scope="col" class="govuk-table__header">NI number</th>
+                    <th scope="col" class="govuk-table__header">End of life</th>
+                    <th scope="col" class="govuk-table__header" id="action-column-heading">Action</th>
+                </tr>
+            </thead>
+            <tbody class="govuk-table__body">
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">9 Apr 2026</td>
+                    <td class="govuk-table__cell">RN000000C</td>
+                    <td class="govuk-table__cell">No</td>
+                    <td class="govuk-table__cell" id='action-column-cell-67e42c64d0b02e142e61904e"'>
+                            <a href="" tabindex="0" class="govuk-link govuk-link--no-visited-state">View alerts (3)</a>
+                    </td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">10 Apr 2026</td>
+                    <td class="govuk-table__cell">JC223300A</td>
+                    <td class="govuk-table__cell">No</td>
+                    <td class="govuk-table__cell" id='action-column-cell-67e42c64d0b02e142e61904e"'>
+                            <a href="" tabindex="0" class="govuk-link govuk-link--no-visited-state">View alerts (3)</a>
+                    </td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">10 Apr 2026</td>
+                    <td class="govuk-table__cell">PL000000C</td>
+                    <td class="govuk-table__cell">No</td>
+                    <td class="govuk-table__cell" id='action-column-cell-67e42c64d0b02e142e61904e"'>
+                            <a href="" tabindex="0" class="govuk-link govuk-link--no-visited-state">View alerts (3)</a>
+                    </td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">10 Apr 2026</td>
+                    <td class="govuk-table__cell">JC224400B</td>
+                    <td class="govuk-table__cell">No</td>
+                    <td class="govuk-table__cell" id='action-column-cell-67e42c64d0b02e142e61904e"'>
+                            <a href="" tabindex="0" class="govuk-link govuk-link--no-visited-state">View alerts (3)</a>
+                    </td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">13 Apr 2026</td>
+                    <td class="govuk-table__cell">RN110055C</td>
+                    <td class="govuk-table__cell">No</td>
+                    <td class="govuk-table__cell" id='action-column-cell-67e42c64d0b02e142e61904e"'>
+                            <a href="" tabindex="0" class="govuk-link govuk-link--no-visited-state">View alerts (3)</a>
+                    </td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">13 Apr 2026</td>
+                    <td class="govuk-table__cell">BG429967C</td>
+                    <td class="govuk-table__cell">No</td>
+                    <td class="govuk-table__cell" id='action-column-cell-67e42c64d0b02e142e61904e"'>
+                            <a href="" tabindex="0" class="govuk-link govuk-link--no-visited-state">View alerts (3)</a>
+                    </td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">13 Apr 2026</td>
+                    <td class="govuk-table__cell">QC123456C</td>
+                    <td class="govuk-table__cell">No</td>
+                    <td class="govuk-table__cell" id='action-column-cell-67e42c64d0b02e142e61904e"'>
+                            <a href="" tabindex="0" class="govuk-link govuk-link--no-visited-state">View alerts (3)</a>
+                    </td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">14 Apr 2026</td>
+                    <td class="govuk-table__cell">NP234478C</td>
+                    <td class="govuk-table__cell">No</td>
+                    <td class="govuk-table__cell" id='action-column-cell-67e42c64d0b02e142e61904e"'>
+                            <a href="" tabindex="0" class="govuk-link govuk-link--no-visited-state">View alerts (3)</a>
+                    </td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">14 Apr 2026</td>
+                    <td class="govuk-table__cell">WA557799B</td>
+                    <td class="govuk-table__cell">No</td>
+                    <td class="govuk-table__cell" id='action-column-cell-67e42c64d0b02e142e61904e"'>
+                            <a href="" tabindex="0" class="govuk-link govuk-link--no-visited-state">View alerts (3)</a>
+                    </td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">14 Apr 2026</td>
+                    <td class="govuk-table__cell">QQ987654A</td>
+                    <td class="govuk-table__cell">No</td>
+                    <td class="govuk-table__cell" id='action-column-cell-67e42c64d0b02e142e61904e"'>
+                            <a href="" tabindex="0" class="govuk-link govuk-link--no-visited-state">View alerts (3)</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+
+    </div>
+</div>
+
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-half">
+
+
+<nav class="govuk-pagination" aria-label="Pagination">
+  <!--<div class="govuk-pagination__prev">
+    <a class="govuk-link govuk-pagination__link" href="#" rel="prev">
+      <svg class="govuk-pagination__icon govuk-pagination__icon--prev" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13">
+        <path d="m6.5938-0.0078125-6.7266 6.7266 6.7441 6.4062 1.377-1.449-4.1856-3.9768h12.896v-2h-12.984l4.2931-4.293-1.414-1.414z"></path>
+      </svg>
+      <span class="govuk-pagination__link-title">
+        Previous<span class="govuk-visually-hidden"> page</span>
+      </span>
+    </a>
+  </div>-->
+  <ul class="govuk-pagination__list">
+    <li class="govuk-pagination__item govuk-pagination__item--current">
+      <a class="govuk-link govuk-pagination__link" href="#" aria-label="Page 1" aria-current="page">
+        1
+      </a>
+    </li>
+    <li class="govuk-pagination__item">
+      <a class="govuk-link govuk-pagination__link" href="#" aria-label="Page 2">
+        2
+      </a>
+    </li>
+  </ul>
+  <div class="govuk-pagination__next">
+    <a class="govuk-link govuk-pagination__link" href="#" rel="next">
+      <span class="govuk-pagination__link-title">
+        Next<span class="govuk-visually-hidden"> page</span>
+      </span>
+      <svg class="govuk-pagination__icon govuk-pagination__icon--next" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13">
+        <path d="m8.107-0.0078125-1.4136 1.414 4.2926 4.293h-12.986v2h12.896l-4.1855 3.9766 1.377 1.4492 6.7441-6.4062-6.7246-6.7266z"></path>
+      </svg>
+    </a>
+  </div>
+</nav>
+</div>
+
+        
+<div class="govuk-grid-column-one-quarter">
+
+
+<nav class="has_pagination" aria-label="has_pagination">
+            <p class="has_pagination__results" style="float: right">Showing <span class="govuk-!-font-weight-bold">1</span> to <span class="govuk-!-font-weight-bold">10</span> of <span class="govuk-!-font-weight-bold">14</span> alerts</p>
+        </nav>
+
+
+
+    </div>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,88 @@
+{% extends "layouts/main.html" %}
+{% set bodyAttributes = { id: "assess" } %}
+
+{% block pageTitle %}
+GOV.UK Prototype Kit
+{% endblock %}
+
+{% block main %}
+
+{% include "includes/unactioned-alert-task.html" %}
+
+<div class="govuk-width-container {{ containerClasses }}">
+
+  {{ govukBackLink({
+  text: "Back",
+  href: "javascript:history.back()"
+  }) }}
+
+  <main class="govuk-main-wrapper {{ mainClasses }}" id="main-content" role="main" {% if mainLang %} lang="{{ mainLang }}" {% endif %}>
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+
+        <table class="govuk-table">
+  <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+      <th scope="col" class="govuk-table__header">Date recieved</th>
+      <td scope="col" class="govuk-table__cell">9th Apr 2026</th>
+    </tr>
+  </thead>
+  <tbody class="govuk-table__body">
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">Date created</th>
+      <td class="govuk-table__cell">9th Apr 2026</td>
+    </tr>
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">Special rules endo of life</th>
+      <td class="govuk-table__cell">No</td>
+    </tr>
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">Task type</th>
+      <td class="govuk-table__cell">Request AP Advice</td>
+    </tr>
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">Priority</th>
+      <td class="govuk-table__cell">High</td>
+    </tr>
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">Subject</th>
+      <td class="govuk-table__cell">JP498758945 - Evidence needed</td>
+    </tr>
+  </tbody>
+</table>
+
+
+<div class="govuk-form-group">
+  <fieldset class="govuk-fieldset">
+    <div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
+      <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input" id="organisation" name="organisation" type="checkbox" value="hmrc">
+        <label class="govuk-label govuk-checkboxes__label" for="organisation">
+          Confirm the alert is actioned
+        </label>
+      </div>
+    </div>
+  </fieldset>
+</div>
+
+
+          <div class="govuk-button-group">
+<a href="unactioned-alerts-opt3-2" type="submit" class="govuk-button" data-module="govuk-button">
+  Confirm and remove
+</a>
+
+
+          <p>  <a class="govuk-link" href="unactioned-alerts-opt3">Return to unactioned alerts</a></p>
+
+</div>
+
+        </div>
+
+
+
+
+
+    </div>
+  </main>
+</div>
+{% endblock %}

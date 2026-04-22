@@ -1,0 +1,143 @@
+{% extends "layouts/main.html" %}
+{% set bodyAttributes = { id: "assess" } %}
+
+{% block pageTitle %}
+GOV.UK Prototype Kit
+{% endblock %}
+
+{% block main %}
+
+{% include "includes/assessment-status-neutral-pip.html" %}
+
+<div class="govuk-width-container {{ containerClasses }}">
+
+  {{ govukBackLink({
+  text: "Back",
+  href: "javascript:history.back()"
+  }) }}
+
+  <main class="govuk-main-wrapper {{ mainClasses }}" id="main-content" role="main" {% if mainLang %} lang="{{ mainLang }}" {% endif %}>
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+          
+          <span class="govuk-caption-xl">Unactioned alerts 1 of 3</span>
+<h1 class="govuk-heading-xl">Unactioned alerts (3)</h1>
+
+{% from "govuk/components/accordion/macro.njk" import govukAccordion %}
+
+{{ govukAccordion({
+  id: "accordion-default",
+  items: [
+    {
+      heading: {
+        text: "Change of circ"
+      },
+      content: {
+        html: '<p class="govuk-body">This is the content for Writing well for the web.</p>'
+      }
+    },
+    {
+      heading: {
+        text: "Task"
+      },
+      content: {
+        html: '
+
+
+            
+        <table class="govuk-table">
+  <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+      <th scope="col" class="govuk-table__header">Date recieved</th>
+      <td scope="col" class="govuk-table__cell">9th Apr 2026</th>
+    </tr>
+  </thead>
+  <tbody class="govuk-table__body">
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">Date created</th>
+      <td class="govuk-table__cell">9th Apr 2026</td>
+    </tr>
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">Special rules endo of life</th>
+      <td class="govuk-table__cell">No</td>
+    </tr>
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">Task type</th>
+      <td class="govuk-table__cell">Request AP Advice</td>
+    </tr>
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">Priority</th>
+      <td class="govuk-table__cell">High</td>
+    </tr>
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">Subject</th>
+      <td class="govuk-table__cell">JP498758945 - Evidence needed</td>
+    </tr>
+  </tbody>
+</table>'
+      }
+    },
+    {
+      heading: {
+        text: "Task"
+      },
+      content: {
+        html: '<p class="govuk-body">This is the content for Know your audience.</p>'
+      }
+    }
+  ]
+}) }}
+
+
+
+
+    </div>
+    <div class="govuk-grid-column-one-third">
+          <aside class="app-related-items" role="complementary">
+                        <h1 class="govuk-heading-m">Manage </h1>
+                  
+
+                        <div class="govuk-form-group">
+  <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+    <div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
+      <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input" id="waste" name="waste" type="checkbox" value="carcasses">
+        <label class="govuk-label govuk-checkboxes__label" for="waste">
+          Change of circ alert actioned  
+        </label>
+      </div>
+      <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input" id="waste" name="waste" type="checkbox" value="carcasses">
+        <label class="govuk-label govuk-checkboxes__label" for="waste">
+          Task alert actioned  
+        </label>
+      </div>
+      <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input" id="waste" name="waste" type="checkbox" value="carcasses">
+        <label class="govuk-label govuk-checkboxes__label" for="waste">
+          Task alert actioned  
+        </label>
+      </div>
+    </div>
+  </fieldset>
+</div>
+
+
+
+
+                        
+
+                    </aside>
+
+
+                    <button type="submit" class="govuk-button" data-module="govuk-button">
+  All alerts actioned
+</button>
+    </div>
+     </div>
+
+
+  
+  </main>
+</div>
+{% endblock %}

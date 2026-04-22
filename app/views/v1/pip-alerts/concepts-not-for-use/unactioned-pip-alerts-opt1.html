@@ -1,0 +1,210 @@
+{% extends "layouts/main.html" %}
+
+{% block content %}
+
+{{ govukBackLink({
+  text: "Back",
+  href: "javascript:history.back()"
+}) }}
+
+<div class="govuk-grid-row govuk-!-margin-bottom-6">
+  <div class="govuk-grid-column-one-half">
+    <h1 class="govuk-heading-l">Unactioned PIP alerts</h1>
+
+    <div class="moj-search">
+      <form id="search-form">
+        <div class="govuk-form-group">
+          <label class="govuk-label moj-search__label govuk-!-font-weight-bold" for="search">
+            Find an alert
+          </label>
+          <div id="search-hint" class="govuk-hint moj-search__hint">
+            You can search National Insurance number
+          </div>
+          <input
+            class="govuk-input moj-search__input"
+            id="search"
+            name="search"
+            type="search"
+            aria-describedby="search-hint">
+        </div>
+
+        <button type="submit" class="govuk-button moj-search__button">
+          Search
+        </button>
+      </form>
+
+      <!-- Clear search link (hidden by default) -->
+      <p id="clear-search-wrapper" class="govuk-body govuk-!-margin-top-2" style="display: none;">
+        <a href="#" id="clear-search" class="govuk-link">Clear search</a>
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-three-quarters">
+
+    <table class="govuk-table">
+      <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+          <th class="govuk-table__header">Date created</th>
+          <th class="govuk-table__header">NI number</th>
+          <th class="govuk-table__header">End of life</th>
+          <th class="govuk-table__header">Action</th>
+        </tr>
+      </thead>
+
+      <tbody class="govuk-table__body" id="alerts-table-body">
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">26 Mar 2025</td>
+          <td class="govuk-table__cell">PA000001</td>
+          <td class="govuk-table__cell">No</td>
+          <td class="govuk-table__cell">
+            <a href="#" class="govuk-link govuk-link--no-visited-state">
+              View alerts (3)
+            </a>
+          </td>
+        </tr>
+
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">26 Mar 2025</td>
+          <td class="govuk-table__cell">PA000002</td>
+          <td class="govuk-table__cell">No</td>
+          <td class="govuk-table__cell">
+            <a href="#" class="govuk-link govuk-link--no-visited-state">
+              View alerts (1)
+            </a>
+          </td>
+        </tr>
+
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">26 Mar 2025</td>
+          <td class="govuk-table__cell">PA000003</td>
+          <td class="govuk-table__cell">No</td>
+          <td class="govuk-table__cell">
+            <a href="#" class="govuk-link govuk-link--no-visited-state">
+              View alerts (2)
+            </a>
+          </td>
+        </tr>
+
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">26 Mar 2025</td>
+          <td class="govuk-table__cell">PA000004</td>
+          <td class="govuk-table__cell">No</td>
+          <td class="govuk-table__cell">
+            <a href="#" class="govuk-link govuk-link--no-visited-state">
+              View alerts (3)
+            </a>
+          </td>
+        </tr>
+
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">26 Mar 2025</td>
+          <td class="govuk-table__cell">PA000005</td>
+          <td class="govuk-table__cell">No</td>
+          <td class="govuk-table__cell">
+            <a href="#" class="govuk-link govuk-link--no-visited-state">
+              View alerts (1)
+            </a>
+          </td>
+        </tr>
+
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">26 Mar 2025</td>
+          <td class="govuk-table__cell">PA000006</td>
+          <td class="govuk-table__cell">No</td>
+          <td class="govuk-table__cell">
+            <a href="#" class="govuk-link govuk-link--no-visited-state">
+              View alerts (2)
+            </a>
+          </td>
+        </tr>
+
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">26 Mar 2025</td>
+          <td class="govuk-table__cell">RN654321X</td>
+          <td class="govuk-table__cell">No</td>
+          <td class="govuk-table__cell">
+            <a href="unactioned-alerts-opt1" class="govuk-link govuk-link--no-visited-state">
+              View alerts (3)
+            </a>
+          </td>
+        </tr>
+
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">26 Mar 2025</td>
+          <td class="govuk-table__cell">PA000007</td>
+          <td class="govuk-table__cell">No</td>
+          <td class="govuk-table__cell">
+            <a href="#" class="govuk-link govuk-link--no-visited-state">
+              View alerts (1)
+            </a>
+          </td>
+        </tr>
+
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">26 Mar 2025</td>
+          <td class="govuk-table__cell">PA000008</td>
+          <td class="govuk-table__cell">No</td>
+          <td class="govuk-table__cell">
+            <a href="#" class="govuk-link govuk-link--no-visited-state">
+              View alerts (2)
+            </a>
+          </td>
+        </tr>
+
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">26 Mar 2025</td>
+          <td class="govuk-table__cell">PA000009</td>
+          <td class="govuk-table__cell">No</td>
+          <td class="govuk-table__cell">
+            <a href="#" class="govuk-link govuk-link--no-visited-state">
+              View alerts (2)
+            </a>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+
+  </div>
+</div>
+
+<script>
+  const form = document.getElementById('search-form')
+  const searchInput = document.getElementById('search')
+  const rows = document.querySelectorAll('#alerts-table-body tr')
+  const clearWrapper = document.getElementById('clear-search-wrapper')
+  const clearLink = document.getElementById('clear-search')
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault()
+
+    const searchValue = searchInput.value.trim().toLowerCase()
+    if (!searchValue) return
+
+    rows.forEach(row => {
+      const niCell = row.querySelectorAll('td')[1]
+      const niValue = niCell.textContent.trim().toLowerCase()
+
+      row.style.display = (niValue === searchValue) ? '' : 'none'
+    })
+
+    clearWrapper.style.display = 'block'
+  })
+
+  clearLink.addEventListener('click', function (e) {
+    e.preventDefault()
+
+    searchInput.value = ''
+
+    rows.forEach(row => {
+      row.style.display = ''
+    })
+
+    clearWrapper.style.display = 'none'
+  })
+</script>
+
+{% endblock %}
