@@ -1,0 +1,684 @@
+{% extends "layouts/main.html" %}
+
+{% set prevURL = "./contact-details" %}
+
+{% block content %}
+ {{ govukBackLink({
+    text: "Back",
+    href: "javascript:history.back()"
+  }) }}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <h1 class="govuk-heading-l">Referral details</h1>
+
+    <form method="post" action="#">
+
+      <!-- ✅ BENEFIT TYPE -->
+      <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+            Benefit type
+          </legend>
+
+          <div class="govuk-radios" data-module="govuk-radios">
+
+            <!-- ✅ PIP (original ID preserved) -->
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input"
+                     id="benefit_type-2"
+                     name="benefitType"
+                     type="radio"
+                     value="PIP"
+                     {% if data.benefitType === 'PIP' %}checked{% endif %}>
+              <label class="govuk-label govuk-radios__label" for="benefit_type-2">PIP</label>
+            </div>
+
+            <!-- ✅ PIP SERVICE (new ID in sequence) -->
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input"
+                     id="benefit_type-3"
+                     name="benefitType"
+                     type="radio"
+                     value="PIP-service"
+                     {% if data.benefitType === 'PIP-service' %}checked{% endif %}>
+              <label class="govuk-label govuk-radios__label" for="benefit_type-3">PIP service</label>
+            </div>
+
+          </div>
+        </fieldset>
+      </div>
+
+      <!-- ✅ ✅ PIP CONDITIONAL SECTION -->
+      <div id="pip-container" class="govuk-!-margin-top-4" hidden>
+
+        {# ------------------------------
+           REFERRAL TYPE RADIOS
+        ------------------------------ #}
+
+        <div class="govuk-form-group">
+                <label class="govuk-label" for="claim_reference_number">
+                    Claim reference number
+                </label>
+
+                <input class="govuk-input govuk-input--width-35" id="claim_reference_number" value="{{ data.claimReferenceNumber }}" name="claimReferenceNumber" type="text" autocomplete="off" data-benefit-type="PIP" data-hidden="true" />
+            </div>
+
+        <div class="govuk-form-group">
+          <fieldset class="govuk-fieldset">
+            <legend class="govuk-fieldset__legend">Referral type</legend>
+
+            <div class="govuk-radios" data-module="govuk-radios">
+
+              <!-- ✅ All referral_type radios exactly as supplied -->
+
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="referral_type" name="referralType" type="radio"
+                  value="NEW_REFERRAL_ADVANCE_CLAIM"
+                  {% if data.referralType === 'NEW_REFERRAL_ADVANCE_CLAIM' %}checked{% endif %}>
+                <label class="govuk-label govuk-radios__label" for="referral_type">Advance claim referral</label>
+              </div>
+
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="referral_type-2" name="referralType" type="radio"
+                  value="ADVICE"
+                  {% if data.referralType === 'ADVICE' %}checked{% endif %}>
+                <label class="govuk-label govuk-radios__label" for="referral_type-2">Advice</label>
+              </div>
+
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="referral_type-3" name="referralType" type="radio"
+                  value="NEW_REFERRAL_APPEAL"
+                  {% if data.referralType === 'NEW_REFERRAL_APPEAL' %}checked{% endif %}>
+                <label class="govuk-label govuk-radios__label" for="referral_type-3">Appeal</label>
+              </div>
+
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="referral_type-4" name="referralType" type="radio"
+                  value="NEW_REFERRAL_AWARD_REVIEW"
+                  {% if data.referralType === 'NEW_REFERRAL_AWARD_REVIEW' %}checked{% endif %}>
+                <label class="govuk-label govuk-radios__label" for="referral_type-4">Award review</label>
+              </div>
+
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="referral_type-5" name="referralType" type="radio"
+                  value="NEW_REFERRAL_COC_REVIEW"
+                  {% if data.referralType === 'NEW_REFERRAL_COC_REVIEW' %}checked{% endif %}>
+                <label class="govuk-label govuk-radios__label" for="referral_type-5">CoC review</label>
+              </div>
+
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="referral_type-6" name="referralType" type="radio"
+                  value="NEW_REFERRAL"
+                  {% if data.referralType === 'NEW_REFERRAL' %}checked{% endif %}>
+                <label class="govuk-label govuk-radios__label" for="referral_type-6">New referral</label>
+              </div>
+
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="referral_type-7" name="referralType" type="radio"
+                  value="NEW_REFERRAL_REASSESSMENT"
+                  {% if data.referralType === 'NEW_REFERRAL_REASSESSMENT' %}checked{% endif %}>
+                <label class="govuk-label govuk-radios__label" for="referral_type-7">New referral reassessment</label>
+              </div>
+
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="referral_type-8" name="referralType" type="radio"
+                  value="NEW_REFERRAL_RECONSIDERATION"
+                  {% if data.referralType === 'NEW_REFERRAL_RECONSIDERATION' %}checked{% endif %}>
+                <label class="govuk-label govuk-radios__label" for="referral_type-8">Reconsideration</label>
+              </div>
+
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="referral_type-9" name="referralType" type="radio"
+                  value="RE_REFERRAL"
+                  {% if data.referralType === 'RE_REFERRAL' %}checked{% endif %}>
+                <label class="govuk-label govuk-radios__label" for="referral_type-9">Re-referral</label>
+              </div>
+
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="referral_type-10" name="referralType" type="radio"
+                  value="RE_REFERRAL_ADVANCE_CLAIM"
+                  {% if data.referralType === 'RE_REFERRAL_ADVANCE_CLAIM' %}checked{% endif %}>
+                <label class="govuk-label govuk-radios__label" for="referral_type-10">Re-referral advance claim</label>
+              </div>
+
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="referral_type-11" name="referralType" type="radio"
+                  value="RE_REFERRAL_APPEAL"
+                  {% if data.referralType === 'RE_REFERRAL_APPEAL' %}checked{% endif %}>
+                <label class="govuk-label govuk-radios__label" for="referral_type-11">Re-referral appeal</label>
+              </div>
+
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="referral_type-12" name="referralType" type="radio"
+                  value="RE_REFERRAL_AWARD_REVIEW"
+                  {% if data.referralType === 'RE_REFERRAL_AWARD_REVIEW' %}checked{% endif %}>
+                <label class="govuk-label govuk-radios__label" for="referral_type-12">Re-referral award review</label>
+              </div>
+
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="referral_type-13" name="referralType" type="radio"
+                  value="RE_REFERRAL_COC_REVIEW"
+                  {% if data.referralType === 'RE_REFERRAL_COC_REVIEW' %}checked{% endif %}>
+                <label class="govuk-label govuk-radios__label" for="referral_type-13">Re-referral CoC review</label>
+              </div>
+
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="referral_type-14" name="referralType" type="radio"
+                  value="RE_REFERRAL_REASSESSMENT"
+                  {% if data.referralType === 'RE_REFERRAL_REASSESSMENT' %}checked{% endif %}>
+                <label class="govuk-label govuk-radios__label" for="referral_type-14">Re-referral reassessment</label>
+              </div>
+
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="referral_type-15" name="referralType" type="radio"
+                  value="RE_REFERRAL_RECONSIDERATION"
+                  {% if data.referralType === 'RE_REFERRAL_RECONSIDERATION' %}checked{% endif %}>
+                <label class="govuk-label govuk-radios__label" for="referral_type-15">Re-referral reconsideration</label>
+              </div>
+
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="referral_type-16" name="referralType" type="radio"
+                  value="REWORK"
+                  {% if data.referralType === 'REWORK' %}checked{% endif %}>
+                <label class="govuk-label govuk-radios__label" for="referral_type-16">Rework</label>
+              </div>
+
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="referral_type-17" name="referralType" type="radio"
+                  value="REWORK_INDEPENDENT_AUDIT"
+                  {% if data.referralType === 'REWORK_INDEPENDENT_AUDIT' %}checked{% endif %}>
+                <label class="govuk-label govuk-radios__label" for="referral_type-17">Rework independent audit</label>
+              </div>
+
+            </div>
+          </fieldset>
+        </div>
+
+        {# ------------------------------  
+           CONSENT FOR FME  
+        ------------------------------ #}
+        <div class="govuk-form-group">
+          <fieldset class="govuk-fieldset">
+            <legend class="govuk-fieldset__legend">Consent for further medical evidence given?</legend>
+
+            <div class="govuk-radios" data-module="govuk-radios">
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="fme_consent_given" name="fmeConsentGiven"
+                  type="radio" value="YES"
+                  {% if data.fmeConsentGiven === 'YES' %}checked{% endif %}>
+                <label class="govuk-label govuk-radios__label" for="fme_consent_given">Yes</label>
+              </div>
+
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="fme_consent_given-2" name="fmeConsentGiven"
+                  type="radio" value="NO"
+                  {% if data.fmeConsentGiven === 'NO' %}checked{% endif %}>
+                <label class="govuk-label govuk-radios__label" for="fme_consent_given-2">No</label>
+              </div>
+
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="fme_consent_given-3" name="fmeConsentGiven"
+                  type="radio" value="NOT_KNOWN"
+                  {% if data.fmeConsentGiven === 'NOT_KNOWN' %}checked{% endif %}>
+                <label class="govuk-label govuk-radios__label" for="fme_consent_given-3">Not known</label>
+              </div>
+
+            </div>
+          </fieldset>
+        </div>
+
+        {# ------------------------------  
+           SAFETY MEASURES  
+        ------------------------------ #}
+        <div class="govuk-form-group">
+          <fieldset class="govuk-fieldset">
+            <legend class="govuk-fieldset__legend">Safety measures</legend>
+
+            <div class="govuk-radios" data-module="govuk-radios">
+
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="ucb_ind" name="ucbInd"
+                  type="radio" value="YES"
+                  {% if data.ucbInd === 'YES' %}checked{% endif %}>
+                <label class="govuk-label govuk-radios__label" for="ucb_ind">Yes</label>
+              </div>
+
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="ucb_ind-2" name="ucbInd"
+                  type="radio" value="NO"
+                  {% if data.ucbInd === 'NO' %}checked{% endif %}>
+                <label class="govuk-label govuk-radios__label" for="ucb_ind-2">No</label>
+              </div>
+
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="ucb_ind-3" name="ucbInd"
+                  type="radio" value="NOT_KNOWN"
+                  {% if data.ucbInd === 'NOT_KNOWN' or not data.ucbInd %}checked{% endif %}>
+                <label class="govuk-label govuk-radios__label" for="ucb_ind-3">Not known</label>
+              </div>
+
+            </div>
+          </fieldset>
+        </div>
+
+        {# ------------------------------  
+           SREL  
+        ------------------------------ #}
+        <div class="govuk-form-group">
+          <fieldset class="govuk-fieldset">
+            <legend class="govuk-fieldset__legend">SREL</legend>
+
+            <div class="govuk-radios" data-module="govuk-radios">
+
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="srti" name="isSrti"
+                  type="radio" value="YES"
+                  {% if data.isSrti === 'YES' %}checked{% endif %}>
+                <label class="govuk-label govuk-radios__label" for="srti">Yes</label>
+              </div>
+
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="srti-2" name="isSrti"
+                  type="radio" value="NO"
+                  {% if data.isSrti === 'NO' %}checked{% endif %}>
+                <label class="govuk-label govuk-radios__label" for="srti-2">No</label>
+              </div>
+
+            </div>
+          </fieldset>
+        </div>
+
+        {# ------------------------------  
+           ADDITIONAL SUPPORT  
+        ------------------------------ #}
+        <div class="govuk-form-group">
+          <fieldset class="govuk-fieldset">
+            <legend class="govuk-fieldset__legend">Requires additional support?</legend>
+
+            <div class="govuk-radios" data-module="govuk-radios">
+
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="requires_additional_support" name="requiresAdditionalSupport"
+                  type="radio" value="YES"
+                  {% if data.requiresAdditionalSupport === 'YES' %}checked{% endif %}>
+                <label class="govuk-label govuk-radios__label" for="requires_additional_support">Yes</label>
+              </div>
+
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="requires_additional_support-2" name="requiresAdditionalSupport"
+                  type="radio" value="NO"
+                  {% if data.requiresAdditionalSupport === 'NO' %}checked{% endif %}>
+                <label class="govuk-label govuk-radios__label" for="requires_additional_support-2">No</label>
+              </div>
+
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="requires_additional_support-3" name="requiresAdditionalSupport"
+                  type="radio" value="NOT_KNOWN"
+                  {% if data.requiresAdditionalSupport === 'NOT_KNOWN' %}checked{% endif %}>
+                <label class="govuk-label govuk-radios__label" for="requires_additional_support-3">Not known</label>
+              </div>
+
+            </div>
+          </fieldset>
+        </div>
+
+        {# ------------------------------  
+           REFERRAL DATE  
+        ------------------------------ #}
+        <div class="govuk-form-group">
+          <fieldset class="govuk-fieldset" role="group" aria-describedby="referral_date-hint">
+            <legend class="govuk-fieldset__legend">Referral date</legend>
+
+            <div id="referral_date-hint" class="govuk-hint">
+              For example, 26 3 2025
+            </div>
+
+            <div class="govuk-date-input" id="referral_date">
+
+              <div class="govuk-date-input__item">
+                <div class="govuk-form-group">
+                  <label class="govuk-label govuk-date-input__label" for="referral_date-Day">Day</label>
+                  <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                    id="referral_date-Day" name="referralDate-Day"
+                    value="{{ data['referralDate-Day'] }}" type="text" inputmode="numeric">
+                </div>
+              </div>
+
+              <div class="govuk-date-input__item">
+                <div class="govuk-form-group">
+                  <label class="govuk-label govuk-date-input__label" for="referral_date-Month">Month</label>
+                  <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                    id="referral_date-Month" name="referralDate-Month"
+                    value="{{ data['referralDate-Month'] }}" type="text" inputmode="numeric">
+                </div>
+              </div>
+
+              <div class="govuk-date-input__item">
+                <div class="govuk-form-group">
+                  <label class="govuk-label govuk-date-input__label" for="referral_date-Year">Year</label>
+                  <input class="govuk-input govuk-date-input__input govuk-input--width-4"
+                    id="referral_date-Year" name="referralDate-Year"
+                    value="{{ data['referralDate-Year'] }}" type="text" inputmode="numeric">
+                </div>
+              </div>
+
+            </div>
+          </fieldset>
+        </div>
+
+      </div> <!-- end PIP container -->
+
+
+      <!-- ✅ ✅ PIP SERVICE CONDITIONAL SECTION -->
+      <div id="pip-service-container" class="govuk-!-margin-top-4" hidden>
+
+
+  <!-- ✅ REFERRAL ID (your existing IDs preserved) -->
+  <div class="govuk-form-group">
+    <label class="govuk-label" for="referring_system_referral_id">
+      Referral ID
+    </label>
+        <input class="govuk-input govuk-input--width-35"
+           id="referring_system_referral_id"
+           name="referralSystemReferralId"
+           value="{{ data.referralSystemReferralId }}"
+           type="text"
+           autocomplete="off"
+           data-hidden="true">
+  </div>
+
+  <!-- ✅ REFERRAL TYPE (PIP-service versions: NEW + RE-REFERRAL) -->
+  <div class="govuk-form-group">
+    <fieldset class="govuk-fieldset">
+      <legend class="govuk-fieldset__legend">
+        Referral type
+      </legend>
+
+      <div class="govuk-radios" data-module="govuk-radios">
+
+        <div class="govuk-radios__item">
+          <input class="govuk-radios__input"
+                 id="referral_type-6"
+                 name="referralType"
+                 type="radio"
+                 value="NEW_REFERRAL"
+                 {% if data.referralType === 'NEW_REFERRAL' %}checked{% endif %}>
+          <label class="govuk-label govuk-radios__label" for="referral_type-6">
+            New referral
+          </label>
+        </div>
+
+        <div class="govuk-radios__item">
+          <input class="govuk-radios__input"
+                 id="referral_type-9"
+                 name="referralType"
+                 type="radio"
+                 value="RE_REFERRAL"
+                 {% if data.referralType === 'RE_REFERRAL' %}checked{% endif %}>
+          <label class="govuk-label govuk-radios__label" for="referral_type-9">
+            Re-referral
+          </label>
+        </div>
+
+      </div>
+    </fieldset>
+  </div>
+
+  <!-- ✅ CONSENT FOR FME (this stays exactly the same) -->
+  <div class="govuk-form-group">
+    <fieldset class="govuk-fieldset">
+      <legend class="govuk-fieldset__legend">
+        Consent for further medical evidence given?
+      </legend>
+
+      <div class="govuk-radios" data-module="govuk-radios">
+
+        <div class="govuk-radios__item">
+          <input class="govuk-radios__input"
+                 id="fme_consent_given"
+                 name="fmeConsentGiven"
+                 type="radio"
+                 value="YES"
+                 {% if data.fmeConsentGiven === 'YES' %}checked{% endif %}>
+          <label class="govuk-label govuk-radios__label" for="fme_consent_given">
+            Yes
+          </label>
+        </div>
+
+        <div class="govuk-radios__item">
+          <input class="govuk-radios__input"
+                 id="fme_consent_given-2"
+                 name="fmeConsentGiven"
+                 type="radio"
+                 value="NO"
+                 {% if data.fmeConsentGiven === 'NO' %}checked{% endif %}>
+          <label class="govuk-label govuk-radios__label" for="fme_consent_given-2">
+            No
+          </label>
+        </div>
+
+        <div class="govuk-radios__item">
+          <input class="govuk-radios__input"
+                 id="fme_consent_given-3"
+                 name="fmeConsentGiven"
+                 type="radio"
+                 value="NOT_KNOWN"
+                 {% if data.fmeConsentGiven === 'NOT_KNOWN' %}checked{% endif %}>
+          <label class="govuk-label govuk-radios__label" for="fme_consent_given-3">
+            Not known
+          </label>
+        </div>
+
+      </div>
+    </fieldset>
+  </div>
+
+  <!-- ✅ SAFETY MEASURES (unchanged, continues after Consent) -->
+  <div class="govuk-form-group">
+    <fieldset class="govuk-fieldset">
+      <legend class="govuk-fieldset__legend">Safety measures</legend>
+
+      <div class="govuk-radios" data-module="govuk-radios">
+
+        <div class="govuk-radios__item">
+          <input class="govuk-radios__input"
+                 id="ucb_ind"
+                 name="ucbInd"
+                 type="radio"
+                 value="YES"
+                 {% if data.ucbInd === 'YES' %}checked{% endif %}>
+          <label class="govuk-label govuk-radios__label" for="ucb_ind">Yes</label>
+        </div>
+
+        <div class="govuk-radios__item">
+          <input class="govuk-radios__input"
+                 id="ucb_ind-2"
+                 name="ucbInd"
+                 type="radio"
+                 value="NO"
+                 {% if data.ucbInd === 'NO' %}checked{% endif %}>
+          <label class="govuk-label govuk-radios__label" for="ucb_ind-2">No</label>
+        </div>
+
+        <div class="govuk-radios__item">
+          <input class="govuk-radios__input"
+                 id="ucb_ind-3"
+                 name="ucbInd"
+                 type="radio"
+                 value="NOT_KNOWN"
+                 {% if data.ucbInd === 'NOT_KNOWN' or not data.ucbInd %}checked{% endif %}>
+          <label class="govuk-label govuk-radios__label" for="ucb_ind-3">Not known</label>
+        </div>
+
+      </div>
+    </fieldset>
+  </div>
+
+  <!-- ✅ SREL -->
+  <div class="govuk-form-group">
+    <fieldset class="govuk-fieldset">
+      <legend class="govuk-fieldset__legend">SREL</legend>
+
+      <div class="govuk-radios" data-module="govuk-radios">
+
+        <div class="govuk-radios__item">
+          <input class="govuk-radios__input"
+                 id="srti"
+                 name="isSrti"
+                 type="radio"
+                 value="YES"
+                 {% if data.isSrti === 'YES' %}checked{% endif %}>
+          <label class="govuk-label govuk-radios__label" for="srti">Yes</label>
+        </div>
+
+        <div class="govuk-radios__item">
+          <input class="govuk-radios__input"
+                 id="srti-2"
+                 name="isSrti"
+                 type="radio"
+                 value="NO"
+                 {% if data.isSrti === 'NO' %}checked{% endif %}>
+          <label class="govuk-label govuk-radios__label" for="srti-2">No</label>
+        </div>
+
+      </div>
+    </fieldset>
+  </div>
+
+  <!-- ✅ ADDITIONAL SUPPORT -->
+  <div class="govuk-form-group">
+    <fieldset class="govuk-fieldset">
+      <legend class="govuk-fieldset__legend">Requires additional support?</legend>
+
+      <div class="govuk-radios" data-module="govuk-radios">
+
+        <div class="govuk-radios__item">
+          <input class="govuk-radios__input"
+                 id="requires_additional_support"
+                 name="requiresAdditionalSupport"
+                 type="radio"
+                 value="YES"
+                 {% if data.requiresAdditionalSupport === 'YES' %}checked{% endif %}>
+          <label class="govuk-label govuk-radios__label" for="requires_additional_support">Yes</label>
+        </div>
+
+        <div class="govuk-radios__item">
+          <input class="govuk-radios__input"
+                 id="requires_additional_support-2"
+                 name="requiresAdditionalSupport"
+                 type="radio"
+                 value="NO"
+                 {% if data.requiresAdditionalSupport === 'NO' %}checked{% endif %}>
+          <label class="govuk-label govuk-radios__label" for="requires_additional_support-2">No</label>
+        </div>
+
+        <div class="govuk-radios__item">
+          <input class="govuk-radios__input"
+                 id="requires_additional_support-3"
+                 name="requiresAdditionalSupport"
+                 type="radio"
+                 value="NOT_KNOWN"
+                 {% if data.requiresAdditionalSupport === 'NOT_KNOWN' %}checked{% endif %}>
+          <label class="govuk-label govuk-radios__label" for="requires_additional_support-3">Not known</label>
+        </div>
+
+      </div>
+    </fieldset>
+  </div>
+
+  <!-- ✅ REFERRAL DATE -->
+  <div class="govuk-form-group">
+    <fieldset class="govuk-fieldset" role="group" aria-describedby="referral_date-hint">
+      <legend class="govuk-fieldset__legend">Referral date</legend>
+
+      <div id="referral_date-hint" class="govuk-hint">For example, 26 3 2025</div>
+
+      <div class="govuk-date-input" id="referral_date">
+
+        <div class="govuk-date-input__item">
+          <div class="govuk-form-group">
+            <label class="govuk-label govuk-date-input__label" for="referral_date-Day">Day</label>
+            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                   id="referral_date-Day"
+                   name="referralDate-Day"
+                   value="{{ data['referralDate-Day'] }}"
+                   type="text"
+                   inputmode="numeric">
+          </div>
+        </div>
+
+        <div class="govuk-date-input__item">
+          <div class="govuk-form-group">
+            <label class="govuk-label govuk-date-input__label" for="referral_date-Month">Month</label>
+            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                   id="referral_date-Month"
+                   name="referralDate-Month"
+                   value="{{ data['referralDate-Month'] }}"
+                   type="text"
+                   inputmode="numeric">
+          </div>
+        </div>
+
+        <div class="govuk-date-input__item">
+          <div class="govuk-form-group">
+            <label class="govuk-label govuk-date-input__label" for="referral_date-Year">Year</label>
+            <input class="govuk-input govuk-date-input__input govuk-input--width-4"
+                   id="referral_date-Year"
+                   name="referralDate-Year"
+                   value="{{ data['referralDate-Year'] }}"
+                   type="text"
+                   inputmode="numeric">
+          </div>
+        </div>
+
+      </div>
+    </fieldset>
+  </div>
+
+</div>
+
+      <button type="submit" class="govuk-button" data-module="govuk-button">Continue</button>
+
+    </form>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block bodyEnd %}
+{{ super() }}
+
+<script>
+(function () {
+  const pipContainer = document.getElementById("pip-container");
+  const pipServiceContainer = document.getElementById("pip-service-container");
+
+  function updateVisibility() {
+    const selected = document.querySelector('input[name="benefitType"]:checked');
+    const val = selected ? selected.value : null;
+
+    pipContainer.hidden = true;
+    pipServiceContainer.hidden = true;
+
+    if (val === "PIP") {
+      pipContainer.hidden = false;
+    }
+
+    if (val === "PIP-service") {
+      pipServiceContainer.hidden = false;
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", updateVisibility);
+
+  document.addEventListener("change", function (e) {
+    if (e.target && e.target.name === "benefitType") {
+      updateVisibility();
+    }
+  });
+
+})();
+</script>
+
+{% endblock %}

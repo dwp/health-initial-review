@@ -1,0 +1,433 @@
+{% extends "layouts/main.html" %}
+{% set bodyAttributes = { id: "assess" } %}
+
+{% block pageTitle %}
+GOV.UK Prototype Kit
+{% endblock %}
+
+{% block main %}
+
+{% include "v2/claimant-docs/partials/key-details-wide.njk" %}
+
+<div class="govuk-width-container">
+
+  {{ govukBackLink({
+  text: "Back",
+  href: "javascript:history.back()"
+  }) }}
+
+  {% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
+  {% from "govuk/components/tabs/macro.njk" import govukTabs %}
+
+  {% if query.msg == "pinned" %}
+  {{ govukNotificationBanner({
+  type: "success",
+  html: '<h3 class="govuk-notification-banner__heading">'
+    ~ query.name ~ ' has been pinned successfully</h3>'
+  }) }}
+  {% endif %}
+
+  {% if query.msg == "unpinned" %}
+  {{ govukNotificationBanner({
+  type: "success",
+  html: '<h3 class="govuk-notification-banner__heading">'
+    ~ query.name ~ ' has been unpinned successfully</h3>'
+  }) }}
+  {% endif %}
+
+  {% if query.msg == "unpinall" %}
+  {{ govukNotificationBanner({
+  type: "success",
+  html: '<h3 class="govuk-notification-banner__heading">'
+    ~ 'All documents have been unpinned successfully</h3>'
+  }) }}
+  {% endif %}
+
+
+
+
+  <main class="govuk-main-wrapper {{ mainClasses }}" id="main-content" role="main" {% if mainLang %}
+    lang="{{ mainLang }}" {% endif %}>
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-three-quarters">
+        <h1 class="govuk-heading-l">Claimant documents</h1>
+        <p class="govuk-body-s" id="last-updated">Last updated from DRS on 16 Sep 2024 at 2:08am</p>
+
+
+      </div>
+
+      <div class="govuk-grid-column-three-quarters">
+
+
+        {% from "govuk/components/table/macro.njk" import govukTable %}
+
+        {% if not query.ncat %}
+        <div class="govuk-tabs" data-module="govuk-tabs">
+          <h2 class="govuk-tabs__title">
+            Contents
+          </h2>
+          <ul class="govuk-tabs__list">
+            <li class="govuk-tabs__list-item govuk-tabs__list-item--selected">
+              <a class="govuk-tabs__tab" href="#sdocs-tab1">
+                Questionnaires and reports
+              </a>
+            </li>
+            <li class="govuk-tabs__list-item">
+              <a class="govuk-tabs__tab" href="#sdocs-tab2">
+                Clinical documents
+              </a>
+            </li>
+            <li class="govuk-tabs__list-item">
+              <a class="govuk-tabs__tab" href="#sdocs-tab3">
+                Non-clinical documents
+              </a>
+            </li>
+          </ul>
+          <div class="govuk-tabs__panel" id="sdocs-tab1">
+            <table class="govuk-table" data-module="moj-sortable-table" aria-describedby="last-updated">
+              <thead class="govuk-table__head">
+                <tr class="govuk-table__row">
+                  <th scope="col" class="govuk-table__header column-width-20">
+                    Name
+                  </th>
+                  <th scope="col" class="govuk-table__header column-width-15" aria-sort="none">
+                    <button type="button" data-index="3">Date of document</button>
+                  </th>
+                  <th scope="col" class="govuk-table__header column-width-15" aria-sort="descending">
+                    <button type="button" data-index="3">Date DWP received</button>
+                  </th>
+                  <th scope="col" class="govuk-table__header column-width-10" aria-sort="none">
+                    <button type="button" data-index="2">Document status</button>
+                  </th>
+                  {% if not query.ncat and not query.irrelevant %}
+                  <th scope="col" class="govuk-table__header column-width-10">
+                    {% if documents | selectattr("pinned") | list | length > 0 %}
+                    <a class="govuk-link" href="/v2/claimant-docs/unpin-all">Unpin all documents</a>
+                    {% endif %}
+                  </th>
+                  {% endif %}
+                  {% if query.irrelevant %}
+                  <th scope="col" class="govuk-table__header column-width-20" aria-sort="none">
+                    <button type="button" data-index="3">Reason</button>
+                  </th>
+                  {% endif %}
+
+                </tr>
+              </thead>
+              <tbody class="govuk-table__body">
+                {% if query.irrelevant %}
+
+                {% set docsForList = irrelevantDocuments %}
+
+                {% else %}
+
+                {# Create arrays safely #}
+                {% set pinnedDocs = [] %}
+                {% set unpinnedDocs = [] %}
+
+                {# Loop and build new arrays using “push” #}
+                {% for d in documents %}
+                {% if d.pinned %}
+                {% set _ = pinnedDocs.push(d) %}
+                {% else %}
+                {% set _ = unpinnedDocs.push(d) %}
+                {% endif %}
+                {% endfor %}
+
+                {# Combine them safely #}
+                {% set docsForList = pinnedDocs.concat(unpinnedDocs) %}
+
+                {% endif %}
+                {% for doc in docsForList %}
+                {% if doc.isActive %}
+                <tr class="govuk-table__row filter-table-row">
+                  <td class="govuk-table__cell"><a
+                      href="{% if not query.ncat %}view{% else %}update{% endif %}-document/{{ doc.id }}{% if query.ncat %}?ncat=true{% endif %}{% if query.irrelevant %}?irrelevant=true{% endif %}">{{
+                      doc.name }}</a></td>
+
+                 
+
+
+
+                  
+
+
+                  <td class="govuk-table__cell" data-sort-value="date">{{ doc.dateOfDocument }}</td>
+                  <td class="govuk-table__cell" data-sort-value="14">10 Sept 2021</td>
+                  {% if not query.ncat %}
+                  <td class="govuk-table__cell">
+                    {% if doc.read %}
+                    Read
+                    {% else %}
+                    <strong class="govuk-tag govuk-tag--blue">
+                      Unread
+                    </strong>
+                    {% endif %}
+                  </td>
+                  {% endif %}
+                  {% if query.ncat %}
+                  {% if doc.archived %}
+                  <td class="govuk-table__cell"></td>
+                  {% elif not doc.read %}
+                  <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--blue">Not started</strong></td>
+                  {% elif doc.reviewed %}
+                  <td class="govuk-table__cell">Reviewed</td>
+                  {% else %}
+                  <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--blue">Not started</strong></td>
+                  {% endif %}
+                  {% endif %}
+                  {% if not query.ncat and not query.irrelevant %}
+                  <td class="govuk-table__cell">
+                    {% if doc.pinned %}
+                    <a class="govuk-link" href="/v2/claimant-docs/unpin/{{ doc.id }}">
+                      <span style="white-space: nowrap;">Unpin document</span>
+                    </a>
+                    {% else %}
+                    <a class="govuk-link" href="/v2/claimant-docs/pin/{{ doc.id }}">
+                      <span style="white-space: nowrap;">Pin document</span>
+                    </a>
+                    {% endif %}
+                  </td>
+                  {% endif %}
+                  {% endif %}
+                  {% endfor %}
+              </tbody>
+            </table>
+
+<!-- Pagination-->
+ 
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-half">
+
+
+<nav class="govuk-pagination" aria-label="Pagination">
+
+  <ul class="govuk-pagination__list">
+    <li class="govuk-pagination__item govuk-pagination__item--current">
+      <a class="govuk-link govuk-pagination__link" href="#" aria-label="Page 1" aria-current="page">
+        1
+      </a>
+    </li>
+    <li class="govuk-pagination__item">
+      <a class="govuk-link govuk-pagination__link" href="#" aria-label="Page 2">
+        2
+      </a>
+    </li>
+  </ul>
+  <div class="govuk-pagination__next">
+    <a class="govuk-link govuk-pagination__link" href="#" rel="next">
+      <span class="govuk-pagination__link-title">
+        Next<span class="govuk-visually-hidden"> page</span>
+      </span>
+      <svg class="govuk-pagination__icon govuk-pagination__icon--next" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13">
+        <path d="m8.107-0.0078125-1.4136 1.414 4.2926 4.293h-12.986v2h12.896l-4.1855 3.9766 1.377 1.4492 6.7441-6.4062-6.7246-6.7266z"></path>
+      </svg>
+    </a>
+  </div>
+</nav>
+</div>
+
+
+        
+<div class="govuk-grid-column-one-half">
+
+
+<nav class="has_pagination" aria-label="has_pagination">
+            <p class="has_pagination__results" style="float: right">Showing <span class="govuk-!-font-weight-bold">1</span> to <span class="govuk-!-font-weight-bold">25</span> of <span class="govuk-!-font-weight-bold">45</span> documents</p>
+        </nav>
+
+
+
+    </div>
+
+</div>
+<!-- Pagination end-->
+
+          </div>
+
+          <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="sdocs-tab2">
+              <p>Clinical documents table here</p>
+           </div>
+          
+          <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="sdocs-tab3">
+            <p>Non clinical documents table here</p>
+          </div>
+
+
+        </div>
+                             
+  {% endif %}
+      </div>
+
+       
+
+
+
+  {% if query.ncat %}
+
+<div class="govuk-grid-column-three-quarters">
+
+      
+
+      <table class="govuk-table" data-module="moj-sortable-table" aria-describedby="last-updated">
+        <thead class="govuk-table__head">
+          <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header column-width-20">
+              Name 
+            </th>
+            
+{% if not query.ncat %}
+<th scope="col" class="govuk-table__header column-width-10" aria-sort="none">
+  <button type="button" data-index="2">Document status</button>
+</th>
+{% endif %}
+
+            <th scope="col" class="govuk-table__header column-width-15" aria-sort="none">
+              <button type="button" data-index="3">Date of document</button>
+            </th>
+            <th scope="col" class="govuk-table__header column-width-15" aria-sort="descending">
+              <button type="button" data-index="3">Date DWP received</button>
+            </th>
+            {% if not query.ncat and not query.irrelevant %}
+            <th scope="col" class="govuk-table__header column-width-10">
+              {% if documents | selectattr("pinned") | list | length > 0 %}
+              <a class="govuk-link" href="/v2/claimant-docs/unpin-all">Unpin all documents</a>
+              {% endif %}
+            </th>
+            {% endif %}
+            {% if query.irrelevant %}
+            <th scope="col" class="govuk-table__header column-width-20" aria-sort="none">
+              <button type="button" data-index="3">Reason</button>
+            </th>
+            {% endif %}
+            {% if query.ncat %}
+            <th scope="col" class="govuk-table__header column-width-20" aria-sort="none">
+              <button type="button" data-index="3">Document status</button>
+            </th>
+            {% endif %}
+          </tr>
+        </thead>
+        <tbody class="govuk-table__body">
+          {% if query.irrelevant %}
+
+          {% set docsForList = irrelevantDocuments %}
+
+          {% else %}
+
+          {# Create arrays safely #}
+          {% set pinnedDocs = [] %}
+          {% set unpinnedDocs = [] %}
+
+          {# Loop and build new arrays using “push” #}
+          {% for d in documents %}
+          {% if d.pinned %}
+          {% set _ = pinnedDocs.push(d) %}
+          {% else %}
+          {% set _ = unpinnedDocs.push(d) %}
+          {% endif %}
+          {% endfor %}
+
+          {# Combine them safely #}
+          {% set docsForList = pinnedDocs.concat(unpinnedDocs) %}
+
+          {% endif %}
+          {% for doc in docsForList %}
+          {% if doc.isActive %}
+          <tr class="govuk-table__row filter-table-row">
+            <td class="govuk-table__cell"><a
+                href="{% if not query.ncat %}view{% else %}update{% endif %}-document/{{ doc.id }}{% if query.ncat %}?ncat=true{% endif %}{% if query.irrelevant %}?irrelevant=true{% endif %}">{{
+                doc.name }}</a></td>
+
+
+
+
+            {% if not query.ncat %}
+            <td class="govuk-table__cell">
+              {% if doc.read %}
+              Read
+              {% else %}
+              <strong class="govuk-tag govuk-tag--blue">
+                Unread
+              </strong>
+              {% endif %}
+            </td>
+            {% endif %}
+
+
+            <td class="govuk-table__cell" data-sort-value="date">{{ doc.dateOfDocument }}</td>
+            <td class="govuk-table__cell" data-sort-value="14">10 Sept 2021</td>
+            {% if query.ncat %}
+            {% if doc.archived %}
+            <td class="govuk-table__cell"></td>
+            {% elif not doc.read %}
+            <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--blue">Not started</strong></td>
+            {% elif doc.reviewed %}
+            <td class="govuk-table__cell">Reviewed</td>
+            {% else %}
+            <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--blue">Not started</strong></td>
+            {% endif %}
+            {% endif %}
+            {% if not query.ncat and not query.irrelevant %}
+            <td class="govuk-table__cell">
+              {% if doc.pinned %}
+              <a class="govuk-link" href="/v2/claimant-docs/unpin/{{ doc.id }}">
+                <span style="white-space: nowrap;">Unpin document</span>
+              </a>
+              {% else %}
+              <a class="govuk-link" href="/v2/claimant-docs/pin/{{ doc.id }}">
+                <span style="white-space: nowrap;">Pin document</span>
+              </a>
+              {% endif %}
+            </td>
+            {% endif %}
+            {% endif %}
+            {% endfor %}
+        </tbody>
+ </table>
+ </div>
+
+{% endif %}
+
+
+
+
+
+
+      {% if not query.ncat and not query.irrelevant %}
+      <div class="govuk-grid-column-one-quarter">
+        <aside class="app-related-items" role="complementary">
+        <h2 class="govuk-heading-m" id="subsection-title">
+          Manage
+        </h2>
+        <nav role="navigation" aria-labelledby="subsection-title">
+          <ul class="govuk-list">
+            <li>
+              <a href="document-list?ncat=true" class="govuk-link">Update document details</a>
+            </li>
+            </ul>
+        </nav>
+      </aside>
+    </div>
+      {% endif %}
+
+
+        
+
+
+    </div>
+
+
+
+    <script>
+      window.addEventListener("pageshow", function (event) {
+        if (event.persisted || window.performance.navigation.type === 2) {
+          window.location.reload();
+        }
+      });
+    </script>
+
+
+
+  </main>
+</div>
+{% endblock %}

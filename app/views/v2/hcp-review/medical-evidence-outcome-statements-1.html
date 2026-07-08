@@ -1,0 +1,155 @@
+{% extends "layouts/main.html" %}
+{% set bodyAttributes = { id: "assess" } %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block main %}
+
+{% include "includes/assessment-status-neutral-pip.html" %}
+
+  <div class="govuk-width-container">
+
+    {{ govukBackLink({
+      text: "Back",
+      href: "javascript:history.back()"
+    }) }}
+
+  <div class="govuk-width-container {{ containerClasses }}">
+    <main class="govuk-main-wrapper {{ mainClasses }}" id="main-content" role="main"{% if mainLang %} lang="{{ mainLang }}"{% endif %}>
+          <div class="govuk-grid-row">
+              <div class="govuk-grid-column-two-thirds">
+                                    
+                <h1 class="govuk-heading-l">Add HCP review</h1>
+
+
+                <form method="post" action="/v2/hcp-review/medical-evidence-check-answers">
+
+
+                  <div id="standard-phrases-group">
+
+            {{ govukCheckboxes({
+            idPrefix: "Common-statements",
+            name: "Common-statements",
+            classes: "govuk-checkboxes--large",
+            fieldset: {
+            legend: {
+            text: "Select all statements that apply and add to the clinical review and justification",
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--s"
+            }
+            },
+           
+            items: [
+
+            {
+            value: "All evidence reviewed and considered.",
+            text: "All evidence reviewed and considered."
+            },
+            {
+            value: "ASN noted on HAS.",
+            text: "ASN noted on HAS."
+            },
+            {
+            value: "Conditions stated are (including but not limited to):",
+            text: "Conditions stated are (including but not limited to):"
+            },
+            {
+            value: "Evidence available is insufficient to be able to provide robust advice to the DWP therefore PIP PBR cannot be completed at this time.",
+            text: "Evidence available is insufficient to be able to provide robust advice to the DWP therefore PIP PBR cannot be completed at this time."
+            },
+            {
+            value: "No TA availability restrictions reported.",
+            text: "No TA availability restrictions reported."
+            },
+            {
+            value: "No F2F availability restrictions reported..",
+            text: "No F2F availability restrictions reported."
+            }
+
+            ]
+            }) }}
+
+            {% from "govuk/components/details/macro.njk" import govukDetails %}
+
+
+            <button type="button" class="govuk-button govuk-button--secondary" id="add-phrases-button"
+              data-module="govuk-button">
+              Add to clinical review
+            </button>
+          </div>
+
+
+        
+
+          {{ govukTextarea({
+          name: "hcpreviewpip" + storedEntryAmount,
+          id: "hcpreviewpip" + storedEntryAmount,
+          rows: "12",
+          label: {
+          text: "Enter clinical review and justification",
+          classes: "govuk-label--s",
+          isPageHeading: false
+          },
+          hint: {
+          text: "Include whether evidence has been reviewed, the type of FME requested, and what to do if it's not
+          returned."
+          }
+          }) }}
+
+
+
+          {% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{{ govukRadios({
+  name: "Isthecaseatact",
+  fieldset: {
+    legend: {
+      text: "Is the case a TACT - take additional care?",
+      isPageHeading: false,
+      classes: "govuk-fieldset__legend--s"
+    }
+  },
+  items: [
+    {
+      value: "tact-yes",
+      text: "Yes"
+    },
+    {
+      value: "tact-no",
+      text: "No"
+    }
+  ]
+}) }}
+
+                                                {{ govukButton({text: "Continue" }) }}
+
+                                                </form>
+
+ 
+            </div>
+
+
+            <div class="govuk-grid-column-one-quarter">
+        <aside class="app-related-items" role="complementary">
+        <h2 class="govuk-heading-m" id="subsection-title">
+          What you can do next
+        </h2>
+        <nav role="navigation" aria-labelledby="subsection-title">
+          <ul class="govuk-list">
+            <li>
+              <a href="" class="govuk-link">View claimant documents</a>
+            </li>
+            </ul>
+        </nav>
+      </aside>
+    </div>
+    
+        </div>
+
+    </main>
+  </div>
+  </div>
+
+{% endblock %}

@@ -7,41 +7,16 @@
  
 {% block main %}
  
-{% include "v1/claimant-docs/partials/key-details-wide.njk" %}
+{% include "v2/claimant-docs/partials/key-details-wide.njk" %}
+
  
 <div class="govuk-width-container">
- 
-  {{ govukBackLink({
-  text: "Back",
-  href: "javascript:history.back()"
+
+    {{ govukBackLink({
+    text: "Back",
+    href: "javascript:history.back()"
   }) }}
-
-  {% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
-
-{% if query.msg == "pinned" %}
-    {{ govukNotificationBanner({
-        type: "success",
-        html: '<h3 class="govuk-notification-banner__heading">'
-              ~ query.name ~ ' has been pinned successfully</h3>'
-    }) }}
-{% endif %}
-
-{% if query.msg == "unpinned" %}
-    {{ govukNotificationBanner({
-        type: "success",
-        html: '<h3 class="govuk-notification-banner__heading">'
-              ~ query.name ~ ' has been unpinned successfully</h3>'
-    }) }}
-{% endif %}
-
-{% if query.msg == "unpinall" %}
-    {{ govukNotificationBanner({
-        type: "success",
-        html: '<h3 class="govuk-notification-banner__heading">'
-              ~ 'All documents have been unpinned successfully</h3>'
-    }) }}
-{% endif %}
-  
+ 
   <!--{% if not query.ncat and not query.irrelevant %}
   {{ govukBackLink({ text: "Back", href: "claimant-details.html" }) }}
   {% else %}
@@ -51,9 +26,11 @@
 
 
 
-
+<!-- <a href="claimant-details.html" class="govuk-back-link">Back</a> -->
 <main class="govuk-main-wrapper {{ mainClasses }}" id="main-content" role="main"{% if mainLang %} lang="{{ mainLang }}"{% endif %}>
     <div class="govuk-grid-row">
+
+     
       {% if not query.ncat and not query.irrelevant %}
         <div class="govuk-grid-column-one-quarter">
             <h2 class="govuk-heading-m govuk-!-Marchgin-bottom-5">Manage</h2>
@@ -78,9 +55,19 @@
         {% else %}
         <h1 class="govuk-heading-l">Claimant documents</h2>
         {% endif %}
+
+
+        <div class="govuk-warning-text">
+          <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+          <strong class="govuk-warning-text__text">
+            <span class="govuk-warning-text__assistive">Warning</span>
+            These documents are no longer being updated.
+          </strong>
+        </div>
+        
         
         {% if not query.ncat %}
-        <p class="govuk-body-s" id="last-updated">Last updated from DRS on 16 Sep 2024 at 2:08am</p>
+        <p class="govuk-body-s" id="last-updated">Last updated from DRS on 16 Sep 2023 at 2:08am</p>
         {% endif %}
         
         <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
@@ -88,6 +75,7 @@
         <thead class="govuk-table__head">
           <tr class="govuk-table__row">
             <th scope="col" class="govuk-table__header column-width-20">
+              
               Name
             </th>
             {% if not query.ncat %}
@@ -101,13 +89,6 @@
             <th scope="col" class="govuk-table__header column-width-15" aria-sort="descending">         
               <button type="button" data-index="3">Date DWP received</button>
             </th>
-            {% if not query.ncat and not query.irrelevant %}
-    <th scope="col" class="govuk-table__header column-width-10">
-        {% if documents | selectattr("pinned") | list | length > 0 %}
-            <a class="govuk-link" href="/v1/claimant-docs/unpin-all">Unpin all documents</a>
-        {% endif %}
-    </th>
-{% endif %}
             {% if query.irrelevant %}
             <th scope="col" class="govuk-table__header column-width-20" aria-sort="none">
               <button type="button" data-index="3">Reason</button>
@@ -122,28 +103,10 @@
         </thead>
         <tbody class="govuk-table__body">
           {% if query.irrelevant %}
-
-    {% set docsForList = irrelevantDocuments %}
-
-{% else %}
-
-    {# Create arrays safely #}
-    {% set pinnedDocs = [] %}
-    {% set unpinnedDocs = [] %}
-
-    {# Loop and build new arrays using “push” #}
-    {% for d in documents %}
-        {% if d.pinned %}
-            {% set _ = pinnedDocs.push(d) %}
-        {% else %}
-            {% set _ = unpinnedDocs.push(d) %}
-        {% endif %}
-    {% endfor %}
-
-    {# Combine them safely #}
-    {% set docsForList = pinnedDocs.concat(unpinnedDocs) %}
-
-{% endif %}
+          {% set docsForList = irrelevantDocuments %}
+          {% else %}
+          {% set docsForList = documents %}
+          {% endif %}
           {% for doc in docsForList %}
               {% if doc.isActive %}
                   <tr class="govuk-table__row filter-table-row">     
@@ -167,20 +130,8 @@
                         {% else %}
                         <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--blue">Not started</strong></td>
                         {% endif %}
-                        {% endif %}
-                        {% if not query.ncat and not query.irrelevant %}
-<td class="govuk-table__cell">
-    {% if doc.pinned %}
-        <a class="govuk-link" href="/v1/claimant-docs/unpin/{{ doc.id }}">
-            <span style="white-space: nowrap;">Unpin document</span>
-        </a>
-    {% else %}
-        <a class="govuk-link" href="/v1/claimant-docs/pin/{{ doc.id }}">
-            <span style="white-space: nowrap;">Pin document</span>
-        </a>
-    {% endif %}
-</td>
-{% endif %}
+                        {% endif %}  
+                  </tr>
               {% endif %}
           {% endfor %}
       </tbody>

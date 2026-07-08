@@ -185,6 +185,25 @@
             list-style-type: none;
             padding: 0;
             }
+
+
+        
+.dwp-timeline.pinned {
+    border-left: none;
+}
+
+.dwp-timeline.pinned .dwp-timeline__items {
+    border-left: none;
+}
+
+.dwp-timeline.pinned .dwp-timeline__item::before {
+    display: none;
+}
+
+.dwp-timeline.pinned .dwp-timeline__item::after {
+    display: none;
+}
+
             
             .dwp-timeline__entry {
             margin: 2em 0;
@@ -202,6 +221,8 @@
             top: .6em;
             width: 10px;
             } 
+
+
 
 
             iframe.document {

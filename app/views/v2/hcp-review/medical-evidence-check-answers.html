@@ -1,0 +1,166 @@
+{% extends "layouts/main.html" %}
+{% set bodyAttributes = { id: "assess" } %}
+
+{% block pageTitle %}
+  Check answers
+{% endblock %}
+
+{% block main %}
+
+{% include "includes/assessment-status-neutral-pip.html" %}
+
+<div class="govuk-width-container {{ containerClasses }}">
+
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:history.back()"
+  }) }}
+
+  <main class="govuk-main-wrapper {{ mainClasses }}" id="main-content">
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+
+        <h1 class="govuk-heading-l">HCP review summary</h1>
+
+        <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+
+          <!-- FME required -->
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Further medical evidence required
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {% if data["fmerequired"] == "yes" %}
+                Yes
+              {% else %}
+                No
+              {% endif %}
+            </dd>
+            <dd class="govuk-summary-list__actions">
+              <a href="">Change</a>
+            </dd>
+          </div>
+
+          <!-- Outcome -->
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Next action if FME not returned
+            </dt>
+            <dd class="govuk-summary-list__value">
+
+              {% if data["furthermedicalevidence"] == "further-hcp-review-required" %}
+                Further HCP review required
+              {% elseif data["furthermedicalevidence"] == "face-to-face-assessment" %}
+                Face to face assessment (F2F)
+              {% elseif data["furthermedicalevidence"] == "face-to-face-assessment-support" %}
+                Face to face assessment (F2F) with support
+              {% elseif data["furthermedicalevidence"] == "paper-based-review" %}
+                Paper based review (PBR)
+              {% elseif data["furthermedicalevidence"] == "telephone-assessment" %}
+                Telephone assessment (TA)
+              {% elseif data["furthermedicalevidence"] == "telephone-assessment-with-support" %}
+                Telephone assessment (TA) with support
+              {% endif %}
+
+            </dd>
+            <dd class="govuk-summary-list__actions">
+              <a href="">Change</a>
+            </dd>
+          </div>
+
+          <!-- Common statements -->
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Common statements
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {% if data["Common-statements"] %}
+                {% for item in data["Common-statements"] %}
+                  <p class="govuk-body">{{ item }}</p>
+                {% endfor %}
+              {% else %}
+                None selected
+              {% endif %}
+            </dd>
+            <dd class="govuk-summary-list__actions">
+              <a href="">Change</a>
+            </dd>
+          </div>
+
+
+
+                          <!-- TACT -->
+<div class="govuk-summary-list__row">
+  <dt class="govuk-summary-list__key">
+    TACT - take additional care
+  </dt>
+  <dd class="govuk-summary-list__value">
+    {% if data["Isthecaseatact"] == "tact-yes" %}
+      Yes
+    {% elseif data["Isthecaseatact"] == "tact-no" %}
+      No
+    {% else %}
+      Not provided
+    {% endif %}
+  </dd>
+  <dd class="govuk-summary-list__actions">
+    <a href="">
+      Change<span class="govuk-visually-hidden"> TACT status</span>
+    </a>
+  </dd>
+</div>
+
+    {% if data["furthermedicalevidence"] == "paper-based-review" and data["whowillcompleteassessment"] %}
+
+<div class="govuk-summary-list__row">
+  <dt class="govuk-summary-list__key">
+    Who will complete the assessment?
+  </dt>
+  <dd class="govuk-summary-list__value">
+    {% if data["whowillcompleteassessment"] == "self" %}
+      I will complete it
+    {% elseif data["whowillcompleteassessment"] == "another-hcp" %}
+      Another HCP will complete it
+    {% endif %}
+  </dd>
+  <dd class="govuk-summary-list__actions">
+    <a href="">Change</a>
+  </dd>
+</div>
+
+{% endif %}
+
+        </dl>
+
+        {{ govukInsetText({
+          text: "By completing the HCP review, you will also close the initial HCP review task. Once the task is closed, it cannot be reopened."
+        }) }}
+
+      
+
+        <div class="govuk-button-group">
+
+            <form method="post" action="complete-hcp-review">
+
+          {{ govukButton({
+            text: "Complete HCP review"
+          }) }}
+
+          
+
+        </form>
+                
+                    
+                  <a class="govuk-link" href="referral-details.html">Return to referral details</a>
+
+                </div>
+
+      </div>
+    </div>
+
+  </main>
+
+</div>
+
+{% endblock %}

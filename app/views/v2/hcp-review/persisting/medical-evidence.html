@@ -1,0 +1,143 @@
+{% extends "layouts/main.html" %}
+{% set bodyAttributes = { id: "assess" } %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block main %}
+
+{% include "includes/assessment-status-neutral-pip.html" %}
+
+  <div class="govuk-width-container">
+
+    {{ govukBackLink({
+      text: "Back",
+      href: "javascript:history.back()"
+    }) }}
+
+  <div class="govuk-width-container {{ containerClasses }}">
+    <main class="govuk-main-wrapper {{ mainClasses }}" id="main-content" role="main"{% if mainLang %} lang="{{ mainLang }}"{% endif %}>
+          <div class="govuk-grid-row">
+              <div class="govuk-grid-column-two-thirds">
+                                    
+                <h1 class="govuk-heading-l">Add HCP review</h1>
+
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+
+{% call govukDetails({
+  summaryText: "View previous HCP reviews"
+}) %}
+
+
+
+                {{ govukTable({
+ 
+  firstCellIsHeader: true,
+ 
+  rows: [
+    [
+      {
+        text: "Clinical review and justification"
+      },
+      {
+        text: "A full telephone assessment is needed. This is to determine input updates, clarify inconsistencies, establish current HOC, SOH variability or functionality and level of support needed. This will enable robust advice on the level of restriction and the extent of variability."
+      }
+    ],
+    [
+      {
+        text: "Case type"
+      },
+      {
+        text: "TACT - take additional care (PIP only)"
+      }
+    ],
+    [
+      {
+        text: "Outcome"
+      },
+      {
+        text: "Further HCP review required"
+      }
+    ],
+    [
+      {
+        text: "HCP name"
+      },
+      {
+        text: "Sandra Bullock"
+      }
+    ],
+    [
+      {
+        text: "Date of review"
+      },
+      {
+        text: "4 April 2023"
+      }
+    ]
+  ]
+}) }}
+
+  {% endcall %}              
+
+
+<form method="post" action="/persisting/medical-evidence">
+
+
+                        {% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{{ govukRadios({
+  name: "fmerequired",
+  fieldset: {
+    legend: {
+      text: "Should further medical evidence (FME) be requested?",
+      isPageHeading: false,
+      classes: "govuk-fieldset__legend--m"
+    }
+  },
+  items: [
+    {
+      value: "yes",
+      text: "Yes"
+    },
+    
+    {
+      value: "No",
+      text: "No"
+    }
+  ]
+}) }}
+
+                                                {{ govukButton({text: "Continue" }) }}
+
+
+                                                </form>
+
+ 
+            </div>
+
+
+            <div class="govuk-grid-column-one-quarter">
+        <aside class="app-related-items" role="complementary">
+        <h2 class="govuk-heading-m" id="subsection-title">
+          What you can do next
+        </h2>
+        <nav role="navigation" aria-labelledby="subsection-title">
+          <ul class="govuk-list">
+            <li>
+              <a href="" class="govuk-link">View claimant documents</a>
+            </li>
+            </ul>
+        </nav>
+      </aside>
+    </div>
+
+    
+        </div>
+
+    </main>
+  </div>
+  </div>
+
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends "layouts/main.html" %}
+{% set bodyAttributes = { id: "assess" } %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block main %}
+
+{% include "includes/assessment-status-neutral-pip.html" %}
+
+  <div class="govuk-width-container">
+
+    {{ govukBackLink({
+      text: "Back",
+      href: "javascript:history.back()"
+    }) }}
+
+  <div class="govuk-width-container {{ containerClasses }}">
+    <main class="govuk-main-wrapper {{ mainClasses }}" id="main-content" role="main"{% if mainLang %} lang="{{ mainLang }}"{% endif %}>
+          <div class="govuk-grid-row">
+              <div class="govuk-grid-column-two-thirds">
+                                    
+                <h1 class="govuk-heading-l">HCP reviews</h1>
+                  <p class="govuk-body-l">No HCP reviews have been added.</p>
+
+        <div class="govuk-button-group">
+
+          <a class="govuk-button" href="medical-evidence">Add HCP review</a>
+
+          <a class="govuk-link" href="referral-details.html">Return to referral details</a>
+        </div>
+
+      </div>
+
+
+    <div class="govuk-grid-column-one-quarter">
+        <aside class="app-related-items" role="complementary">
+        <h2 class="govuk-heading-m" id="subsection-title">
+          What you can do next
+        </h2>
+        <nav role="navigation" aria-labelledby="subsection-title">
+          <ul class="govuk-list">
+            <li>
+              <a href="" class="govuk-link">View claimant documents</a>
+            </li>
+            </ul>
+        </nav>
+      </aside>
+    </div>
+
+      
+    </div>
+  </main>
+</div>
+
+
+                
+
+
+
+ 
+            </div>
+        </div>
+
+    </main>
+  </div>
+  </div>
+
+{% endblock %}

@@ -1,0 +1,85 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+GOV.UK Prototype Kit
+{% endblock %}
+
+{% block main %}
+
+
+<div class="govuk-width-container {{ containerClasses }}">
+
+  {{ govukBackLink({
+  text: "Back",
+  href: "javascript:history.back()"
+  }) }}
+
+  <main class="govuk-main-wrapper {{ mainClasses }}" id="main-content" role="main" {% if mainLang %} lang="{{ mainLang }}" {% endif %}>
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+
+        <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+  <div class="govuk-notification-banner__header">
+    <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+      Success
+    </h2>
+  </div>
+  <div class="govuk-notification-banner__content">
+    <h3 class="govuk-notification-banner__heading">
+        Change of cirumstances alert removed
+    </h3>
+   <!-- <p class="govuk-body">Contact <a class="govuk-notification-banner__link" href="#">example@department.gov.uk</a> if you think there’s a problem.</p> -->
+  </div>
+</div>
+          <span class="govuk-caption-xl">RN654321X</span>
+<h1 class="govuk-heading-xl">Unactioned alerts</h1>
+
+
+          <table class="govuk-table">
+            <caption class="govuk-table__caption govuk-visually-hidden">
+                Unactioned PIP alerts
+            </caption>
+            <thead class="govuk-table__head">
+                <tr class="govuk-table__row">
+                    <th scope="col" class="govuk-table__header">Date created</th>
+                    <th scope="col" class="govuk-table__header">Alert type</th>
+                    <th scope="col" class="govuk-table__header">End of life</th>
+                    <th scope="col" class="govuk-table__header" id="action-column-heading">Action</th>
+                </tr>
+            </thead>
+            <tbody class="govuk-table__body">
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">9 Apr 2026</td>
+                    <td class="govuk-table__cell">Task</td>
+                    <td class="govuk-table__cell">No</td>
+                    <td class="govuk-table__cell" id='action-column-cell-67e42c64d0b02e142e61904e"'>
+                            <a href="unactioned-alerts-task" tabindex="0" class="govuk-link govuk-link--no-visited-state">View alert</a>
+                    </td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">9 Apr 2026</td>
+                    <td class="govuk-table__cell">Task</td>
+                    <td class="govuk-table__cell">No</td>
+                    <td class="govuk-table__cell" id='action-column-cell-67e42c64d0b02e142e61904e"'>
+                            <a href="" tabindex="0" class="govuk-link govuk-link--no-visited-state">View alert</a>
+                    </td>
+                </tr>
+                </tbody>
+        </table>
+
+
+      
+            <p><a href="unactioned-pip-alerts-no-search">Return to all alerts</a></p>
+
+      
+      
+        </div>
+
+
+
+
+
+    </div>
+  </main>
+</div>
+{% endblock %}
