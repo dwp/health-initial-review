@@ -2,7 +2,7 @@
 // For guidance on how to create routes see:
 // https://prototype-kit.service.gov.uk/docs/create-routes
 //
-const govukPrototypeKit = require("@dwp-govuk/govuk-prototype-kit");
+const govukPrototypeKit = require("govuk-prototype-kit");
 const router = govukPrototypeKit.requests.setupRouter();
 require("./filters.js");
 require("./views/v1/claimant-docs/routes/routes.js");

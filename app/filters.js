@@ -7,7 +7,7 @@ const {
   formatDate,
 } = require("nunjucks-formatters/formatters/date");
 
-const govukPrototypeKit = require("@dwp-govuk/govuk-prototype-kit");
+const govukPrototypeKit = require("govuk-prototype-kit");
 const addFilter = govukPrototypeKit.views.addFilter; // ✅ correct for your kit version
 
 // Register filters
