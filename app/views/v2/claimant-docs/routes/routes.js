@@ -124,10 +124,14 @@ router.post(`${versionPath}/update-document/:id`, (req, res) => {
 
   const allowedUrls = [versionPath];
   const url_view_document = `${versionPath}/view-document/${req.params.id}`;
+  const url_document_list = `${versionPath}/document-list?irrelevant=true`;
+  const url_update_document = `${versionPath}/update-document/${res.locals.nextDocumentId}?ncat=true`;
 
   // ✅ Handle redirect logic
-  if (req.query.irrelevant) {
-    return res.redirect(`${versionPath}/document-list?irrelevant=true`);
+  if (req.query.irrelevant && allowedUrls.includes(url_document_list)) {
+    return res.redirect(url_document_list);
+  } else {
+    res.status(400).send("Invalid redirect URL");
   }
 
   if (!req.query.ncat && allowedUrls.includes(url_view_document)) {
@@ -136,10 +140,10 @@ router.post(`${versionPath}/update-document/:id`, (req, res) => {
     res.status(400).send("Invalid redirect URL");
   }
 
-  if (res.locals.nextDocumentId) {
-    return res.redirect(
-      `${versionPath}/update-document/${res.locals.nextDocumentId}?ncat=true`
-    );
+  if (res.locals.nextDocumentId && allowedUrls.includes(url_update_document)) {
+    return res.redirect(url_update_document);
+  } else {
+    res.status(400).send("Invalid redirect URL");
   }
 
   return res.redirect(`${versionPath}/document-list?ncat=true`);
