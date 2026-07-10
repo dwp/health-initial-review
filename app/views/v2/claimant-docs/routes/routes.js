@@ -122,7 +122,7 @@ router.post(`${versionPath}/update-document/:id`, (req, res) => {
   res.locals.previousDocumentId = activeDocs[index - 1]?.id;
   res.locals.nextDocumentId = activeDocs[index + 1]?.id;
 
-  const allowedUrls = ["/document-list"];
+  const allowedUrls = [versionPath];
   const url_view_document = `${versionPath}/view-document/${req.params.id}`;
 
   // ✅ Handle redirect logic
