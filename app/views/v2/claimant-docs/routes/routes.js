@@ -1,4 +1,4 @@
-const govukPrototypeKit = require("govuk-prototype-kit");
+const govukPrototypeKit = require("@dwp-govuk/govuk-prototype-kit");
 const router = govukPrototypeKit.requests.setupRouter();
 const v8 = require("v8");
 
