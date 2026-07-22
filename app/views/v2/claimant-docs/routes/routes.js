@@ -23,6 +23,9 @@ router.get(`${versionPath}/reset-documents`, (req, res) => {
 
 // ✅ GLOBAL middleware for ALL claimant-docs pages
 router.all(`${versionPath}*`, (req, res, next) => {
+
+  res.locals.currentVersionPath = "v2/claimant-docs";
+
   res.locals.documents = documents.filter((doc) => !doc.archived);
   res.locals.irrelevantDocuments = documents.filter((doc) => doc.archived);
   res.locals.documentNames = documentNames;
@@ -97,6 +100,7 @@ router.post(`${versionPath}/update-document/:id`, (req, res) => {
   if (!doc) return res.redirect(`${versionPath}/document-list`);
 
   // Update fields
+  const oldName = doc.name;
   if (req.body.documentName) {
     doc.drsName = doc.drsName || doc.name;
     doc.name = req.body.documentName;
@@ -116,6 +120,15 @@ router.post(`${versionPath}/update-document/:id`, (req, res) => {
   doc.reviewed = true;
   doc.archived = Array.isArray(req.body.archived);
 
+
+
+return res.redirect(
+  `${versionPath}/view-document/${req.params.id}?msg=updated&oldName=${encodeURIComponent(oldName)}&newName=${encodeURIComponent(doc.name)}`
+);
+
+
+/* 
+  Old redirect logic retained for reference.
   const activeDocs = documents.filter((x) => x.isActive);
   const index = activeDocs.findIndex((d) => d.id === req.params.id);
 
@@ -126,6 +139,7 @@ router.post(`${versionPath}/update-document/:id`, (req, res) => {
   const url_view_document = `${versionPath}/view-document/${req.params.id}`;
   const url_document_list = `${versionPath}/document-list?irrelevant=true`;
   const url_update_document = `${versionPath}/update-document/${res.locals.nextDocumentId}?ncat=true`;
+  */
 
   // ✅ Handle redirect logic
   if (req.query.irrelevant && allowedUrls.includes(url_document_list)) {

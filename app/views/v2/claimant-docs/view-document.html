@@ -36,6 +36,21 @@
 {% endif %}
 
 
+
+{% if query.msg == "updated" %}
+  {{ govukNotificationBanner({
+    type: "success",
+    html: '<h3 class="govuk-notification-banner__heading">' +
+          'Document name updated from "' +
+          query.oldName +
+          '" to "' +
+          query.newName +
+          '"</h3>'
+  }) }}
+{% endif %}
+
+
+
         <main class="govuk-main-wrapper {{ mainClasses }}" id="main-content" role="main"{% if mainLang %} lang="{{ mainLang }}"{% endif %}>
  
             <div class="govuk-grid-row">
@@ -168,7 +183,7 @@
                     <!-- <div class="govuk-grid-column-one-half">   -->
                     <ul class="govuk-list nav-right">
                         <li>
-                            <nav class="govuk-pagination" role="navigation" aria-label="results">
+                            <nav class="govuk-pagination" role="navigation" aria-label="results" style="float:right;">
                                 {% if selectedDocument > 1 %}
                                 <div class="govuk-pagination__prev">
                                     <a class="govuk-link govuk-pagination__link" href="{{ previousDocumentId }}" rel="prev">
